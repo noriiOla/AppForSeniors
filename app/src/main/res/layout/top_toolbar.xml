@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="Back"
+            android:text="@string/back"
             android:textSize="16dp"
             android:id="@+id/toolbarBackButton"
             android:background="@android:color/transparent"
@@ -41,7 +41,7 @@
             android:id="@+id/toolbar_save"
             android:layout_marginRight="15dp"
             android:layout_alignParentRight="true"
-            android:text="SAVE"
+            android:text="@string/save"
             android:textSize="16dp"
             android:background="@android:color/transparent"
             />
