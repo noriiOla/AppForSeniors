@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         ((Button) v).setTextColor(getResources().getColor(R.color.black));
                         v.invalidate();
                         MainActivity.super.onBackPressed();
+                        finish();
                         break;
                     }
                 }

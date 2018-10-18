@@ -7,5 +7,12 @@
 
     <!--Menu-->
     <string name="menu">MENU</string>
+    <string name="wybierz">WYBIERZ</string>
+    <string name="alarm">BUDZIK</string>
+    <string name="sms">WIADOMOSC</string>
+    <string name="call">ZADZWOŃ</string>
+    <string name="gps">PROWADŹ</string>
+    <string name="notes">NOTATKI</string>
+    <string name="web">INTERNET</string>
 
 </resources>

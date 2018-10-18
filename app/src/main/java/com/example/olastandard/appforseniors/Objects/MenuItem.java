@@ -2,11 +2,13 @@ package com.example.olastandard.appforseniors.Objects;
 
 import android.widget.ImageView;
 
-public class MenuItem {
-    public ImageView icon;
-    public String text;
+import com.example.olastandard.appforseniors.R;
 
-    public MenuItem(ImageView icon, String text) {
+public class MenuItem {
+    public int icon;
+    public int text;
+
+    public MenuItem(int icon, int text) {
         this.icon = icon;
         this.text = text;
     }
