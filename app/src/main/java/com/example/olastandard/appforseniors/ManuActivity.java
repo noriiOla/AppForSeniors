@@ -54,7 +54,7 @@ public class ManuActivity extends MainActivity {
     }
 
     @OnClick({R.id.menu_button_select})
-    public void changeClasterActual() {
+    public void showSelectedOption() {
         if (gridSelectedPosition >= 0 && gridSelectedPosition < menuItems.length) {
             switch (menuItems[gridSelectedPosition].text) {
                 case R.string.sms:
