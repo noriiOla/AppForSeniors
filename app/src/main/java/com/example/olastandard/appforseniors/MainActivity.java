@@ -39,4 +39,34 @@ public class MainActivity extends AppCompatActivity {
         View view = inflater.inflate(layout, null);
         ((FrameLayout) findViewById(R.id.main_content_below)).addView(view);
     }
+
+    public void showBackButton() {
+        _toolbarBackButton.setVisibility(View.VISIBLE);
+        _toolbarSaveButton.setVisibility(View.VISIBLE);
+    }
+
+    public void hideBackButton() {
+        _toolbarBackButton.setVisibility(View.GONE);
+    }
+
+    public void changeBackButtonTitle(String backButtonTItle) {
+        _toolbarBackButton.setText(backButtonTItle);
+    }
+
+    public void setTitle(String newTitle) {
+        _toolbarTitle.setText(newTitle);
+    }
+
+    public void hideRightButton() {
+        _toolbarSaveButton.setVisibility(View.GONE);
+    }
+
+    public void showRightButton() {
+        _toolbarSaveButton.setVisibility(View.VISIBLE);
+    }
+
+    public void changeTitleForRightButton(String rightButtonTItle) {
+        _toolbarSaveButton.setText(rightButtonTItle);
+    }
+
 }

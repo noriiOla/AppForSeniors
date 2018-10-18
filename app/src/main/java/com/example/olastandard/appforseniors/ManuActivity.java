@@ -9,5 +9,13 @@ public class ManuActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initAddlayout(R.layout.activity_manu);
+        initToolbar();
     }
+
+    private void initToolbar() {
+        hideBackButton();
+        hideRightButton();
+        setTitle("Menu");
+    }
+
 }
