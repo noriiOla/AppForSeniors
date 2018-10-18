@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         _toolbarBackButton = (Button) findViewById(R.id.toolbarBackButton);
         _toolbarTitle = (TextView) findViewById(R.id.toolbarActivityTitle);
         _toolbarSaveButton = (Button) findViewById(R.id.toolbar_save);
+
+        setBaseTouchListeners();
     }
 
     protected void initAddlayout(int layout) {
@@ -38,6 +41,27 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(layout, null);
         ((FrameLayout) findViewById(R.id.main_content_below)).addView(view);
+    }
+
+    public void setBaseTouchListeners() {
+        _toolbarBackButton.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ((Button) v).setTextColor(getResources().getColor(R.color.white));
+                        v.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        ((Button) v).setTextColor(getResources().getColor(R.color.black));
+                        v.invalidate();
+                        MainActivity.super.onBackPressed();
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     public void showBackButton() {
