@@ -1,21 +1,27 @@
 package com.example.olastandard.appforseniors;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 import butterknife.OnClick;
 
@@ -40,10 +46,10 @@ public class AddLinkActivity extends MainActivity {
             }
         });
     }
+
+
     public String path=  Environment.getExternalStorageDirectory()+
             "/linki";
-
-
 
     File file = null;
     private void initToolbar() {
@@ -72,6 +78,7 @@ public class AddLinkActivity extends MainActivity {
         Save (file, saveText);
         Toast.makeText(getApplicationContext(), "Zapisano "+ file, Toast.LENGTH_LONG).show();
     }
+
     public  void Save(File file, String data)
     { /*PrintWriter out =null;
         try {
@@ -86,37 +93,65 @@ public class AddLinkActivity extends MainActivity {
         }
 */
 
-
-       file.mkdirs();
-
-        FileOutputStream fos = null;
-        try
-        {
-            fos = new FileOutputStream(file);
-
+        try {
+            outputStream = this.getApplicationContext().openFileOutput("savedFile", Context.MODE_PRIVATE);
+            outputStream.write(data.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch (FileNotFoundException e) {e.printStackTrace();}
-        try
-        {
-            try
-            {
 
-                    fos.write(data.getBytes());
+        read();
+//       file.mkdirs();
+//
+//        FileOutputStream fos = null;
+//        try
+//        {
+//            fos = new FileOutputStream(file);
+//
+//        }
+//        catch (FileNotFoundException e) {e.printStackTrace();}
+//        try
+//        {
+//            try
+//            {
+//
+//                    fos.write(data.getBytes());
+//
+//                        fos.write("\n".getBytes());
+//
+//            }
+//            catch (IOException e) {e.printStackTrace();}
+//        }
+//        finally
+//        {
+//            try
+//            {
+//                fos.close();
+//            }
+//            catch (IOException e) {e.printStackTrace();}
+//        }
 
-                        fos.write("\n".getBytes());
+    }
 
+    private void read() {
+        try {
+            FileInputStream fis = this.getApplicationContext().openFileInput("savedFile");
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line = bufferedReader.readLine();
+            System.out.println("--------------------------------------------");
+            if (line != null) {
+                System.out.println(line);
             }
-            catch (IOException e) {e.printStackTrace();}
+        } catch (FileNotFoundException e) {
+            Log.d("EXCEPTION", "File not found");
+        } catch (UnsupportedEncodingException e) {
+            Log.d("EXCEPTION", e.getMessage());
+        } catch (IOException e) {
+            Log.d("EXCEPTION", e.getMessage());
         }
-        finally
-        {
-            try
-            {
-                fos.close();
-            }
-            catch (IOException e) {e.printStackTrace();}
-        }
-
     }
 
 
