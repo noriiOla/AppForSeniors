@@ -23,6 +23,9 @@ public class AddLinkActivity extends MainActivity {
 
     EditText UrlText;
     EditText Address;
+
+    FileOutputStream outputStream;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +85,8 @@ public class AddLinkActivity extends MainActivity {
             out.close();
         }
 */
+
+
        file.mkdirs();
 
         FileOutputStream fos = null;
