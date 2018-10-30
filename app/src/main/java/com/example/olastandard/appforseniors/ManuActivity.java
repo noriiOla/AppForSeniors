@@ -50,6 +50,7 @@ public class ManuActivity extends MainActivity {
     private void initToolbar() {
         hideBackButton();
         hideRightButton();
+        hideNewButton();
         setTitle(getResources().getString(R.string.menu));
     }
 
@@ -73,7 +74,7 @@ public class ManuActivity extends MainActivity {
                     startActivity(new Intent(this, ExampleActivity.class));
                     break;
                 case R.string.web:
-                    startActivity(new Intent(this, ExampleActivity.class));
+                    startActivity(new Intent(this, LinksActivity.class));
                     break;
             }
         }

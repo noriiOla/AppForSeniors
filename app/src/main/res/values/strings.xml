@@ -4,6 +4,7 @@
     <!--TOOLBAR-->
     <string name="back">BACK</string>
     <string name="save">SAVE</string>
+    <string name="newL">NEW</string>
 
     <!--Menu-->
     <string name="menu">MENU</string>
@@ -14,5 +15,10 @@
     <string name="gps">PROWADŹ</string>
     <string name="notes">NOTATKI</string>
     <string name="web">INTERNET</string>
+    <string name="usun">USUN</string>
 
+    <!--Linki-->
+    nazwaLinku
+    <string name="nazwaLinku">Nazwa Linku</string>
+    <string name="urlL">Adres url</string>
 </resources>

@@ -3,5 +3,6 @@
     <declare-styleable name="CustomToolbar">
         <attr name="isBackButton" format="integer"/>
         <attr name="isSaveButton" format="integer"/>
+        <attr name="isNewButton" format="integer"/>
     </declare-styleable>
 </resources>
