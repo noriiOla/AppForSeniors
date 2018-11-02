@@ -2,8 +2,8 @@
     <string name="app_name">AppForSeniors</string>
 
     <!--TOOLBAR-->
-    <string name="back">BACK</string>
-    <string name="save">SAVE</string>
+    <string name="back">WRÓĆ</string>
+    <string name="save">ZAPISZ</string>
     <string name="newS">NOWA</string>
 
     <!--Menu-->

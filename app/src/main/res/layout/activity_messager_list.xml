@@ -20,6 +20,7 @@
             android:horizontalSpacing="5dp"
             android:id="@+id/sms_recycler_view"
             android:layout_above="@id/sms_buttons_layout"
+            android:layout_marginBottom="5dp"
             android:scrollbars="vertical">
 
         </android.support.v7.widget.RecyclerView>

@@ -21,6 +21,10 @@ public class SmsHelper {
     private Context context;
     private AppCompatActivity contextActivity;
 
+    public List<PersonSmsData> getListOfPersonsData() {
+        return listOfPersonsData;
+    }
+
     public SmsHelper(Context context, AppCompatActivity contextActivity) {
         listOfPersonsData = new ArrayList<>();
         this.context = context;
@@ -51,14 +55,9 @@ public class SmsHelper {
             if(cursor.moveToFirst()) {
                 contactName = cursor.getString(0);
             }
-            cursor.close();
         }
 
         return contactName;
-    }
-
-    public List<PersonSmsData> getListOfPersonsData() {
-        return listOfPersonsData;
     }
 
     public void setNewSms(Sms newSms, String phoneNumber) {
@@ -94,8 +93,7 @@ public class SmsHelper {
     }
 
     public List<PersonSmsData> actualizeListOfSms() {
-        List<Sms> lstSms = new ArrayList<Sms>();
-        Sms objSms = new Sms();
+        Sms objSms;
         Uri message = Uri.parse("content://sms/");
         ContentResolver cr = contextActivity.getContentResolver();
 
@@ -108,8 +106,7 @@ public class SmsHelper {
 
                 objSms = new Sms();
                 objSms.setId(c.getString(c.getColumnIndexOrThrow("_id")));
-                //objSms.setAddress(c.getString(c
-                //      .getColumnIndexOrThrow("address")));
+
                 objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
                 objSms.setReadState(c.getString(c.getColumnIndex("read")));
                 objSms.setTime(c.getString(c.getColumnIndexOrThrow("date")));
@@ -120,14 +117,9 @@ public class SmsHelper {
                 }
 
                 this.setNewSms(objSms, c.getString(c.getColumnIndexOrThrow("address")));
-                //lstSms.add(objSms);
                 c.moveToNext();
             }
         }
-//         else {
-//         throw new RuntimeException("You have no SMS");
-//         }
-        c.close();
 
         return listOfPersonsData;
     }

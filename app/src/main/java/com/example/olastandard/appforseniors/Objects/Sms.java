@@ -1,6 +1,8 @@
 package com.example.olastandard.appforseniors.Objects;
 
-public class Sms{
+import java.io.Serializable;
+
+public class Sms implements Serializable {
     private String _id;
     private String _msg;
     private String _readState; //"0" for have not read sms and "1" for have read sms

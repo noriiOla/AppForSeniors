@@ -73,9 +73,12 @@ public class MessagerListActivity extends MainActivity {
 
     @OnClick({R.id.sms_button_select})
     public void showSelectedSms() {
-        Intent intent = new Intent(getApplicationContext(), MessagerActivity.class);
-       // intent.putExtra("event_indeks", getAdapterPosition());
-        this.startActivity(intent);
+        if (((SmsPersonListAdapter)mAdapter).lastSelectedItem >= 0) {
+            Intent intent = new Intent(getApplicationContext(), MessagerActivity.class);
+            PersonSmsData smsData = smsHelper.getListOfPersonsData().get(((SmsPersonListAdapter)mAdapter).lastSelectedItem);
+            intent.putExtra("smsData", smsData);
+            this.startActivity(intent);
+        }
     }
 
     public void updateSelectedItem(int index) {

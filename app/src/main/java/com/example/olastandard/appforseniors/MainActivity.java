@@ -40,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
         setBaseTouchListeners();
     }
 
+    protected void callBackButton() {
+        MainActivity.super.onBackPressed();
+        finish();
+    }
+
     protected void initAddlayout(int layout) {
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -71,11 +76,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void showBackButton() {
         _toolbarBackButton.setVisibility(View.VISIBLE);
-        _toolbarSaveButton.setVisibility(View.VISIBLE);
+        _toolbarBackButton.setClickable(true);
     }
 
     public void hideBackButton() {
-        _toolbarBackButton.setVisibility(View.GONE);
+        _toolbarBackButton.setVisibility(View.INVISIBLE);
+        _toolbarBackButton.setClickable(false);
     }
 
     public void changeBackButtonTitle(String backButtonTItle) {
@@ -87,11 +93,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void hideRightButton() {
-        _toolbarSaveButton.setVisibility(View.GONE);
+        _toolbarSaveButton.setVisibility(View.INVISIBLE);
+        _toolbarSaveButton.setClickable(false);
     }
 
     public void showRightButton() {
         _toolbarSaveButton.setVisibility(View.VISIBLE);
+        _toolbarSaveButton.setClickable(true);
     }
 
     public void changeTitleForRightButton(String rightButtonTItle) {

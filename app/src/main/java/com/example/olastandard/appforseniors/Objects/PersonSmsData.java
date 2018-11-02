@@ -1,9 +1,10 @@
 package com.example.olastandard.appforseniors.Objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonSmsData {
+public class PersonSmsData implements Serializable {
 
     private String nameOfPersion;
     private String numebrOfPerson;

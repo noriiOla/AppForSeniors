@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.olastandard.appforseniors.Objects.CustomToolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.olastandard.appforseniors.Objects.CustomToolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:minHeight="?attr/actionBarSize"
     android:id="@+id/customToolbar"
     android:background="@color/colorPrimary"
-    >
+    android:contentInsetLeft="0dp"
+    android:contentInsetStart="0dp"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    android:contentInsetRight="0dp"
+    android:contentInsetEnd="0dp"
+    app:contentInsetRight="0dp"
+    app:contentInsetEnd="0dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginLeft="0dp"
+        android:weightSum="8">
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_height="match_parent"
             android:text="@string/back"
             android:textSize="16dp"
+            android:layout_weight="1"
             android:id="@+id/toolbarBackButton"
             android:background="@android:color/transparent"
             />
 
         <TextView
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Title"
+            android:layout_weight="6"
             android:id="@+id/toolbarActivityTitle"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -37,14 +47,15 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:id="@+id/toolbar_save"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="0dp"
             android:layout_alignParentRight="true"
             android:text="@string/save"
             android:textSize="16dp"
             android:background="@android:color/transparent"
             />
 
-    </RelativeLayout>
+    </LinearLayout>
 </com.example.olastandard.appforseniors.Objects.CustomToolbar>
