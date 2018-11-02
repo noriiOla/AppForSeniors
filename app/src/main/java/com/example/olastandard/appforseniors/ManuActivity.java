@@ -39,11 +39,12 @@ public class ManuActivity extends MainActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
+                changeSelectButtonColor();
                 for (int i=0; i < menuItemAdapter.getCount() ; i++){
                     parent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.crem));
                 }
                 gridSelectedPosition = position;
-                view.setBackgroundColor(getResources().getColor(R.color.white));
+                view.setBackgroundColor(getResources().getColor(R.color.green));
             }
         });
     }
@@ -52,6 +53,10 @@ public class ManuActivity extends MainActivity {
         hideBackButton();
         hideRightButton();
         setTitle(getResources().getString(R.string.menu));
+    }
+
+    private void changeSelectButtonColor() {
+        this.buttonSelect.setBackgroundColor(getResources().getColor(R.color.green));
     }
 
     @OnClick({R.id.menu_button_select})

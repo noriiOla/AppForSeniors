@@ -4,15 +4,20 @@
     <!--TOOLBAR-->
     <string name="back">BACK</string>
     <string name="save">SAVE</string>
+    <string name="newS">NOWA</string>
 
     <!--Menu-->
     <string name="menu">MENU</string>
     <string name="wybierz">WYBIERZ</string>
     <string name="alarm">BUDZIK</string>
-    <string name="sms">WIADOMOSC</string>
+    <string name="sms">WIADOMOSCI</string>
     <string name="call">ZADZWOŃ</string>
     <string name="gps">PROWADŹ</string>
     <string name="notes">NOTATKI</string>
     <string name="web">INTERNET</string>
+
+    <!--Sms-->
+    <string name="show">POKAŻ</string>
+    <string name="delete">USUŃ</string>
 
 </resources>
