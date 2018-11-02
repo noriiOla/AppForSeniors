@@ -5,6 +5,7 @@
     <string name="back">WRÓĆ</string>
     <string name="save">ZAPISZ</string>
     <string name="newS">NOWA</string>
+    <string name="write">NAPISZ</string>
 
     <!--Menu-->
     <string name="menu">MENU</string>
@@ -20,5 +21,5 @@
     <string name="show">POKAŻ</string>
     <string name="delete">USUŃ</string>
     <string name="me">Ja</string>
-
+    <string name="newReceiver">DODAJ ODBIORCĘ</string>
 </resources>

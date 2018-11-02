@@ -39,7 +39,6 @@ public class MessagerActivity extends MainActivity {
     }
 
     private void initRecyclerView() {
-
         messagerSmsList.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         messagerSmsList.setLayoutManager(mLayoutManager);
@@ -50,6 +49,6 @@ public class MessagerActivity extends MainActivity {
 
     private void initToolbar(String name) {
         setTitle(name);
-        changeTitleForRightButton(getResources().getString(R.string.newS));
+        changeTitleForRightButton(getResources().getString(R.string.write));
     }
 }

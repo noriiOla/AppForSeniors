@@ -12,7 +12,11 @@ import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.Objects.Sms;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class SmsHelper {
@@ -100,6 +104,14 @@ public class SmsHelper {
         return new ArrayList<>();
     }
 
+    public String timeStampToDate(long timeStamp) {
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timeStamp);
+        String finalDateString = formatter.format(calendar.getTime());
+        return finalDateString;
+    }
+
     public List<PersonSmsData> actualizeListOfSms() {
         Sms objSms;
         Uri message = Uri.parse("content://sms/");
@@ -117,7 +129,10 @@ public class SmsHelper {
 
                 objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
                 objSms.setReadState(c.getString(c.getColumnIndex("read")));
-                objSms.setTime(c.getString(c.getColumnIndexOrThrow("date")));
+                long timestamp = c.getLong(c.getColumnIndexOrThrow("date"));
+
+                objSms.setTime(timeStampToDate(timestamp));
+
                 if (c.getString(c.getColumnIndexOrThrow("type")).contains("1")) {
                     objSms.setFolderName("inbox");
                 } else {
