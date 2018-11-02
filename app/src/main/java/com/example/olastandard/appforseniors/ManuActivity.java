@@ -9,6 +9,7 @@ import android.widget.GridView;
 
 import com.example.olastandard.appforseniors.Adapters.MenuItemAdapter;
 import com.example.olastandard.appforseniors.Objects.MenuItem;
+import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,7 +59,7 @@ public class ManuActivity extends MainActivity {
         if (gridSelectedPosition >= 0 && gridSelectedPosition < menuItems.length) {
             switch (menuItems[gridSelectedPosition].text) {
                 case R.string.sms:
-                    startActivity(new Intent(this, ExampleActivity.class));
+                    startActivity(new Intent(this, MessagerListActivity.class));
                     break;
                 case R.string.call:
                     startActivity(new Intent(this, ExampleActivity.class));
