@@ -60,7 +60,15 @@ public class SmsHelper {
         return contactName;
     }
 
+    public String repairNumber(String phoneNumber) {
+        if(phoneNumber.length() < 12) {
+            phoneNumber = "+48" + phoneNumber;
+        }
+        return phoneNumber;
+    }
+
     public void setNewSms(Sms newSms, String phoneNumber) {
+        phoneNumber = repairNumber(phoneNumber);
         PersonSmsData data = getPersonDataFromListBy(phoneNumber);
         if (data != null) {
             data.addNewSmsToList(newSms);

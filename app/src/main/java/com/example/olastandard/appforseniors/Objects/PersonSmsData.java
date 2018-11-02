@@ -2,6 +2,7 @@ package com.example.olastandard.appforseniors.Objects;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PersonSmsData implements Serializable {
@@ -38,5 +39,9 @@ public class PersonSmsData implements Serializable {
 
     public void setNumebrOfPerson(String numebrOfPerson){
         this.numebrOfPerson = numebrOfPerson;
+    }
+
+    public void reverseListOfSms() {
+        Collections.reverse(this.listOfSms);
     }
 }

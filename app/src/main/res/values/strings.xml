@@ -19,5 +19,6 @@
     <!--Sms-->
     <string name="show">POKAŻ</string>
     <string name="delete">USUŃ</string>
+    <string name="me">Ja</string>
 
 </resources>
