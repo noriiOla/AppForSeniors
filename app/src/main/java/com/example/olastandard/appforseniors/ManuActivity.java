@@ -10,6 +10,7 @@ import android.widget.GridView;
 import com.example.olastandard.appforseniors.Adapters.MenuItemAdapter;
 import com.example.olastandard.appforseniors.Contacts.ContactTypeActivity;
 import com.example.olastandard.appforseniors.Objects.MenuItem;
+import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,11 +45,12 @@ public class ManuActivity extends MainActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
+                changeSelectButtonColor();
                 for (int i=0; i < menuItemAdapter.getCount() ; i++){
                     parent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.crem));
                 }
                 gridSelectedPosition = position;
-                view.setBackgroundColor(getResources().getColor(R.color.white));
+                view.setBackgroundColor(getResources().getColor(R.color.green));
             }
         });
     }
@@ -59,12 +61,16 @@ public class ManuActivity extends MainActivity {
         setTitle(getResources().getString(R.string.menu));
     }
 
+    private void changeSelectButtonColor() {
+        this.buttonSelect.setBackgroundColor(getResources().getColor(R.color.green));
+    }
+
     @OnClick({R.id.menu_button_select})
     public void showSelectedOption() {
         if (gridSelectedPosition >= 0 && gridSelectedPosition < menuItems.length) {
             switch (menuItems[gridSelectedPosition].text) {
                 case R.string.sms:
-                    startActivity(new Intent(this, ExampleActivity.class));
+                    startActivity(new Intent(this, MessagerListActivity.class));
                     break;
                 case R.string.call:
                     startActivity(new Intent(this, ContactTypeActivity.class));
