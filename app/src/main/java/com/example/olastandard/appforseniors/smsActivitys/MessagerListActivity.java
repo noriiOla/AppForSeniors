@@ -81,6 +81,12 @@ public class MessagerListActivity extends MainActivity {
         }
     }
 
+    @OnClick({R.id.sms_button_delete})
+    public void showNewSmsView() {
+        Intent intent = new Intent(getApplicationContext(), NewSmsActivity.class);
+        this.startActivity(intent);
+    }
+
     public void updateSelectedItem(int index) {
         ((SmsPersonListAdapter)mAdapter).lastSelectedItem = index;
         mAdapter.notifyDataSetChanged();
