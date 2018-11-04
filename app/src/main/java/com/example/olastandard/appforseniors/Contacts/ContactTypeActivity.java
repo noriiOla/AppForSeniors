@@ -3,6 +3,7 @@ package com.example.olastandard.appforseniors.Contacts;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.olastandard.appforseniors.MainActivity;
@@ -16,7 +17,7 @@ public class ContactTypeActivity extends MainActivity {
         initAddlayout(R.layout.activity_contact_type);
         initToolbar();
         System.out.println("bla bla");
-        LinearLayout app_layer = (LinearLayout) findViewById (R.id.go_to_contact);
+        Button app_layer = (Button) findViewById (R.id.go_to_contact);
         app_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
