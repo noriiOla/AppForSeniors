@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.GridView;
 
 import com.example.olastandard.appforseniors.Adapters.MenuItemAdapter;
+import com.example.olastandard.appforseniors.Contacts.ContactTypeActivity;
 import com.example.olastandard.appforseniors.Objects.MenuItem;
 import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
 
@@ -19,7 +20,12 @@ public class ManuActivity extends MainActivity {
     @BindView(R.id.menu_grid_view) GridView gridView;
     @BindView(R.id.menu_button_select) Button buttonSelect;
 
-    private final MenuItem[] menuItems = new MenuItem[]{new MenuItem(R.drawable.call_icon, R.string.call), new MenuItem(R.drawable.sms_icon, R.string.sms) , new MenuItem(R.drawable.notes_icon, R.string.notes) , new MenuItem(R.drawable.alarm_icon, R.string.alarm) , new MenuItem(R.drawable.gps_icon, R.string.gps) , new MenuItem(R.drawable.web_icon, R.string.web)};
+    private final MenuItem[] menuItems = new MenuItem[]{new MenuItem(R.drawable.call_icon, R.string.call),
+            new MenuItem(R.drawable.sms_icon, R.string.sms) ,
+            new MenuItem(R.drawable.notes_icon, R.string.notes) ,
+            new MenuItem(R.drawable.alarm_icon, R.string.alarm) ,
+            new MenuItem(R.drawable.gps_icon, R.string.gps) ,
+            new MenuItem(R.drawable.web_icon, R.string.web)};
     private int gridSelectedPosition = -1;
 
     @Override
@@ -67,7 +73,7 @@ public class ManuActivity extends MainActivity {
                     startActivity(new Intent(this, MessagerListActivity.class));
                     break;
                 case R.string.call:
-                    startActivity(new Intent(this, ExampleActivity.class));
+                    startActivity(new Intent(this, ContactTypeActivity.class));
                     break;
                 case R.string.alarm:
                     startActivity(new Intent(this, ExampleActivity.class));

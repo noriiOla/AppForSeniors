@@ -7,22 +7,20 @@ import java.util.List;
 
 public class PersonSmsData implements Serializable {
 
-    private String nameOfPersion;
-    private String numebrOfPerson;
+    private ContactData contactData;
     private List<Sms> listOfSms;
 
     public PersonSmsData(String numebrOfPerson) {
-        this.numebrOfPerson = numebrOfPerson;
-        this.nameOfPersion = null;
+        this.contactData = new ContactData(numebrOfPerson);
         this.listOfSms = new ArrayList<Sms>();
     }
 
     public String getNumebrOfPerson(){
-        return numebrOfPerson;
+        return this.contactData.getNumebrOfPerson();
     }
 
     public String getNameOfPersion() {
-        return nameOfPersion;
+        return this.contactData.getNameOfPersion();
     }
 
     public List<Sms> getListOfSms() {
@@ -30,7 +28,7 @@ public class PersonSmsData implements Serializable {
     }
 
     public void setNameOfPersion(String nameOfPersion) {
-        this.nameOfPersion = nameOfPersion;
+        this.contactData.setNameOfPerson(nameOfPersion);
     }
 
     public void addNewSmsToList(Sms singleSms) {
@@ -38,7 +36,7 @@ public class PersonSmsData implements Serializable {
     }
 
     public void setNumebrOfPerson(String numebrOfPerson){
-        this.numebrOfPerson = numebrOfPerson;
+        this.contactData.setNumebrOfPerson(numebrOfPerson);
     }
 
     public void reverseListOfSms() {

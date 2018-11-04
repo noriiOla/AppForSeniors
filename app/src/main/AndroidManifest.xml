@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.olastandard.appforseniors">
-
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -14,13 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!-- <receiver android:name=".MessagerListActivity"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.provider.Telephony.SMS_RECEIVED"/> -->
-        <!-- </intent-filter> -->
-        <!-- </receiver> -->
-
         <activity android:name=".MainActivity" />
         <activity android:name=".ManuActivity">
             <intent-filter>
@@ -30,6 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ExampleActivity" />
+        <activity android:name=".Contacts.ContactTypeActivity" />
+        <activity android:name=".Contacts.ContactListActivity"></activity>
         <activity android:name=".smsActivitys.MessagerActivity" />
         <activity android:name=".smsActivitys.MessagerListActivity" />
         <activity android:name=".smsActivitys.NewSmsActivity"></activity>

@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".smsActivitys.MessagerListActivity"
-    android:id="@+id/sms_background">
+    android:id="@+id/contact_background"
+    tools:context=".Contacts.ContactListActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,8 +19,8 @@
             android:numColumns="2"
             android:verticalSpacing="5dp"
             android:horizontalSpacing="5dp"
-            android:id="@+id/sms_recycler_view"
-            android:layout_above="@id/sms_buttons_layout"
+            android:id="@+id/contact_recycler_view"
+            android:layout_above="@id/contact_buttons_layout"
             android:layout_marginBottom="5dp"
             android:scrollbars="vertical">
 
@@ -29,7 +29,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:id="@+id/sms_buttons_layout"
+            android:id="@+id/contact_buttons_layout"
             android:orientation="horizontal"
             android:weightSum="2"
             android:layout_alignParentBottom="true"
@@ -44,7 +44,7 @@
                 android:layout_marginLeft="5dp"
                 android:textStyle="bold"
                 android:text="@string/wybierz"
-                android:id="@+id/sms_button_select"
+                android:id="@+id/contact_button_select"
                 />
 
             <Button
@@ -57,11 +57,10 @@
                 android:textStyle="bold"
                 android:text="@string/newS"
                 android:background="@color/green"
-                android:id="@+id/sms_button_delete"
+                android:id="@+id/contact_button_delete"
                 />
         </LinearLayout>
 
 
     </RelativeLayout>
-
 </android.support.constraint.ConstraintLayout>
