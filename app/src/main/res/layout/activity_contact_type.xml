@@ -50,6 +50,7 @@
             android:background="#FFFF8D"
             android:text="@string/write_number"
             android:textSize="25dp"
+            android:id="@+id/call_at_number"
             android:textStyle="bold"/>
 
     </LinearLayout>
