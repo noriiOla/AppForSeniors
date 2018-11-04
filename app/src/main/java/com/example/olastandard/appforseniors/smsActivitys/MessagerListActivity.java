@@ -71,7 +71,7 @@ public class MessagerListActivity extends MainActivity {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     smsHelper = new SmsHelper(getApplicationContext(), this);
-                    List<PersonSmsData> listaSmsow = smsHegit alper.actualizeListOfSms();
+                    List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
                     initRecyclerView(listaSmsow);
 
                 } else {
