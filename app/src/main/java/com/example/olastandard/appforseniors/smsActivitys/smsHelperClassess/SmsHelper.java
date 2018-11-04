@@ -139,7 +139,10 @@ public class SmsHelper {
                     objSms.setFolderName("sent");
                 }
 
-                this.setNewSms(objSms, c.getString(c.getColumnIndexOrThrow("address")));
+                if (c.getString(c.getColumnIndexOrThrow("address")) != null) {
+                    this.setNewSms(objSms, c.getString(c.getColumnIndexOrThrow("address")));
+                }
+
                 c.moveToNext();
             }
         }
