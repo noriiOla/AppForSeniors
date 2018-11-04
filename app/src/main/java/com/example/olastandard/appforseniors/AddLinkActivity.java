@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -37,21 +38,20 @@ public class AddLinkActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         initAddlayout(R.layout.activity_add_link);
         initToolbar();
-        File dir=new File(path);
-        dir.mkdirs();
+
 
         _toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 buttonSave(v);
             }
         });
+
+
     }
 
 
-    public String path=  Environment.getExternalStorageDirectory()+
-            "/linki";
 
-    File file = null;
+
     private void initToolbar() {
         showBackButton();
         showRightButton();
@@ -65,21 +65,25 @@ public class AddLinkActivity extends MainActivity {
     public void buttonSave (View view)
     {
 
-        file = new File (path + "/savedFile.txt");
-        EditText urlTextEdit=(EditText) findViewById(R.id.urlL);
+
+        EditText urlTextEdit=(EditText) findViewById(R.id.nazwaLinku);
         EditText addressTextEdit=(EditText) findViewById(R.id.urlL);
-        String saveText= urlTextEdit.getText().toString()+","+addressTextEdit.getText().toString();
+        if(urlTextEdit.getText().toString().equals("") ||addressTextEdit.getText().toString().equals("")){
+            Toast.makeText(getApplicationContext(), "Nie podano nazwy lub adresu", Toast.LENGTH_LONG).show();
+            return;
+        }
+        String saveText= urlTextEdit.getText().toString()+","+addressTextEdit.getText().toString()+"\n";
 
         urlTextEdit.setText("");
         addressTextEdit.setText("");
 
         //Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
 
-        Save (file, saveText);
-        Toast.makeText(getApplicationContext(), "Zapisano "+ file, Toast.LENGTH_LONG).show();
+        Save (saveText);
+        Toast.makeText(getApplicationContext(), "Zapisano ", Toast.LENGTH_LONG).show();
     }
 
-    public  void Save(File file, String data)
+    public  void Save( String data)
     { /*PrintWriter out =null;
         try {
              out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
@@ -94,14 +98,14 @@ public class AddLinkActivity extends MainActivity {
 */
 
         try {
-            outputStream = this.getApplicationContext().openFileOutput("savedFile", Context.MODE_PRIVATE);
+            outputStream = this.getApplicationContext().openFileOutput("savedFile8", MODE_APPEND);
             outputStream.write(data.getBytes());
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        read();
+        //read();
 //       file.mkdirs();
 //
 //        FileOutputStream fos = null;
@@ -135,6 +139,8 @@ public class AddLinkActivity extends MainActivity {
     }
 
     private void read() {
+
+        TextView urlTextEdit=(TextView) findViewById(R.id.textView);
         try {
             FileInputStream fis = this.getApplicationContext().openFileInput("savedFile");
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
@@ -144,6 +150,7 @@ public class AddLinkActivity extends MainActivity {
             System.out.println("--------------------------------------------");
             if (line != null) {
                 System.out.println(line);
+                urlTextEdit.setText(line);
             }
         } catch (FileNotFoundException e) {
             Log.d("EXCEPTION", "File not found");
