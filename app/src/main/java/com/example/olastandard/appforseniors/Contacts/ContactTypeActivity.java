@@ -15,6 +15,7 @@ public class ContactTypeActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         initAddlayout(R.layout.activity_contact_type);
         initToolbar();
+        System.out.println("bla bla");
         LinearLayout app_layer = (LinearLayout) findViewById (R.id.go_to_contact);
         app_layer.setOnClickListener(new View.OnClickListener() {
             @Override

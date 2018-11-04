@@ -18,4 +18,5 @@
     <string name="write_number">Wpisz numer</string>
     <string name="choose_from_contact">Ksiażka telefoniczna</string>
     <string name="choose_number">Sposób wybory numeru</string>
+    <string name="add_contact">Dodaj nowy numer do listy</string>
 </resources>

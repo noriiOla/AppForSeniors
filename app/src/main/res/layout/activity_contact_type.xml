@@ -21,7 +21,7 @@
             android:background="#FFFF8D"
             android:gravity="center"
             android:layout_marginBottom="5dp"
-            android:id="@+id/go_to_contact">
+            android:id="@+id/add_contact">
 
             <TextView
                 android:id="@+id/textContact"
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textSize="33dp"
-                android:text="@string/choose_from_contact" />
+                android:text="@string/add_contact" />
         </LinearLayout>
 
         <LinearLayout
@@ -39,17 +39,38 @@
             android:orientation="vertical"
             android:background="#F4FF81"
             android:gravity="center"
-            android:id="@+id/go_to_numeric_keyboard"
+            android:id="@+id/go_to_contact"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/choose_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="33dp"
+                android:text="@string/choose_from_contact" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/go_to_numeric_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="#F4FF81"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textNumberKeyboard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="33dp"
-                android:text="@string/write_number" />
+                android:text="@string/write_number"
+                android:textSize="33dp" />
         </LinearLayout>
+
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
