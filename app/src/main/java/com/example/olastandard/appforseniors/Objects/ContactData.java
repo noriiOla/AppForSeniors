@@ -1,6 +1,8 @@
 package com.example.olastandard.appforseniors.Objects;
 
-public class ContactData {
+import java.io.Serializable;
+
+public class ContactData implements Serializable {
     private String nameOfPersion;
     private String numebrOfPerson;
 
