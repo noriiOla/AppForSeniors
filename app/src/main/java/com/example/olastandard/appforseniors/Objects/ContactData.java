@@ -2,7 +2,7 @@ package com.example.olastandard.appforseniors.Objects;
 
 import java.io.Serializable;
 
-public class ContactData implements Serializable {
+public class ContactData implements Serializable, Comparable{
     private String nameOfPersion;
     private String numebrOfPerson;
 
@@ -30,6 +30,11 @@ public class ContactData implements Serializable {
 
     public void setNumebrOfPerson(String numebrOfPerson){
         this.numebrOfPerson = numebrOfPerson;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.getNameOfPersion().compareTo(((ContactData) o).getNameOfPersion());
     }
 
 }

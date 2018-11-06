@@ -17,6 +17,7 @@ import com.example.olastandard.appforseniors.R;
 import com.example.olastandard.appforseniors.smsActivitys.smsAdapters.SmsPersonListAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,6 +48,7 @@ public class ContactListActivity extends MainActivity {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
                 == PackageManager.PERMISSION_GRANTED) {
             List<ContactData> contactList = getContacts();
+            Collections.sort(contactList);
             initRecyclerView(contactList);
         } else {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
@@ -66,14 +68,13 @@ public class ContactListActivity extends MainActivity {
                     initRecyclerView(contactList);
 
                 } else {
-                    // permission denied,Disable the
-                    // functionality that depends on this permission.
+                    // TODO: popup information
                 }
                 return;
             }
-
         }
     }
+
     private List<ContactData> getContacts(){
         List<ContactData> contacts = new ArrayList<>();
         Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -92,12 +93,10 @@ public class ContactListActivity extends MainActivity {
     private void initToolbar() {
         showBackButton();
         hideRightButton();
-        setTitle(R.string.choose_number); //TODO:change title
+        setTitle(R.string.choose_from_contact); //TODO:change title
     }
 
     private void initRecyclerView(List<ContactData> contactList) {
-        System.out.println("rozmiar listy");
-        System.out.println(contactList.size());
         contactView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         contactView.setLayoutManager(mLayoutManager);
