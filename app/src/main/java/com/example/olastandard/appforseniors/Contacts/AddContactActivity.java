@@ -56,7 +56,6 @@ public class AddContactActivity  extends MainActivity {
             @Override
             public void onClick(View v) {
                 String contactName = contactNameInput.getText().toString();
-                System.out.println("NAZWA KONTAKTU : "+contactName);
                 String contactNumber = contactNumberInput.getText().toString();
                 insertContact(contactName,contactNumber);
                 startActivity(new Intent(v.getContext(), ContactListActivity.class));
@@ -96,8 +95,6 @@ public class AddContactActivity  extends MainActivity {
             // error
         }
     }
-
-
 
 
     private void initToolbar() {

@@ -47,13 +47,24 @@ public class ContactListActivity extends MainActivity {
         initToolbar();
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
                 == PackageManager.PERMISSION_GRANTED) {
-            List<ContactData> contactList = getContacts();
-            Collections.sort(contactList);
-            initRecyclerView(contactList);
+           this.initList();
         } else {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
                 REQUEST_READ_CONTACTS);
         }
+    }
+
+    private void initList(){
+        List<ContactData> contactList = getContacts();
+        Collections.sort(contactList);
+        initRecyclerView(contactList);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("ON RESUME");
+        this.initList();
     }
 
 
@@ -85,6 +96,7 @@ public class ContactListActivity extends MainActivity {
             String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
             contacts.add(new ContactData(name,phoneNumber));
             System.out.println("name: " + name + "  number: "+phoneNumber);
+
         }
         phones.close();
         return contacts;
