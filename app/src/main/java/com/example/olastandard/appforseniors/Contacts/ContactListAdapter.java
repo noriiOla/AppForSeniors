@@ -74,7 +74,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastan
 
         @OnClick(R.id.contact_list_item)
         public void showEventDetail() {
-            ((MessagerListActivity)mcontext).updateSelectedItem(getPosition());
+            ((ContactListActivity)mcontext).updateSelectedItem(getPosition());
         }
     }
 
@@ -86,7 +86,6 @@ public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastan
     @Override
     public com.example.olastandard.appforseniors.Contacts.ContactListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                                                                              int viewType) {
-
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.contact_list_item, parent, false);
 
@@ -114,5 +113,6 @@ public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastan
     public int getItemCount() {
         return mDataset.size();
     }
+
 
 }

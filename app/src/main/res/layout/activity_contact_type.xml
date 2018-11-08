@@ -27,7 +27,9 @@
             android:background="#FFFF8D"
             android:text="@string/add_contact"
             android:textSize="25dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:id="@+id/go_to_new_number_activity"
+            />
 
         <Button
             android:layout_width="match_parent"
