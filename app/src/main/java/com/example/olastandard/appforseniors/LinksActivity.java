@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import butterknife.OnClick;
 import android.view.View.OnClickListener;
@@ -183,6 +184,8 @@ public class LinksActivity extends MainActivity  {
                // arrayListListView.add(line);
                 mButton.setText(line);
             }*/
+            Collections.reverse(arrayList);
+            Collections.reverse(arrayListListView);
         } catch (FileNotFoundException e) {
             Log.d("EXCEPTION", "File not found");
         } catch (UnsupportedEncodingException e) {

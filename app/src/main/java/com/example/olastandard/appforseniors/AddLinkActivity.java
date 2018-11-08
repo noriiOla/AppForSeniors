@@ -80,7 +80,8 @@ public class AddLinkActivity extends MainActivity {
         //Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
 
         Save (saveText);
-        Toast.makeText(getApplicationContext(), "Zapisano ", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "Zapisano ", Toast.LENGTH_LONG).show();
+        finish();
     }
 
     public  void Save( String data)
