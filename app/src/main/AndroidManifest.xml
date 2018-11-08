@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -24,17 +23,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".ExampleActivity" />
+
         <activity android:name=".Contacts.ContactTypeActivity" />
         <activity android:name=".Contacts.ContactListActivity"></activity>
-        <activity android:name=".Contacts.AddContactActivity"></activity>
-        <activity android:name=".Contacts.EditContactActivity"></activity>
         <activity android:name=".smsActivitys.MessagerActivity" />
         <activity android:name=".smsActivitys.MessagerListActivity" />
         <activity android:name=".smsActivitys.NewSmsActivity"></activity>
 
         <activity android:name=".LinksActivity" />
         <activity android:name=".AddLinkActivity"></activity>
-
 
     </application>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />

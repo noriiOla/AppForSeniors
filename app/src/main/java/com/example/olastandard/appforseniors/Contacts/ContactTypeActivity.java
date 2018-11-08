@@ -30,7 +30,6 @@ public class ContactTypeActivity extends MainActivity {
     private void setListeners(){
         Button go_to_contact_list = (Button) findViewById (R.id.go_to_contact);
         Button call_at = (Button) findViewById (R.id.call_at_number);
-        Button newNumber = (Button) findViewById (R.id.go_to_new_number_activity);
 
         go_to_contact_list.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +38,6 @@ public class ContactTypeActivity extends MainActivity {
 
             }
         });
-
         call_at.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,14 +49,6 @@ public class ContactTypeActivity extends MainActivity {
                 startActivity(callIntent);
             }
         });
-
-        newNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), AddContactActivity.class));
-            }
-        });
-
     }
 
     private void initToolbar() {
