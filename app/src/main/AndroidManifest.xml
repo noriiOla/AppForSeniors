@@ -32,6 +32,11 @@
         <activity android:name=".smsActivitys.MessagerListActivity" />
         <activity android:name=".smsActivitys.NewSmsActivity"></activity>
 
-    </application>
+        <activity android:name=".LinksActivity" />
+        <activity android:name=".AddLinkActivity"></activity>
 
+
+    </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>
