@@ -66,7 +66,7 @@ public class LinksActivity extends MainActivity  {
         File dir=new File(path);
 
         dir.mkdir();
-        _toolbarNewButton = (Button) findViewById(R.id.toolbar_new);
+
 
 
        ///
@@ -90,7 +90,7 @@ public class LinksActivity extends MainActivity  {
                 {
                     if (listV.getChildAt(i) != null)
                     {
-                        listV.getChildAt(i).setBackgroundColor(Color.WHITE);
+                        listV.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.crem));
                     }
                 }
                 view.setBackgroundColor(Color.CYAN);
@@ -229,8 +229,8 @@ public class LinksActivity extends MainActivity  {
 
     private void initToolbar() {
         showBackButton();
-        hideRightButton();
-        showNewButton();
+        showRightButton();
+        changeTitleForRightButton("NOWE");
         setTitle(getResources().getString(R.string.web));
     }
 
@@ -276,7 +276,7 @@ public class LinksActivity extends MainActivity  {
         }
 
 
-    @OnClick({R.id.toolbar_new})
+    @OnClick({R.id.toolbar_save})
     public void addNewLinkActtivity(View view) {
         startActivity(new Intent(this, AddLinkActivity.class));
 

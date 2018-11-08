@@ -7,5 +7,11 @@
         android:id="@+id/txtview"
         android:layout_width="match_parent"
         android:layout_height="83dp"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+
+        android:paddingLeft="6dip"
+        android:paddingRight="6dip"
+        android:gravity="center"/>
 </LinearLayout>
+
+  <!--  android:textSize="20sp"-->

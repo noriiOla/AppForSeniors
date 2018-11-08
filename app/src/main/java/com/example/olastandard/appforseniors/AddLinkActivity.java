@@ -2,6 +2,8 @@ package com.example.olastandard.appforseniors;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +25,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.UnknownHostException;
 
 import butterknife.OnClick;
 
@@ -55,7 +61,7 @@ public class AddLinkActivity extends MainActivity {
     private void initToolbar() {
         showBackButton();
         showRightButton();
-        hideNewButton();
+        changeTitleForRightButton("Zapisz");
         setTitle(getResources().getString(R.string.web));
     }
 
@@ -79,24 +85,52 @@ public class AddLinkActivity extends MainActivity {
 
         //Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
 
-        Save (saveText);
+        Save (saveText,addressTextEdit.getText().toString(),urlTextEdit.getText().toString());
         //Toast.makeText(getApplicationContext(), "Zapisano ", Toast.LENGTH_LONG).show();
         finish();
     }
 
-    public  void Save( String data)
-    { /*PrintWriter out =null;
-        try {
-             out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
-            out.println(data);
-            out.close();
-            Toast.makeText(getApplicationContext(), "pokz "+ file, Toast.LENGTH_LONG).show();
+    public  void Save( String data,String nazwa,String link)
+    {
 
-        } catch (IOException e) {
-            //exception handling left as an exercise for the reader
-            out.close();
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        boolean result;
+
+        if(!(result=(activeNetworkInfo != null && activeNetworkInfo.isConnected())))
+        {
+            Toast.makeText(getApplicationContext(), "Brak dostepu do neta ", Toast.LENGTH_LONG).show();
+            return;
         }
-*/
+
+        if (nazwa.matches("((http)[s]?(://).*)")) {
+            try {
+                final URL url = new URL(nazwa);
+                HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+                int responseCode = huc.getResponseCode();
+                if (responseCode != 200) {
+                    Toast.makeText(getApplicationContext(), "niedzialajacy link", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                System.out.println("The supplied URL is GOOD!");
+            }
+            catch (UnknownHostException | MalformedURLException ex) {
+               return;
+            }
+            catch (IOException ex) {
+                System.out.println(ex.getMessage());
+                return;
+            }
+
+        }
+
+        if(read(nazwa)==false){
+            Toast.makeText(getApplicationContext(), "istnieje juz nazwa podac inna", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
 
         try {
             outputStream = this.getApplicationContext().openFileOutput("savedFile8", MODE_APPEND);
@@ -139,7 +173,7 @@ public class AddLinkActivity extends MainActivity {
 
     }
 
-    private void read() {
+    private boolean read(String name) {
 
         TextView urlTextEdit=(TextView) findViewById(R.id.textView);
         try {
@@ -147,11 +181,17 @@ public class AddLinkActivity extends MainActivity {
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
             BufferedReader bufferedReader = new BufferedReader(isr);
             StringBuilder sb = new StringBuilder();
-            String line = bufferedReader.readLine();
-            System.out.println("--------------------------------------------");
-            if (line != null) {
-                System.out.println(line);
-                urlTextEdit.setText(line);
+            String data;
+            while((data=bufferedReader.readLine( )) != null)
+            {
+
+                data=data.split(",")[0];
+                if (data.equals(name)){
+                    Toast.makeText(getApplicationContext(), "Nazwa linku wystapila", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+
+
             }
         } catch (FileNotFoundException e) {
             Log.d("EXCEPTION", "File not found");
@@ -160,6 +200,7 @@ public class AddLinkActivity extends MainActivity {
         } catch (IOException e) {
             Log.d("EXCEPTION", e.getMessage());
         }
+        return true;
     }
 
 
