@@ -7,6 +7,8 @@
     <string name="newS">NOWA</string>
     <string name="write">NAPISZ</string>
 
+    <string name="newL">NEW</string>
+
     <!--Menu-->
     <string name="menu">MENU</string>
     <string name="wybierz">WYBIERZ</string>
@@ -16,6 +18,8 @@
     <string name="gps">PROWADŹ</string>
     <string name="notes">NOTATKI</string>
     <string name="web">INTERNET</string>
+    <string name="usun">USUN</string>
+
 
     <!--Contacts-->
     <string name="write_number">Wpisz numer</string>
@@ -27,4 +31,10 @@
     <string name="delete">USUŃ</string>
     <string name="me">Ja</string>
     <string name="newReceiver">DODAJ ODBIORCĘ</string>
+
+    <!--Linki-->
+
+    <string name="nazwaLinku">Nazwa Linku</string>
+    <string name="urlL">Adres url</string>
+
 </resources>
