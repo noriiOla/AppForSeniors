@@ -1,5 +1,6 @@
 package com.example.olastandard.appforseniors.Contacts;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.provider.ContactsContract;
@@ -14,6 +15,7 @@ import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.ContactData;
 import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.R;
+import com.example.olastandard.appforseniors.smsActivitys.MessagerActivity;
 import com.example.olastandard.appforseniors.smsActivitys.smsAdapters.SmsPersonListAdapter;
 
 import java.util.ArrayList;
@@ -22,18 +24,20 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ContactListActivity extends MainActivity {
     public static final int REQUEST_READ_CONTACTS = 79;
 
     @BindView(R.id.contact_recycler_view)
     RecyclerView contactView;
-    @BindView(R.id.contact_button_select)
-    Button buttonSelect;
+    @BindView(R.id.contact_button_edit)
+    Button buttonEdit;
     @BindView(R.id.contact_button_delete)
     Button buttonDelete;
     @BindView(R.id.contact_background)
     ConstraintLayout background;
+
 
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -66,7 +70,6 @@ public class ContactListActivity extends MainActivity {
         System.out.println("ON RESUME");
         this.initList();
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -115,6 +118,24 @@ public class ContactListActivity extends MainActivity {
         mAdapter = new ContactListAdapter(contactList, getApplicationContext());
         contactView.setAdapter(mAdapter);
         contactView.addItemDecoration(new com.example.olastandard.appforseniors.Objects.DividerItemDecoration(this));
+    }
+
+    @OnClick({R.id.contact_button_edit})
+    public void editSelectedContact() {
+        if (((ContactListAdapter)mAdapter).lastSelectedItem >= 0) {
+            Intent intent = new Intent(getApplicationContext(), EditContactActivity.class);
+            List<ContactData> contactList = getContacts();
+            Collections.sort(contactList);
+            ContactData contactData = contactList.get(((ContactListAdapter)mAdapter).lastSelectedItem);
+            intent.putExtra("contactData", contactData);
+            this.startActivity(intent);
+        }
+    }
+
+    public void updateSelectedItem(int index) {
+        ((ContactListAdapter)mAdapter).lastSelectedItem = index;
+        mAdapter.notifyDataSetChanged();
+        //changeButtonsColor();
     }
 
 }

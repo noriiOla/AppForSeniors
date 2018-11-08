@@ -27,6 +27,7 @@
         <activity android:name=".Contacts.ContactTypeActivity" />
         <activity android:name=".Contacts.ContactListActivity"></activity>
         <activity android:name=".Contacts.AddContactActivity"></activity>
+        <activity android:name=".Contacts.EditContactActivity"></activity>
         <activity android:name=".smsActivitys.MessagerActivity" />
         <activity android:name=".smsActivitys.MessagerListActivity" />
         <activity android:name=".smsActivitys.NewSmsActivity"></activity>

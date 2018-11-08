@@ -5,6 +5,7 @@ import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -96,22 +97,10 @@ public class AddContactActivity  extends MainActivity {
         }
     }
 
-
     private void initToolbar() {
         showBackButton();
         changeTitleForRightButton(getResources().getString(R.string.save));
         setTitle(R.string.new_number);
     }
 
-    // This method will only insert an empty data to RawContacts.CONTENT_URI
-    // The purpose is to get a system generated raw contact id.
-    private long getRawContactId()
-    {
-        // Inser an empty contact.
-        ContentValues contentValues = new ContentValues();
-        Uri rawContactUri = getContentResolver().insert(ContactsContract.RawContacts.CONTENT_URI, contentValues);
-        // Get the newly created contact raw id.
-        long ret = ContentUris.parseId(rawContactUri);
-        return ret;
-    }
 }

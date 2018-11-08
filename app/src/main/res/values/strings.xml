@@ -22,6 +22,9 @@
     <string name="choose_from_contact">Kontakty</string>
     <string name="new_number">Nowy kontakt</string>
     <string name="add_contact">Dodaj nowy numer do listy</string>
+    <string name="edit">Edytuj</string>
+    <string name="delete_contact">Usuń</string>
+    <string name="call_to_contact_number">Zadzwoń</string>
     <!--Sms-->
     <string name="show">POKAŻ</string>
     <string name="delete">USUŃ</string>

@@ -74,7 +74,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastan
 
         @OnClick(R.id.contact_list_item)
         public void showEventDetail() {
-            ((MessagerListActivity)mcontext).updateSelectedItem(getPosition());
+            ((ContactListActivity)mcontext).updateSelectedItem(getPosition());
         }
     }
 
@@ -113,5 +113,6 @@ public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastan
     public int getItemCount() {
         return mDataset.size();
     }
+
 
 }
