@@ -14,7 +14,6 @@ import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.ContactData;
 import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.R;
-import com.example.olastandard.appforseniors.smsActivitys.smsAdapters.SmsPersonListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
