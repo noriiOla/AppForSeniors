@@ -101,11 +101,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastan
         if (position == lastSelectedItem) {
             holder.changeBackgroundColorToGreen();
         }else {
-            //if (mDataset.get(position).getListOfSms().get(0).getReadState().equals("0")) {
-            //      holder.changeBackgroundColorToRed();
-            // }else {
-            //     holder.clearBackgroundColor();
-            // }
+            holder.clearBackgroundColor();
         }
     }
 

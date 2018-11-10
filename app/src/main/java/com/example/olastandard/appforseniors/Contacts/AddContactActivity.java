@@ -2,30 +2,19 @@ package com.example.olastandard.appforseniors.Contacts;
 import android.Manifest;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
-import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.MainActivity;
-import com.example.olastandard.appforseniors.ManuActivity;
-import com.example.olastandard.appforseniors.Objects.ContactData;
 import com.example.olastandard.appforseniors.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,7 +78,7 @@ public class AddContactActivity  extends MainActivity {
                 .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE).build()); // Type of mobile number
         try
         {
-            ContentProviderResult[] res = getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
+            getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
         }
         catch (Exception e)
         {
