@@ -57,6 +57,8 @@ public class LinksActivity extends MainActivity  {
         ListView listV=(ListView)findViewById(R.id.link_list_view);
         int count = 0;
 
+
+        listV.setAdapter(adapter);
         for (int i = 0; i <= listV.getLastVisiblePosition(); i++)
         {
             if (listV.getChildAt(i) != null)
@@ -65,7 +67,6 @@ public class LinksActivity extends MainActivity  {
 
             }
         }
-        listV.setAdapter(adapter);
 
     }
     @Override
@@ -105,6 +106,7 @@ public class LinksActivity extends MainActivity  {
                         listV.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.crem));
                     }
                 }
+                listV.getChildAt(listPosition).setBackgroundColor(getResources().getColor(R.color.green));
                 view.setBackgroundColor(getResources().getColor(R.color.green));
                 findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
                 findViewById(R.id.delete_button).setBackgroundColor(getResources().getColor(R.color.red));
@@ -160,7 +162,9 @@ public class LinksActivity extends MainActivity  {
 
                     }
                 }
+
                 view.setBackgroundColor(getResources().getColor(R.color.green));
+                //listV.getChildAt(listPosition).setBackgroundColor(getResources().getColor(R.color.green));
                 findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
                 findViewById(R.id.delete_button).setBackgroundColor(getResources().getColor(R.color.red));
             }
@@ -271,6 +275,10 @@ public class LinksActivity extends MainActivity  {
 
     @OnClick({R.id.delete_button})
         public void deleteLink(View view){
+
+        if(arrayList.isEmpty()){
+            return;
+        }
             String array=arrayList.get(listPosition);
         Toast.makeText(getApplicationContext(),"rozmiar "+ arrayList.size() ,Toast.LENGTH_LONG).show();
             arrayList.remove(listPosition);
