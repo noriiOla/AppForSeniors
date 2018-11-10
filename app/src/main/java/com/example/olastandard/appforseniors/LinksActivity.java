@@ -3,12 +3,15 @@ package com.example.olastandard.appforseniors;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -41,6 +44,7 @@ public class LinksActivity extends MainActivity  {
     private ArrayAdapter<String> adapter ;
     FileOutputStream outputStream;
     int listPosition;
+    int c=-1;
 
     @Override
     protected void onResume()
@@ -53,20 +57,33 @@ public class LinksActivity extends MainActivity  {
         read();
        // Toast.makeText(getApplicationContext(),"rozmiarallw resume "+ arrayListListView.size() ,Toast.LENGTH_LONG).show();
       //  Toast.makeText(getApplicationContext(),"rozmiar resume "+ arrayList.size() ,Toast.LENGTH_LONG).show();
-        adapter=new ArrayAdapter<String>(this,R.layout.listview_links_item,R.id.txtview,arrayListListView);
+        adapter=new ArrayAdapter<String>(this,R.layout.listview_links_item,R.id.txtview,arrayListListView)
+        {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent){
+            // Get the current item from ListView
+            View view = super.getView(position,convertView,parent);
+
+                // Set a background color for ListView regular row/item
+                view.setBackgroundColor(Color.parseColor("#fffdd0"));
+
+
+            return view;
+        }
+        };
         ListView listV=(ListView)findViewById(R.id.link_list_view);
         int count = 0;
 
 
         listV.setAdapter(adapter);
-        for (int i = 0; i <= listV.getLastVisiblePosition(); i++)
+      /*  for (int i = 0; i <= listV.getLastVisiblePosition(); i++)
         {
             if (listV.getChildAt(i) != null)
             {
                 listV.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.crem));
 
             }
-        }
+        }*/
 
     }
     @Override
@@ -100,13 +117,15 @@ public class LinksActivity extends MainActivity  {
                 ListView listV=(ListView)findViewById(R.id.link_list_view);
                 for (int i = 0; i <= listV.getLastVisiblePosition(); i++)
                 {
+
+
                     if (listV.getChildAt(i) != null)
                     {
                         //1 mozliewy
-                        listV.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.crem));
+                        listV.getChildAt(i).setBackgroundColor(Color.parseColor("#fffdd0"));
                     }
                 }
-                listV.getChildAt(listPosition).setBackgroundColor(getResources().getColor(R.color.green));
+               // listV.getChildAt(listPosition).setBackgroundColor(getResources().getColor(R.color.green));
                 view.setBackgroundColor(getResources().getColor(R.color.green));
                 findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
                 findViewById(R.id.delete_button).setBackgroundColor(getResources().getColor(R.color.red));
@@ -154,11 +173,16 @@ public class LinksActivity extends MainActivity  {
 
                 int count = 0;
                 ListView listV=(ListView)findViewById(R.id.link_list_view);
+
+
+
                 for (int i = 0; i <= listV.getLastVisiblePosition(); i++)
                 {
+
                     if (listV.getChildAt(i) != null)
                     {
-                        listV.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.crem));
+                        listV.getChildAt(i).setBackgroundColor(Color.parseColor("#fffdd0"));
+
 
                     }
                 }
