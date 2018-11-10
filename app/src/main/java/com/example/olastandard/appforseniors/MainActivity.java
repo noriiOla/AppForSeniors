@@ -94,12 +94,7 @@ public class MainActivity extends AppCompatActivity {
         _toolbarTitle.setText(newTitle);
     }
 
-    public void hideNewButton() {
-        _toolbarNewButton.setVisibility(View.GONE);
-    }
-    public void showNewButton() {
-        _toolbarNewButton.setVisibility(View.VISIBLE);
-    }
+
 
 
     public void hideRightButton() {

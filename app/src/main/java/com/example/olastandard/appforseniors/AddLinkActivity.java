@@ -87,7 +87,7 @@ public class AddLinkActivity extends MainActivity {
 
         Save (saveText,addressTextEdit.getText().toString(),urlTextEdit.getText().toString());
         //Toast.makeText(getApplicationContext(), "Zapisano ", Toast.LENGTH_LONG).show();
-        finish();
+
     }
 
     public  void Save( String data,String nazwa,String link)
@@ -170,7 +170,7 @@ public class AddLinkActivity extends MainActivity {
 //            }
 //            catch (IOException e) {e.printStackTrace();}
 //        }
-
+        finish();
     }
 
     private boolean read(String name) {

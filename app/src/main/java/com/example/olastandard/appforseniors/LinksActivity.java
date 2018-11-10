@@ -55,7 +55,18 @@ public class LinksActivity extends MainActivity  {
       //  Toast.makeText(getApplicationContext(),"rozmiar resume "+ arrayList.size() ,Toast.LENGTH_LONG).show();
         adapter=new ArrayAdapter<String>(this,R.layout.listview_links_item,R.id.txtview,arrayListListView);
         ListView listV=(ListView)findViewById(R.id.link_list_view);
+        int count = 0;
+
+        for (int i = 0; i <= listV.getLastVisiblePosition(); i++)
+        {
+            if (listV.getChildAt(i) != null)
+            {
+                listV.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.crem));
+
+            }
+        }
         listV.setAdapter(adapter);
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,15 +101,18 @@ public class LinksActivity extends MainActivity  {
                 {
                     if (listV.getChildAt(i) != null)
                     {
+                        //1 mozliewy
                         listV.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.crem));
                     }
                 }
-                view.setBackgroundColor(Color.CYAN);
+                view.setBackgroundColor(getResources().getColor(R.color.green));
+                findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
+                findViewById(R.id.delete_button).setBackgroundColor(getResources().getColor(R.color.red));
             }
         });
 
 
-        _toolbarNewButton.setOnClickListener(new View.OnClickListener() {
+        _toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), AddLinkActivity.class));
             }
@@ -142,10 +156,13 @@ public class LinksActivity extends MainActivity  {
                 {
                     if (listV.getChildAt(i) != null)
                     {
-                        listV.getChildAt(i).setBackgroundColor(Color.WHITE);
+                        listV.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.crem));
+
                     }
                 }
-                view.setBackgroundColor(Color.CYAN);
+                view.setBackgroundColor(getResources().getColor(R.color.green));
+                findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
+                findViewById(R.id.delete_button).setBackgroundColor(getResources().getColor(R.color.red));
             }
         }
 
@@ -236,6 +253,11 @@ public class LinksActivity extends MainActivity  {
 
     @OnClick({R.id.open_button})
     public void openAdres(View view) {
+
+        if(arrayList.isEmpty()){
+            return;
+        }
+
         String[] array=arrayList.get(listPosition).split(",");
 
         String url=array[1];//"http://www.google.com";
