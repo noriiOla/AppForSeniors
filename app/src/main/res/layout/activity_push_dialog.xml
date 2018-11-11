@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:id="@+id/push_dialog_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="400dp"
+        android:minWidth="0dp"
+        android:background="@color/crem"
+        android:layout_centerInParent="true"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="text"
+            android:textSize="22sp"
+            android:background="@color/crem"
+            android:textColor="@color/black"
+            android:id="@+id/push_dialog_text"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:background="@color/crem"
+            android:layout_below="@id/push_dialog_text">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="TAK"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:id="@+id/push_button_yes"
+                android:textSize="25sp"
+                android:layout_marginRight="5dp"
+                android:visibility="gone"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="NIE"
+                android:textColor="@color/black"
+                android:id="@+id/push_button_no"
+                android:layout_weight="1"
+                android:textSize="25sp"
+                android:layout_marginLeft="5dp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/push_dialog_text"
+            android:text="OK"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/push_button_ok"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>
