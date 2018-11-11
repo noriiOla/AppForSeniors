@@ -3,9 +3,9 @@ package com.example.olastandard.appforseniors;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.example.olastandard.appforseniors.Menagers.PushDialogButtonsOkInterface;
-import com.example.olastandard.appforseniors.Menagers.PushDialogButtonsYesNoInterface;
-import com.example.olastandard.appforseniors.Menagers.PushDialogManager;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
