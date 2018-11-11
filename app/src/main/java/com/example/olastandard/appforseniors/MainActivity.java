@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     Button _toolbarBackButton;
     TextView _toolbarTitle;
     public Button _toolbarSaveButton;
-    //Button _toolbarNewButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         _toolbarBackButton = (Button) findViewById(R.id.toolbarBackButton);
         _toolbarTitle = (TextView) findViewById(R.id.toolbarActivityTitle);
         _toolbarSaveButton = (Button) findViewById(R.id.toolbar_save);
-      //  _toolbarNewButton = (Button) findViewById(R.id.toolbar_new);
 
         setBaseTouchListeners();
     }
@@ -94,13 +92,6 @@ public class MainActivity extends AppCompatActivity {
         _toolbarTitle.setText(newTitle);
     }
 
-//    public void hideNewButton() {
-//        _toolbarNewButton.setVisibility(View.GONE);
-//    }
-//    public void showNewButton() {
-//        _toolbarNewButton.setVisibility(View.VISIBLE);
-//    }
-//
 
     public void hideRightButton() {
         _toolbarSaveButton.setVisibility(View.INVISIBLE);

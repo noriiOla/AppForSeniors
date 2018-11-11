@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.GridView;
 
 import com.example.olastandard.appforseniors.Adapters.MenuItemAdapter;
+import com.example.olastandard.appforseniors.AlarmClock.AlarmMenuActivity;
+import com.example.olastandard.appforseniors.AlarmClock.ClockListActivity;
+import com.example.olastandard.appforseniors.AlarmClock.NewAlarmActivity;
 import com.example.olastandard.appforseniors.Contacts.ContactTypeActivity;
 import com.example.olastandard.appforseniors.Objects.MenuItem;
 import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
@@ -58,7 +61,7 @@ public class ManuActivity extends MainActivity {
     private void initToolbar() {
         hideBackButton();
         hideRightButton();
-        //hideNewButton();
+
         setTitle(getResources().getString(R.string.menu));
     }
 
@@ -77,7 +80,7 @@ public class ManuActivity extends MainActivity {
                     startActivity(new Intent(this, ContactTypeActivity.class));
                     break;
                 case R.string.alarm:
-                    startActivity(new Intent(this, ExampleActivity.class));
+                    startActivity(new Intent(this,ClockListActivity.class));
                     break;
                 case R.string.gps:
                     startActivity(new Intent(this, ExampleActivity.class));

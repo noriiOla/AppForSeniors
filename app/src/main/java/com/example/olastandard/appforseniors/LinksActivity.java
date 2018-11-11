@@ -3,12 +3,15 @@ package com.example.olastandard.appforseniors;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -41,6 +44,7 @@ public class LinksActivity extends MainActivity  {
     private ArrayAdapter<String> adapter ;
     FileOutputStream outputStream;
     int listPosition;
+    int c=-1;
 
     @Override
     protected void onResume()
@@ -53,9 +57,34 @@ public class LinksActivity extends MainActivity  {
         read();
        // Toast.makeText(getApplicationContext(),"rozmiarallw resume "+ arrayListListView.size() ,Toast.LENGTH_LONG).show();
       //  Toast.makeText(getApplicationContext(),"rozmiar resume "+ arrayList.size() ,Toast.LENGTH_LONG).show();
-        adapter=new ArrayAdapter<String>(this,R.layout.listview_links_item,R.id.txtview,arrayListListView);
+        adapter=new ArrayAdapter<String>(this,R.layout.listview_links_item,R.id.txtview,arrayListListView)
+        {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent){
+            // Get the current item from ListView
+            View view = super.getView(position,convertView,parent);
+
+                // Set a background color for ListView regular row/item
+                view.setBackgroundColor(Color.parseColor("#fffdd0"));
+
+
+            return view;
+        }
+        };
         ListView listV=(ListView)findViewById(R.id.link_list_view);
+        int count = 0;
+
+
         listV.setAdapter(adapter);
+      /*  for (int i = 0; i <= listV.getLastVisiblePosition(); i++)
+        {
+            if (listV.getChildAt(i) != null)
+            {
+                listV.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.crem));
+
+            }
+        }*/
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +95,6 @@ public class LinksActivity extends MainActivity  {
         File dir=new File(path);
 
         dir.mkdir();
-       // _toolbarNewButton = (Button) findViewById(R.id.toolbar_new);
-
 
        ///
         String[] items={};
@@ -88,22 +115,26 @@ public class LinksActivity extends MainActivity  {
                 ListView listV=(ListView)findViewById(R.id.link_list_view);
                 for (int i = 0; i <= listV.getLastVisiblePosition(); i++)
                 {
+
+
                     if (listV.getChildAt(i) != null)
                     {
-                        listV.getChildAt(i).setBackgroundColor(Color.WHITE);
+                        //1 mozliewy
+                        listV.getChildAt(i).setBackgroundColor(Color.parseColor("#fffdd0"));
                     }
                 }
-                view.setBackgroundColor(Color.CYAN);
+               // listV.getChildAt(listPosition).setBackgroundColor(getResources().getColor(R.color.green));
+                view.setBackgroundColor(getResources().getColor(R.color.green));
+                findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
+                findViewById(R.id.delete_button).setBackgroundColor(getResources().getColor(R.color.red));
             }
         });
 
-//
-//        _toolbarNewButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                startActivity(new Intent(getApplicationContext(), AddLinkActivity.class));
-//            }
-//        });
-
+        _toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), AddLinkActivity.class));
+            }
+        });
 
     }
     public  void Save(String data)
@@ -138,14 +169,24 @@ public class LinksActivity extends MainActivity  {
 
                 int count = 0;
                 ListView listV=(ListView)findViewById(R.id.link_list_view);
+
+
+
                 for (int i = 0; i <= listV.getLastVisiblePosition(); i++)
                 {
+
                     if (listV.getChildAt(i) != null)
                     {
-                        listV.getChildAt(i).setBackgroundColor(Color.WHITE);
+                        listV.getChildAt(i).setBackgroundColor(Color.parseColor("#fffdd0"));
+
+
                     }
                 }
-                view.setBackgroundColor(Color.CYAN);
+
+                view.setBackgroundColor(getResources().getColor(R.color.green));
+                //listV.getChildAt(listPosition).setBackgroundColor(getResources().getColor(R.color.green));
+                findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
+                findViewById(R.id.delete_button).setBackgroundColor(getResources().getColor(R.color.red));
             }
         }
 
@@ -229,13 +270,19 @@ public class LinksActivity extends MainActivity  {
 
     private void initToolbar() {
         showBackButton();
-        hideRightButton();
-      //  showNewButton();
+
+        showRightButton();
+        changeTitleForRightButton("NOWE");
         setTitle(getResources().getString(R.string.web));
     }
 
     @OnClick({R.id.open_button})
     public void openAdres(View view) {
+
+        if(arrayList.isEmpty()){
+            return;
+        }
+
         String[] array=arrayList.get(listPosition).split(",");
 
         String url=array[1];//"http://www.google.com";
@@ -249,6 +296,10 @@ public class LinksActivity extends MainActivity  {
 
     @OnClick({R.id.delete_button})
         public void deleteLink(View view){
+
+        if(arrayList.isEmpty()){
+            return;
+        }
             String array=arrayList.get(listPosition);
         Toast.makeText(getApplicationContext(),"rozmiar "+ arrayList.size() ,Toast.LENGTH_LONG).show();
             arrayList.remove(listPosition);
@@ -275,12 +326,11 @@ public class LinksActivity extends MainActivity  {
 
         }
 
+    @OnClick({R.id.toolbar_save})
+    public void addNewLinkActtivity(View view) {
+        startActivity(new Intent(this, AddLinkActivity.class));
 
-//    @OnClick({R.id.toolbar_new})
-//    public void addNewLinkActtivity(View view) {
-//        startActivity(new Intent(this, AddLinkActivity.class));
-//
-//
-//
-//    }
+
+
+    }
 }
