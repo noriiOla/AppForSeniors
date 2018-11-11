@@ -45,7 +45,7 @@ public class MessagerListActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         initAddlayout(R.layout.activity_messager_list);
         ButterKnife.bind(this);
-        this.background.setBackgroundColor(getResources().getColor(R.color.crem));
+       // this.background.setBackgroundColor(getResources().getColor(R.color.crem));
         initToolbar();
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
@@ -91,7 +91,7 @@ public class MessagerListActivity extends MainActivity {
         listOfSms.setLayoutManager(mLayoutManager);
         mAdapter = new SmsPersonListAdapter(listOfPersonsSmsData, getApplicationContext());
         listOfSms.setAdapter(mAdapter);
-        listOfSms.addItemDecoration(new com.example.olastandard.appforseniors.Objects.DividerItemDecoration(this));
+        //listOfSms.addItemDecoration(new com.example.olastandard.appforseniors.Objects.DividerItemDecoration(this));
     }
 
     private void initToolbar() {
@@ -100,8 +100,15 @@ public class MessagerListActivity extends MainActivity {
     }
 
     private void changeButtonsColor() {
-        this.buttonSelect.setBackgroundColor(getResources().getColor(R.color.green));
-        this.buttonDelete.setBackgroundColor(getResources().getColor(R.color.green));
+       // setBackgroundTintList(contextInstance.getResources().getColorStateList(R.color.your_xml_name));
+
+       // this.buttonSelect.setBackgroundTintList(getResources().getColorStateList(R.color.green));
+//        this.buttonSelect.setBackgroundColor(getResources().getColor(R.color.green));
+//        this.buttonDelete.setBackgroundColor(getResources().getColor(R.color.green));
+        this.buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
+        this.buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
+
+
     }
 
     @OnClick({R.id.sms_button_select})

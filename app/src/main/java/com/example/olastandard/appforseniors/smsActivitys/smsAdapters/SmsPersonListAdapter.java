@@ -84,7 +84,7 @@ public class SmsPersonListAdapter extends RecyclerView.Adapter<SmsPersonListAdap
             if (mDataset.get(position).getListOfSms().get(0).getReadState().equals("0")) {
                 holder.changeBackgroundColorToRed();
             }else {
-                holder.clearBackgroundColor();
+                holder.background.setBackgroundColor(context.getResources().getColor(R.color.lighPurple));
             }
         }
     }

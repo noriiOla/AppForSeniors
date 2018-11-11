@@ -9,4 +9,6 @@
     <color name="green">#33cc33</color>
     <color name="red">#ff471a</color>
     <color name="transparent">#80000000</color>
+    <color name="lightGray">#DCDCDC</color>
+    <color name="lighPurple">#EDE7F6</color>
 </resources>

@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".smsActivitys.MessagerListActivity"
-    android:id="@+id/sms_background">
+    android:id="@+id/sms_background"
+    android:background="@drawable/rower">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,35 +29,33 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:id="@+id/sms_buttons_layout"
             android:orientation="horizontal"
             android:weightSum="2"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             >
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textSize="30dp"
                 android:layout_marginRight="2.5dp"
-                android:layout_marginLeft="5dp"
                 android:textStyle="bold"
                 android:text="@string/wybierz"
                 android:id="@+id/sms_button_select"
+                android:background="@color/lightGray"
                 />
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="5dp"
                 android:textSize="30dp"
                 android:textStyle="bold"
                 android:text="@string/newS"
-                android:background="@color/green"
+                android:background="@drawable/button_shape_green"
                 android:id="@+id/sms_button_delete"
                 />
         </LinearLayout>
