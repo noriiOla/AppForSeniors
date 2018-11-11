@@ -20,8 +20,7 @@ public class MainActivity extends AppCompatActivity {
     CustomToolbar _customToolbar;
     Button _toolbarBackButton;
     TextView _toolbarTitle;
-    Button _toolbarSaveButton;
-    Button _toolbarNewButton;
+    public Button _toolbarSaveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
