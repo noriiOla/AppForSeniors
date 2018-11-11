@@ -74,7 +74,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastan
 
         @OnClick(R.id.contact_list_item)
         public void showEventDetail() {
-            ((MessagerListActivity)mcontext).updateSelectedItem(getPosition());
+            ((ContactListActivity)mcontext).updateSelectedItem(getPosition());
         }
     }
 
@@ -85,8 +85,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastan
 
     @Override
     public com.example.olastandard.appforseniors.Contacts.ContactListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                                                                                             int viewType) {
-
+                                                                                                           int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.contact_list_item, parent, false);
 
@@ -102,11 +101,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastan
         if (position == lastSelectedItem) {
             holder.changeBackgroundColorToGreen();
         }else {
-            //if (mDataset.get(position).getListOfSms().get(0).getReadState().equals("0")) {
-          //      holder.changeBackgroundColorToRed();
-           // }else {
-           //     holder.clearBackgroundColor();
-           // }
+            holder.clearBackgroundColor();
         }
     }
 
@@ -114,5 +109,6 @@ public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastan
     public int getItemCount() {
         return mDataset.size();
     }
+
 
 }
