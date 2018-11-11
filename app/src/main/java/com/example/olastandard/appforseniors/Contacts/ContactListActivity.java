@@ -160,7 +160,7 @@ public class ContactListActivity extends MainActivity {
             Collections.sort(contactList);
             ContactData contactData = contactList.get(((ContactListAdapter)mAdapter).lastSelectedItem);
             Intent intent = new Intent(Intent.ACTION_CALL);
-
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setData(Uri.parse("tel:" + contactData.getNumebrOfPerson()));
             if (ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
