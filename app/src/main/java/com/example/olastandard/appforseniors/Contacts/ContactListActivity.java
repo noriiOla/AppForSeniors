@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
@@ -94,8 +95,20 @@ public class ContactListActivity extends MainActivity {
 
     private List<ContactData> getContacts(){
         List<ContactData> contacts = new ArrayList<>();
-        Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null,null,null, null);
+        String[] projection = new String[] {
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+                ContactsContract.CommonDataKinds.Phone.NUMBER,
+                };
+
+        String sortBy = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"; //sorted by name
+
+        Cursor phones = null;
+        try {
+            phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection, null, null, sortBy);
+        } catch (SecurityException e) {
+            //SecurityException can be thrown if we don't have the right permissions
+        }
+
         while (phones.moveToNext())
         {
             String name=phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
