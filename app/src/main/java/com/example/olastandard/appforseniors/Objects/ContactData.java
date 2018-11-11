@@ -8,7 +8,7 @@ public class ContactData implements Serializable, Comparable{
 
     public ContactData(String numebrOfPerson) {
         this.numebrOfPerson = numebrOfPerson;
-        this.nameOfPersion = null;
+        this.nameOfPersion = numebrOfPerson;
     }
 
     public ContactData(String nameOfPersion, String numebrOfPerson) {

@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -21,7 +22,9 @@ import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.ContactData;
+import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.R;
+import com.example.olastandard.appforseniors.smsActivitys.MessagerActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,6 +45,10 @@ public class ContactListActivity extends MainActivity {
     Button buttonDelete;
     @BindView(R.id.contact_background)
     ConstraintLayout background;
+    @BindView(R.id.contact_button_call)
+    Button buttonCall;
+    @BindView(R.id.contact_button_choose)
+    Button buttonChoose;
 
 
     private RecyclerView.Adapter mAdapter;
@@ -60,6 +67,15 @@ public class ContactListActivity extends MainActivity {
         } else {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
                     REQUEST_READ_CONTACTS);
+        }
+
+        ContactListActivityType.conactListView result = (ContactListActivityType.conactListView) getIntent().getSerializableExtra("typeOfView");
+
+        if (result != null && result == ContactListActivityType.conactListView.selectContact) {
+            this.buttonEdit.setVisibility(View.GONE);
+            this.buttonDelete.setVisibility(View.GONE);
+            this.buttonCall.setVisibility(View.GONE);
+            this.buttonChoose.setVisibility(View.VISIBLE);
         }
     }
 
@@ -102,7 +118,6 @@ public class ContactListActivity extends MainActivity {
             String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
             contacts.add(new ContactData(name,phoneNumber));
             System.out.println("name: " + name + "  number: "+phoneNumber);
-
         }
         phones.close();
         return contacts;
@@ -169,6 +184,21 @@ public class ContactListActivity extends MainActivity {
             getApplicationContext().startActivity(intent);
 
         }
+    }
+
+    @OnClick(R.id.contact_button_choose)
+    public void backWithSelectedContact() {
+        List<ContactData> contactList = getContacts();
+        Collections.sort(contactList);
+        ContactData contactData = contactList.get(((ContactListAdapter)mAdapter).lastSelectedItem);
+
+        Intent previousScreen = new Intent(getApplicationContext(), MessagerActivity.class);
+        PersonSmsData smsData = new PersonSmsData(contactData.getNumebrOfPerson());
+        smsData.setNameOfPersion(contactData.getNameOfPersion());
+        previousScreen.putExtra("contactData", smsData);
+        setResult(200, previousScreen);
+        finish();
+
     }
 
     public static boolean deleteContact(Context ctx, String phone, String name) {

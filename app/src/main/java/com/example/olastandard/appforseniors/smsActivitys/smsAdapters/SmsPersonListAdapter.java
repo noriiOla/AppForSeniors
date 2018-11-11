@@ -80,11 +80,22 @@ public class SmsPersonListAdapter extends RecyclerView.Adapter<SmsPersonListAdap
         holder.personName.setText(mDataset.get(position).getNameOfPersion());
         if (position == lastSelectedItem) {
             holder.changeBackgroundColorToGreen();
+            if (mDataset.get(position).getListOfSms().get(0).getReadState().equals("0")) {
+                holder.lastSmsData.setTextColor(context.getResources().getColor(R.color.red));
+                holder.personName.setTextColor(context.getResources().getColor(R.color.red));
+            }else {
+                holder.lastSmsData.setTextColor(context.getResources().getColor(R.color.black));
+                holder.personName.setTextColor(context.getResources().getColor(R.color.black));
+            }
         }else {
             if (mDataset.get(position).getListOfSms().get(0).getReadState().equals("0")) {
-                holder.changeBackgroundColorToRed();
+                holder.lastSmsData.setTextColor(context.getResources().getColor(R.color.red));
+                holder.personName.setTextColor(context.getResources().getColor(R.color.red));
+                holder.clearBackgroundColor();
             }else {
                 holder.clearBackgroundColor();
+                holder.lastSmsData.setTextColor(context.getResources().getColor(R.color.black));
+                holder.personName.setTextColor(context.getResources().getColor(R.color.black));
             }
         }
     }

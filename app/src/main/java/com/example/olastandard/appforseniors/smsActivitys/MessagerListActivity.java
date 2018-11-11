@@ -8,6 +8,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 
@@ -47,7 +48,11 @@ public class MessagerListActivity extends MainActivity {
         ButterKnife.bind(this);
         this.background.setBackgroundColor(getResources().getColor(R.color.crem));
         initToolbar();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
                 == PackageManager.PERMISSION_GRANTED) {
             smsHelper = new SmsHelper(getApplicationContext(), this);
@@ -55,12 +60,8 @@ public class MessagerListActivity extends MainActivity {
             initRecyclerView(listaSmsow);
 
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_SMS},1);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_SMS}, 1);
         }
-
-
-
-
     }
 
     @Override

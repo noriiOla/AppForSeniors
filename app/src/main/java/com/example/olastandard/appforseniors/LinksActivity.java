@@ -66,7 +66,7 @@ public class LinksActivity extends MainActivity  {
         File dir=new File(path);
 
         dir.mkdir();
-        _toolbarNewButton = (Button) findViewById(R.id.toolbar_new);
+       // _toolbarNewButton = (Button) findViewById(R.id.toolbar_new);
 
 
        ///
@@ -97,12 +97,12 @@ public class LinksActivity extends MainActivity  {
             }
         });
 
-
-        _toolbarNewButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), AddLinkActivity.class));
-            }
-        });
+//
+//        _toolbarNewButton.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(), AddLinkActivity.class));
+//            }
+//        });
 
 
     }
@@ -230,7 +230,7 @@ public class LinksActivity extends MainActivity  {
     private void initToolbar() {
         showBackButton();
         hideRightButton();
-        showNewButton();
+      //  showNewButton();
         setTitle(getResources().getString(R.string.web));
     }
 
@@ -276,11 +276,11 @@ public class LinksActivity extends MainActivity  {
         }
 
 
-    @OnClick({R.id.toolbar_new})
-    public void addNewLinkActtivity(View view) {
-        startActivity(new Intent(this, AddLinkActivity.class));
-
-
-
-    }
+//    @OnClick({R.id.toolbar_new})
+//    public void addNewLinkActtivity(View view) {
+//        startActivity(new Intent(this, AddLinkActivity.class));
+//
+//
+//
+//    }
 }

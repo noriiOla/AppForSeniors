@@ -55,7 +55,7 @@ public class AddLinkActivity extends MainActivity {
     private void initToolbar() {
         showBackButton();
         showRightButton();
-        hideNewButton();
+        //hideNewButton();
         setTitle(getResources().getString(R.string.web));
     }
 

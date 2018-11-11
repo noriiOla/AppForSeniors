@@ -58,7 +58,7 @@ public class ManuActivity extends MainActivity {
     private void initToolbar() {
         hideBackButton();
         hideRightButton();
-        hideNewButton();
+        //hideNewButton();
         setTitle(getResources().getString(R.string.menu));
     }
 
