@@ -70,7 +70,6 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
                         results.count = mResultList.size();
                     }
                 }
-
                 return results;
             }
 
@@ -94,7 +93,6 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
         if (mGoogleApiClient != null) {
 
             Log.i(TAG, "Executing autocomplete query for: " + constraint);
-
             PendingResult<AutocompletePredictionBuffer> results = Places.GeoDataApi
                     .getAutocompletePredictions(mGoogleApiClient, constraint.toString(),
                             mBounds, mPlaceFilter);

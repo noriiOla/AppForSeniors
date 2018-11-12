@@ -45,7 +45,6 @@ public class AddAddressActivity extends MainActivity implements
 
         mAutocompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         mAutocompleteTextView.setThreshold(3);
-       // mNameView = (TextView) findViewById(R.id.name);
 
         mGoogleApiClient = new GoogleApiClient.Builder(AddAddressActivity.this)
                 .addApi(Places.GEO_DATA_API)

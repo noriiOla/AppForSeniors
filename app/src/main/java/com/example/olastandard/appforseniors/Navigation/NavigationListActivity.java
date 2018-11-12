@@ -1,27 +1,16 @@
 package com.example.olastandard.appforseniors.Navigation;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.PlaceData;
 import com.example.olastandard.appforseniors.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,7 +18,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class NavigationListActivity extends MainActivity {
-    public static final int REQUEST_READ_CONTACTS = 79;
 
     ArrayList<PlaceData> placeData = new ArrayList<>();
 
@@ -45,6 +33,7 @@ public class NavigationListActivity extends MainActivity {
 
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private NavigationDataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +42,16 @@ public class NavigationListActivity extends MainActivity {
         ButterKnife.bind(this);
         this.background.setBackgroundColor(getResources().getColor(R.color.crem));
         initToolbar();
-
-        placeData.add(new PlaceData("miejsce 1","1600 Amphitheatre Parkway, Mountain+View, California"));
+        dataManager = new NavigationDataManager();
+        placeData = dataManager.read(getApplicationContext());
+        System.out.println("koniec czytania");
+        dataManager.save("title,addres", getApplicationContext());
+        //placeData.add(new PlaceData("miejsce 1","1600 Amphitheatre Parkway, Mountain+View, California"));
         initRecyclerView(placeData);
     }
 
     private void initList() {
-        placeData.add(new PlaceData("miejsce 1","1600 Amphitheatre Parkway, Mountain+View, California"));
+        //placeData.add(new PlaceData("miejsce 1","1600 Amphitheatre Parkway, Mountain+View, California"));
         initRecyclerView(placeData);
         //init list from storage
         //List<ContactData> contactList = getContacts();
@@ -70,7 +62,7 @@ public class NavigationListActivity extends MainActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        this.initList();
+        //this.initList();
     }
 
 
