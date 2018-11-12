@@ -7,4 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".ExampleActivity">
 
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="show dialog"
+        android:id="@+id/show_dialog_button"/>
 </android.support.constraint.ConstraintLayout>

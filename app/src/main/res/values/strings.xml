@@ -6,6 +6,7 @@
     <string name="save">ZAPISZ</string>
     <string name="newS">NOWA</string>
     <string name="write">NAPISZ</string>
+    <string name="send">WYŚLIJ</string>
 
     <string name="newL">NOWY</string>
 
@@ -15,7 +16,7 @@
     <string name="alarm">BUDZIK</string>
     <string name="sms">WIADOMOSCI</string>
     <string name="call">ZADZWOŃ</string>
-    <string name="gps">NAWIGACJA</string>
+    <string name="gps">PROWADŹ</string>
     <string name="notes">NOTATKI</string>
     <string name="web">INTERNET</string>
     <string name="usun">USUN</string>
