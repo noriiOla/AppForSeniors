@@ -8,8 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +49,7 @@ public class AddAddressActivity extends MainActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_autocomplete_address);
+        setContentView(R.layout.activity_autocomplete);
         ButterKnife.bind(this);
 
         mAutocompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);

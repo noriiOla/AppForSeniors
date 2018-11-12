@@ -15,7 +15,6 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-import static android.content.Context.MODE_APPEND;
 
 public class NavigationDataManager {
     public String path=  Environment.DIRECTORY_DOWNLOADS;
@@ -56,7 +55,7 @@ public class NavigationDataManager {
         FileOutputStream outputStream;
         System.out.println("zapisuje: "+line);
         try {
-            outputStream = context.openFileOutput(fileName, MODE_APPEND);
+            outputStream = context.openFileOutput(fileName, context.MODE_APPEND);
             outputStream.write(line.getBytes());
             outputStream.close();
             System.out.println("++++++++ZAPISANO++++++");
