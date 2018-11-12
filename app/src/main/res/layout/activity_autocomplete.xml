@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/navi_place_name"
         android:layout_centerHorizontal="true"
-        android:drawableRight="@drawable/location"
         android:hint="Wpisz adres"
         android:textSize="30sp" />
 

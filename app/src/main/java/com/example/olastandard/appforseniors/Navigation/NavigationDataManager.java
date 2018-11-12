@@ -12,7 +12,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 
@@ -26,7 +25,6 @@ public class NavigationDataManager {
     }
 
     public ArrayList<PlaceData> read(Context context) {
-        System.out.println("read");
         ArrayList<PlaceData> arrayList = new ArrayList();
 
         try {
@@ -36,9 +34,10 @@ public class NavigationDataManager {
             String data;
 
             while((data=bufferedReader.readLine( )) != null) {
-                System.out.println("LINIA ODCZYTANA");
-                String[] arrOfStr = data.split(",");
-                PlaceData placeData = new PlaceData(arrOfStr[0], arrOfStr[1]);
+                System.out.println(data);
+                String title = data;
+                String address = bufferedReader.readLine( ); //DANGEROUS
+                PlaceData placeData = new PlaceData(title, address);
                 arrayList.add(placeData);
             }
 
@@ -51,19 +50,23 @@ public class NavigationDataManager {
         return arrayList;
     }
 
-    public boolean save(String line, Context context) {
+    public boolean save(String lineTitle, String lineAddress, Context context) {
         FileOutputStream outputStream;
-        System.out.println("zapisuje: "+line);
+        lineTitle = addNewLineSignToString(lineTitle);
+        lineAddress = addNewLineSignToString(lineAddress);
         try {
             outputStream = context.openFileOutput(fileName, context.MODE_APPEND);
-            outputStream.write(line.getBytes());
+            outputStream.write(lineTitle.getBytes());
+            outputStream.write(lineAddress.getBytes());
             outputStream.close();
-            System.out.println("++++++++ZAPISANO++++++");
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("------niee nie nie-------");
             return false;
         }
+    }
+
+    private String addNewLineSignToString(String line){
+        return line+"\n";
     }
 }

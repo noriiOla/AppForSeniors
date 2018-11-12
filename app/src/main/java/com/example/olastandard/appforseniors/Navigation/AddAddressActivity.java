@@ -135,8 +135,8 @@ public class AddAddressActivity extends MainActivity implements
         NavigationDataManager navigationDataManager = new NavigationDataManager();
         String title_text = title.getText().toString();
         String address = autoCompleteTextView.getText().toString();
-        String line = title_text+","+address;
-        navigationDataManager.save(line, getApplicationContext());
+        //String line = title_text+";"+address;
+        navigationDataManager.save(title_text,address, getApplicationContext());
         startActivity(new Intent(this, NavigationListActivity.class));
 
     }

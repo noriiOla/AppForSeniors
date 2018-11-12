@@ -48,7 +48,7 @@ public class NavigationListActivity extends MainActivity {
     }
 
     private void initList() {
-        dataManager.save("titlenext,ads", getApplicationContext());
+        placeData = new ArrayList<>();
         placeData = dataManager.read(getApplicationContext());
         initRecyclerView(placeData);
     }
@@ -56,7 +56,6 @@ public class NavigationListActivity extends MainActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         this.initList();
     }
 
@@ -77,16 +76,7 @@ public class NavigationListActivity extends MainActivity {
 
     @OnClick({R.id.navigation_button_edit})
     public void editSelectedPlace() {
-        if (((NavigationListAdapter) mAdapter).lastSelectedItem >= 0) {
-            /*
-            Intent intent = new Intent(getApplicationContext(), EditContactActivity.class);
-            List<ContactData> contactList = getContacts();
-            Collections.sort(contactList);
-            ContactData contactData = contactList.get(((ContactListAdapter) mAdapter).lastSelectedItem);
-            intent.putExtra("contactData", contactData);
-            this.startActivity(intent);
-            */
-        }
+        startActivity(new Intent(this, AddAddressActivity.class));
     }
 
     @OnClick({R.id.navigation_button_delete})
