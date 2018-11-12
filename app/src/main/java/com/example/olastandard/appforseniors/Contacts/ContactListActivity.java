@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
@@ -110,8 +111,20 @@ public class ContactListActivity extends MainActivity {
 
     private List<ContactData> getContacts(){
         List<ContactData> contacts = new ArrayList<>();
-        Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null,null,null, null);
+        String[] projection = new String[] {
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+                ContactsContract.CommonDataKinds.Phone.NUMBER,
+                };
+
+        String sortBy = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"; //sorted by name
+
+        Cursor phones = null;
+        try {
+            phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection, null, null, sortBy);
+        } catch (SecurityException e) {
+            //SecurityException can be thrown if we don't have the right permissions
+        }
+
         while (phones.moveToNext())
         {
             String name=phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
@@ -175,7 +188,7 @@ public class ContactListActivity extends MainActivity {
             Collections.sort(contactList);
             ContactData contactData = contactList.get(((ContactListAdapter)mAdapter).lastSelectedItem);
             Intent intent = new Intent(Intent.ACTION_CALL);
-
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setData(Uri.parse("tel:" + contactData.getNumebrOfPerson()));
             if (ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
