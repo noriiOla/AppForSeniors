@@ -10,6 +10,7 @@ import android.widget.GridView;
 import com.example.olastandard.appforseniors.Adapters.MenuItemAdapter;
 import com.example.olastandard.appforseniors.Contacts.ContactTypeActivity;
 import com.example.olastandard.appforseniors.Navigation.AddAddressActivity;
+import com.example.olastandard.appforseniors.Navigation.NavigationListActivity;
 import com.example.olastandard.appforseniors.Objects.MenuItem;
 import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
 
@@ -81,7 +82,7 @@ public class ManuActivity extends MainActivity {
                     startActivity(new Intent(this, ExampleActivity.class));
                     break;
                 case R.string.gps:
-                    startActivity(new Intent(this, AddAddressActivity.class));
+                    startActivity(new Intent(this, NavigationListActivity.class));
                     break;
                 case R.string.notes:
                     startActivity(new Intent(this, AddLinkActivity.class));
