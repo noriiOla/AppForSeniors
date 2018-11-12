@@ -1,6 +1,7 @@
 package com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess;
 
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -148,5 +149,56 @@ public class SmsHelper {
         }
 
         return listOfPersonsData;
+    }
+
+    public void deleteSms(PersonSmsData dataToDelete) {
+        Uri message = Uri.parse("content://sms/");
+        ContentResolver cr = contextActivity.getContentResolver();
+
+        Cursor c = cr.query(message, null, null, null, null);
+        contextActivity.startManagingCursor(c);
+        int totalSMS = c.getCount();
+
+        if (c.moveToFirst()) {
+            for (int i = 0; i < totalSMS; i++) {
+
+                if (c.getString(c.getColumnIndexOrThrow("address")) != null) {
+                    String phoneNumber = repairNumber(c.getString(c.getColumnIndexOrThrow("address")));
+                    if (dataToDelete.getNumebrOfPerson().equals(phoneNumber)) {
+                        context.getContentResolver().delete(Uri.parse("content://sms/" + c.getString(0)), null, null);
+                    }
+                }
+
+                c.moveToNext();
+            }
+        }
+    }
+
+    public void markMessageRead(PersonSmsData smsData) {
+
+        Uri uri = Uri.parse("content://sms/inbox");
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        try{
+            while (cursor.moveToNext()) {
+
+                if (cursor.getString(cursor.getColumnIndexOrThrow("address")) != null) {
+                    String phoneNumber = repairNumber(cursor.getString(cursor.getColumnIndexOrThrow("address")));
+                    if (phoneNumber.equals(smsData.getNumebrOfPerson()) && (cursor.getInt(cursor.getColumnIndex("read")) == 0)) {
+                        if (cursor.getString(cursor.getColumnIndex("body")).startsWith(smsData.getListOfSms().get(smsData.getListOfSms().size() - 1).getMsg())) {
+                            String SmsMessageId = cursor.getString(cursor.getColumnIndex("_id"));
+                            ContentValues values = new ContentValues();
+                            values.put("read", true);
+                            context.getContentResolver().update(Uri.parse("content://sms/inbox"), values, "_id=" + SmsMessageId, null);
+                            return;
+                        }
+                    }
+                }
+
+
+            }
+        }catch(Exception e)
+        {
+            System.out.println("Something went wrong");
+        }
     }
 }

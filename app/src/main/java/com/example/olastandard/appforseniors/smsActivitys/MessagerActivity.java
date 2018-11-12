@@ -44,6 +44,9 @@ public class MessagerActivity extends MainActivity {
         }
 
         addListeners();
+        if (smsData.getListOfSms().get(smsData.getListOfSms().size() - 1).getReadState().equals("0")) {
+            (new SmsHelper(getApplicationContext(), this)).markMessageRead(smsData);
+        }
     }
 
     @Override

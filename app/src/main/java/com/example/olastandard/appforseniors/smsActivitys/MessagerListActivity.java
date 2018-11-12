@@ -15,6 +15,8 @@ import android.widget.GridView;
 import com.example.olastandard.appforseniors.ExampleActivity;
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.PersonSmsData;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
 import com.example.olastandard.appforseniors.smsActivitys.smsAdapters.SmsPersonListAdapter;
 import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsHelper;
@@ -48,6 +50,7 @@ public class MessagerListActivity extends MainActivity {
         ButterKnife.bind(this);
         this.background.setBackgroundColor(getResources().getColor(R.color.crem));
         initToolbar();
+        addListeners();
     }
 
     @Override
@@ -83,6 +86,29 @@ public class MessagerListActivity extends MainActivity {
             }
 
         }
+    }
+
+    public void addListeners() {
+        this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                (new PushDialogManager()).showDialogWithYesNoButtons(MessagerListActivity.this,"Czy na pewno chcesz usunąć zaznaczony kontakt?", new PushDialogButtonsYesNoInterface() {
+
+                    @Override
+                    public void onYesButtonTap() {
+                        smsHelper.deleteSms(smsHelper.getListOfPersonsData().get(((SmsPersonListAdapter)mAdapter).lastSelectedItem));
+
+                        smsHelper = new SmsHelper(MessagerListActivity.this.getApplicationContext(), MessagerListActivity.this);
+                        List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
+                        initRecyclerView(listaSmsow);
+                    }
+
+                    @Override
+                    public void onNoButtonTap() {
+
+                    }
+                });
+            }
+        });
     }
 
     private void initRecyclerView(List<PersonSmsData> listOfPersonsSmsData) {
