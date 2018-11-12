@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class NavigationDataManager {
     }
 
     public ArrayList<PlaceData> read(Context context) {
-
+        System.out.println("read");
         ArrayList<PlaceData> arrayList = new ArrayList();
 
         try {
@@ -38,33 +37,33 @@ public class NavigationDataManager {
             String data;
 
             while((data=bufferedReader.readLine( )) != null) {
-                PlaceData placeData = new PlaceData(data.split(",")[0], data.split(",")[1]);
+                System.out.println("LINIA ODCZYTANA");
+                String[] arrOfStr = data.split(",");
+                PlaceData placeData = new PlaceData(arrOfStr[0], arrOfStr[1]);
                 arrayList.add(placeData);
-
             }
 
         } catch (FileNotFoundException e) {
             Log.d("EXCEPTION", "File not found");
             return arrayList;
-        } catch (UnsupportedEncodingException e) {
-            Log.d("EXCEPTION", e.getMessage());
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log.d("EXCEPTION", e.getMessage());
         }
         return arrayList;
     }
 
-
     public boolean save(String line, Context context) {
         FileOutputStream outputStream;
-
+        System.out.println("zapisuje: "+line);
         try {
             outputStream = context.openFileOutput(fileName, MODE_APPEND);
             outputStream.write(line.getBytes());
             outputStream.close();
+            System.out.println("++++++++ZAPISANO++++++");
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("------niee nie nie-------");
             return false;
         }
     }

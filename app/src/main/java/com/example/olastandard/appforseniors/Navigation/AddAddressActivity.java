@@ -1,14 +1,15 @@
 package com.example.olastandard.appforseniors.Navigation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,9 +25,18 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class AddAddressActivity extends MainActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks {
+
+    @BindView(R.id.autoCompleteTextView)
+    public AutoCompleteTextView autoCompleteTextView;
+    @BindView(R.id.navi_place_name)
+    public TextView title;
 
     private static final String TAG = "MainActivity";
     private static final int GOOGLE_API_CLIENT_ID = 0;
@@ -42,6 +52,7 @@ public class AddAddressActivity extends MainActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_autocomplete_address);
+        ButterKnife.bind(this);
 
         mAutocompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         mAutocompleteTextView.setThreshold(3);
@@ -57,6 +68,7 @@ public class AddAddressActivity extends MainActivity implements
                 BOUNDS_MOUNTAIN_VIEW, null);
         mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
 
+        initToolbar();
     }
 
     private AdapterView.OnItemClickListener mAutocompleteClickListener
@@ -118,5 +130,22 @@ public class AddAddressActivity extends MainActivity implements
                         connectionResult.getErrorCode(),
                 Toast.LENGTH_LONG).show();
 
+    }
+
+    @OnClick({R.id.save_address_button})
+    public void saveNewAddress() {
+        NavigationDataManager navigationDataManager = new NavigationDataManager();
+        String title_text = title.getText().toString();
+        String address = autoCompleteTextView.getText().toString();
+        String line = title_text+","+address;
+        navigationDataManager.save(line, getApplicationContext());
+        startActivity(new Intent(this, NavigationListActivity.class));
+
+    }
+
+    void initToolbar(){
+        showBackButton();
+        changeTitleForRightButton(getResources().getString(R.string.save));
+        setTitle(R.string.new_number);
     }
 }

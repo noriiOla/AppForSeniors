@@ -1,5 +1,6 @@
 package com.example.olastandard.appforseniors.Navigation;
 
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,29 +44,21 @@ public class NavigationListActivity extends MainActivity {
         this.background.setBackgroundColor(getResources().getColor(R.color.crem));
         initToolbar();
         dataManager = new NavigationDataManager();
-        placeData = dataManager.read(getApplicationContext());
-        System.out.println("koniec czytania");
-        dataManager.save("title,addres", getApplicationContext());
-        //placeData.add(new PlaceData("miejsce 1","1600 Amphitheatre Parkway, Mountain+View, California"));
-        initRecyclerView(placeData);
+        this.initList();
     }
 
     private void initList() {
-        //placeData.add(new PlaceData("miejsce 1","1600 Amphitheatre Parkway, Mountain+View, California"));
+        dataManager.save("titlenext,ads", getApplicationContext());
+        placeData = dataManager.read(getApplicationContext());
         initRecyclerView(placeData);
-        //init list from storage
-        //List<ContactData> contactList = getContacts();
-       // Collections.sort(contactList);
-       // initRecyclerView(contactList);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //this.initList();
+
+        this.initList();
     }
-
-
 
     private void initToolbar() {
         showBackButton();
@@ -119,25 +112,8 @@ public class NavigationListActivity extends MainActivity {
 
     @OnClick({R.id.navigation_button_call})
     public void callToSelectedContact() {
-        /*
-        if (((ContactListAdapter) mAdapter).lastSelectedItem >= 0) {
-            List<ContactData> contactList = getContacts();
-            Collections.sort(contactList);
-            ContactData contactData = contactList.get(((ContactListAdapter) mAdapter).lastSelectedItem);
-            Intent intent = new Intent(Intent.ACTION_CALL);
-
-            intent.setData(Uri.parse("tel:" + contactData.getNumebrOfPerson()));
-            if (ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE}, 1);
-            }
-            getApplicationContext().startActivity(intent);
-
-        }
-        */
+        startActivity(new Intent(this, AddAddressActivity.class));
     }
-
-
 
     public void updateSelectedItem(int index) {
         ((NavigationListAdapter) mAdapter).lastSelectedItem = index;
