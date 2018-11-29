@@ -2,6 +2,7 @@ package com.example.olastandard.appforseniors;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -24,6 +25,8 @@ import butterknife.OnClick;
 public class ManuActivity extends MainActivity {
     @BindView(R.id.menu_grid_view) GridView gridView;
     @BindView(R.id.menu_button_select) Button buttonSelect;
+//    @BindView(R.id.menu_card_view)
+//    CardView menuCardView;
 
     private final MenuItem[] menuItems = new MenuItem[]{new MenuItem(R.drawable.call_icon, R.string.call),
             new MenuItem(R.drawable.sms_icon, R.string.sms) ,
@@ -52,11 +55,11 @@ public class ManuActivity extends MainActivity {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
                 changeSelectButtonColor();
-                for (int i=0; i < menuItemAdapter.getCount() ; i++){
-                    parent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.crem));
-                }
+//                for (int i=0; i < menuItemAdapter.getCount() ; i++){
+//                    parent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.transparent));
+//                }
                 gridSelectedPosition = position;
-                view.setBackgroundColor(getResources().getColor(R.color.green));
+                //view.setBackgroundColor(getResources().getColor(R.color.green));
             }
         });
     }

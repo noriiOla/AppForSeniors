@@ -129,8 +129,6 @@ public class MessagerListActivity extends MainActivity {
     }
 
     private void changeButtonsColor() {
-//        this.buttonSelect.setBackgroundColor(getResources().getColor(R.color.green));
-//        this.buttonDelete.setBackgroundColor(getResources().getColor(R.color.green));
         buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
     }
 
