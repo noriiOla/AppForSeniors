@@ -51,6 +51,8 @@ public class MessagerListActivity extends MainActivity {
         this.background.setBackgroundColor(getResources().getColor(R.color.lightGray));
         initToolbar();
         addListeners();
+        buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
+        buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
     }
 
     @Override
@@ -127,8 +129,9 @@ public class MessagerListActivity extends MainActivity {
     }
 
     private void changeButtonsColor() {
-        this.buttonSelect.setBackgroundColor(getResources().getColor(R.color.green));
-        this.buttonDelete.setBackgroundColor(getResources().getColor(R.color.green));
+//        this.buttonSelect.setBackgroundColor(getResources().getColor(R.color.green));
+//        this.buttonDelete.setBackgroundColor(getResources().getColor(R.color.green));
+        buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
     }
 
     @OnClick({R.id.sms_button_select})
