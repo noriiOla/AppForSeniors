@@ -77,6 +77,7 @@ public class ContactListActivity extends MainActivity {
             this.buttonDelete.setVisibility(View.GONE);
             this.buttonCall.setVisibility(View.GONE);
             this.buttonChoose.setVisibility(View.VISIBLE);
+            this.buttonChoose.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         }
     }
 

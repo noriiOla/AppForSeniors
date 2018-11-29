@@ -57,7 +57,6 @@ public class NewSmsActivity extends MainActivity {
 
         contactsList.setMovementMethod(new ScrollingMovementMethod());
 
-
         PersonSmsData data = (PersonSmsData) getIntent().getSerializableExtra("smsData");
         smsData = new ArrayList<>();
 
@@ -70,7 +69,10 @@ public class NewSmsActivity extends MainActivity {
         }
 
         addListeners();
+
+        buttonAddContact.setBackground(getResources().getDrawable(R.drawable.floating_button_shape_green));
     }
+
     public void addListeners() {
         this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -83,10 +85,20 @@ public class NewSmsActivity extends MainActivity {
                         }
                     });
                 }else {
-                    for (PersonSmsData singleData : smsData) {
-                        sendSMS(singleData.getNumebrOfPerson(), msgText.getText().toString());
+                    if (contactsList.getText().toString().trim().equals("")) {
+                        (new PushDialogManager()).showDialogWithOkButton(NewSmsActivity.this, "Lista osób do których chcesz wysłać jest pusta, uzupełnij ją", new PushDialogButtonsOkInterface(){
+
+                            @Override
+                            public void onOkButtonTap() {
+
+                            }
+                        });
+                    }else {
+                        for (PersonSmsData singleData : smsData) {
+                            sendSMS(singleData.getNumebrOfPerson(), msgText.getText().toString());
+                        }
+                        finish();
                     }
-                    finish();
                 }
             }
         });

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".smsActivitys.NewSmsActivity">
+    tools:context=".smsActivitys.NewSmsActivity"
+    android:background="@color/lightGray">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,6 +38,8 @@
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:textSize="20dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:text="@string/newReceiver"
                 />
