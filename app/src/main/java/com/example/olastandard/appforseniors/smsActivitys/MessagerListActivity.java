@@ -93,7 +93,7 @@ public class MessagerListActivity extends MainActivity {
     public void addListeners() {
         this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                (new PushDialogManager()).showDialogWithYesNoButtons(MessagerListActivity.this,"Czy na pewno chcesz usunąć zaznaczony kontakt?", new PushDialogButtonsYesNoInterface() {
+                (new PushDialogManager()).showDialogWithYesNoButtons(MessagerListActivity.this,"Czy na pewno chcesz usunąć wszystkie wiadomości od zaznaczonego kontaktu?", new PushDialogButtonsYesNoInterface() {
 
                     @Override
                     public void onYesButtonTap() {

@@ -20,6 +20,7 @@ public class PushDialogManager {
         text.setText(dialogMessage);
 
         Button buttonNo = (Button) dialog.findViewById(R.id.push_button_no);
+
         buttonNo.setVisibility(View.VISIBLE);
         buttonNo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +39,9 @@ public class PushDialogManager {
                 dialog.dismiss();
             }
         });
+
+        buttonNo.setBackground(activity.getResources().getDrawable(R.drawable.button_shape_red));
+        buttonYes.setBackground(activity.getResources().getDrawable(R.drawable.button_shape_green));
 
         dialog.show();
     }
@@ -58,6 +62,8 @@ public class PushDialogManager {
                 dialog.dismiss();
             }
         });
+
+        buttonOk.setBackground(activity.getResources().getDrawable(R.drawable.button_shape_green));
 
         dialog.show();
     }

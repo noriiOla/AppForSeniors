@@ -41,4 +41,6 @@
     <string name="nazwaLinku">Nazwa Linku</string>
     <string name="urlL">Adres url</string>
 
+    <!--Popup-->
+    <string name="popup_title">Uważaj</string>
 </resources>

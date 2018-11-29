@@ -15,6 +15,22 @@
         android:layout_centerInParent="true"
         >
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:id="@+id/popup_title_view"
+            android:background="@color/colorPrimary"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="23sp"
+                android:text="@string/popup_title"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+        </RelativeLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,15 +38,16 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:text="text"
-            android:textSize="22sp"
+            android:textSize="23sp"
             android:background="@color/crem"
             android:textColor="@color/black"
+            android:layout_below="@id/popup_title_view"
             android:id="@+id/push_dialog_text"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="47dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
@@ -41,22 +58,24 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="TAK"
+                android:text="Tak"
                 android:layout_weight="1"
+                android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:id="@+id/push_button_yes"
-                android:textSize="25sp"
-                android:layout_marginRight="5dp"
+                android:textSize="23sp"
+                android:layout_marginRight="2.5dp"
                 android:visibility="gone"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="NIE"
+                android:text="Nie"
+                android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:id="@+id/push_button_no"
                 android:layout_weight="1"
-                android:textSize="25sp"
-                android:layout_marginLeft="5dp"
+                android:textSize="23sp"
+                android:layout_marginLeft="2.5dp"
                 android:visibility="gone"/>
         </LinearLayout>
 
@@ -64,9 +83,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_below="@id/push_dialog_text"
-            android:text="OK"
+            android:text="Rozumiem"
+            android:textAllCaps="false"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="23sp"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
