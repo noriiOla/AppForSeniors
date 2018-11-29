@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".smsActivitys.MessagerActivity"
-    android:id="@+id/messager_background">
+    android:id="@+id/messager_background"
+    android:background="@color/lightGray">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/messager_recyclerView"

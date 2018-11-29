@@ -12,4 +12,6 @@
     <color name="lightGray">#dfdfdf</color>
     <color name="lightBlue">#cce0ff</color>
     <color name="buttonGrayColor">#D8D8D8</color>
+    <color name="greenTransparent50Proc">#4D6CCCFF</color>
+    <color name="orangeTransparent50Proc">#4DFF6E00</color>
 </resources>
