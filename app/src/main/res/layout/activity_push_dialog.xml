@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:maxHeight="400dp"
         android:minWidth="0dp"
-        android:background="@color/crem"
+        android:background="@color/white"
         android:layout_centerInParent="true"
         >
 
@@ -40,7 +40,7 @@
             android:layout_marginLeft="10dp"
             android:text="text"
             android:textSize="23sp"
-            android:background="@color/crem"
+            android:background="@color/white"
             android:textColor="@color/black"
             android:layout_below="@id/popup_title_view"
             android:id="@+id/push_dialog_text"
@@ -54,7 +54,7 @@
             android:layout_marginLeft="5dp"
             android:orientation="horizontal"
             android:weightSum="2"
-            android:background="@color/crem"
+            android:background="@color/white"
             android:layout_below="@id/push_dialog_text">
             <Button
                 android:layout_width="match_parent"
