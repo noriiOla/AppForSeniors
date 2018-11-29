@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         _toolbarBackButton = (Button) findViewById(R.id.toolbarBackButton);
         _toolbarTitle = (TextView) findViewById(R.id.toolbarActivityTitle);
         _toolbarSaveButton = (Button) findViewById(R.id.toolbar_save);
+        _toolbarBackButton.setBackground(getResources().getDrawable(R.drawable.button_shape_white_corners));
+        _toolbarSaveButton.setBackground(getResources().getDrawable(R.drawable.button_shape_white_corners));
 
         setBaseTouchListeners();
     }

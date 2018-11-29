@@ -2,24 +2,24 @@
     <string name="app_name">AppForSeniors</string>
 
     <!--TOOLBAR-->
-    <string name="back">WRÓĆ</string>
-    <string name="save">ZAPISZ</string>
-    <string name="newS">NOWA</string>
-    <string name="write">NAPISZ</string>
-    <string name="send">WYŚLIJ</string>
+    <string name="back">Wróć</string>
+    <string name="save">Zapisz</string>
+    <string name="newS">Nowa</string>
+    <string name="write">Napisz</string>
+    <string name="send">Wyślij</string>
 
-    <string name="newL">NOWY</string>
+    <string name="newL">Nowy</string>
 
     <!--Menu-->
-    <string name="menu">MENU</string>
+    <string name="menu">Menu</string>
     <string name="wybierz">WYBIERZ</string>
     <string name="alarm">BUDZIK</string>
-    <string name="sms">WIADOMOSCI</string>
+    <string name="sms">Wiadomości</string>
     <string name="call">ZADZWOŃ</string>
     <string name="gps">PROWADŹ</string>
     <string name="notes">NOTATKI</string>
     <string name="web">INTERNET</string>
-    <string name="usun">USUN</string>
+    <string name="usun">Usuń</string>
 
 
     <!--Contacts-->
@@ -31,10 +31,10 @@
     <string name="delete_contact">Usuń</string>
     <string name="call_to_contact_number">Zadzwoń</string>
     <!--Sms-->
-    <string name="show">POKAŻ</string>
-    <string name="delete">USUŃ</string>
+    <string name="show">Pokaż</string>
+    <string name="delete">Usuń</string>
     <string name="me">Ja</string>
-    <string name="newReceiver">DODAJ ODBIORCĘ</string>
+    <string name="newReceiver">Dodaj odbiorcę</string>
 
     <!--Linki-->
 
