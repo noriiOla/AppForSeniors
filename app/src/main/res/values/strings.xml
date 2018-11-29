@@ -42,5 +42,7 @@
     <string name="urlL">Adres url</string>
 
     <!--Popup-->
-    <string name="popup_title">Uważaj</string>
+    <string name="popup_title_yes_no">Uważaj</string>
+    <string name="popup_title_information">Informacja</string>
+
 </resources>

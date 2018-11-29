@@ -15,6 +15,7 @@ import android.widget.GridView;
 import com.example.olastandard.appforseniors.ExampleActivity;
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.PersonSmsData;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
@@ -93,22 +94,33 @@ public class MessagerListActivity extends MainActivity {
     public void addListeners() {
         this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                (new PushDialogManager()).showDialogWithYesNoButtons(MessagerListActivity.this,"Czy na pewno chcesz usunąć wszystkie wiadomości od zaznaczonego kontaktu?", new PushDialogButtonsYesNoInterface() {
 
-                    @Override
-                    public void onYesButtonTap() {
-                        smsHelper.deleteSms(smsHelper.getListOfPersonsData().get(((SmsPersonListAdapter)mAdapter).lastSelectedItem));
+                if (((SmsPersonListAdapter) mAdapter).lastSelectedItem == -1) {
+                    new PushDialogManager().showDialogWithOkButton(MessagerListActivity.this, "Żadna wiadomość nie została wybrana", new PushDialogButtonsOkInterface() {
+                        @Override
+                        public void onOkButtonTap() {
 
-                        smsHelper = new SmsHelper(MessagerListActivity.this.getApplicationContext(), MessagerListActivity.this);
-                        List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
-                        initRecyclerView(listaSmsow);
-                    }
+                        }
+                    });
+                } else {
 
-                    @Override
-                    public void onNoButtonTap() {
+                    (new PushDialogManager()).showDialogWithYesNoButtons(MessagerListActivity.this, "Czy na pewno chcesz usunąć wszystkie wiadomości od zaznaczonego kontaktu?", new PushDialogButtonsYesNoInterface() {
 
-                    }
-                });
+                        @Override
+                        public void onYesButtonTap() {
+                            smsHelper.deleteSms(smsHelper.getListOfPersonsData().get(((SmsPersonListAdapter) mAdapter).lastSelectedItem));
+
+                            smsHelper = new SmsHelper(MessagerListActivity.this.getApplicationContext(), MessagerListActivity.this);
+                            List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
+                            initRecyclerView(listaSmsow);
+                        }
+
+                        @Override
+                        public void onNoButtonTap() {
+
+                        }
+                    });
+                }
             }
         });
     }
