@@ -118,7 +118,7 @@ public class MessagerListActivity extends MainActivity {
         listOfSms.setLayoutManager(mLayoutManager);
         mAdapter = new SmsPersonListAdapter(listOfPersonsSmsData, getApplicationContext());
         listOfSms.setAdapter(mAdapter);
-        listOfSms.addItemDecoration(new com.example.olastandard.appforseniors.Objects.DividerItemDecoration(this));
+       // listOfSms.addItemDecoration(new com.example.olastandard.appforseniors.Objects.DividerItemDecoration(this));
     }
 
     private void initToolbar() {
