@@ -9,5 +9,7 @@
     <color name="green">#33cc33</color>
     <color name="red">#FF0000</color>
     <color name="transparent">#80000000</color>
-
+    <color name="lightGray">#dfdfdf</color>
+    <color name="lightBlue">#cce0ff</color>
+    <color name="buttonGrayColor">#D8D8D8</color>
 </resources>

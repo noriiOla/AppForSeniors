@@ -49,7 +49,7 @@ public class SmsPersonListAdapter extends RecyclerView.Adapter<SmsPersonListAdap
         }
 
         public void clearBackgroundColor() {
-            background.setBackgroundColor(mcontext.getResources().getColor(R.color.crem));
+            background.setBackgroundColor(mcontext.getResources().getColor(R.color.white));
         }
 
         @OnClick(R.id.sms_person_list_cell)

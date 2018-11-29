@@ -40,6 +40,7 @@ public class ManuActivity extends MainActivity {
         ButterKnife.bind(this);
         initToolbar();
         initGridView();
+        buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
     }
 
     public void initGridView() {
@@ -68,7 +69,9 @@ public class ManuActivity extends MainActivity {
     }
 
     private void changeSelectButtonColor() {
-        this.buttonSelect.setBackgroundColor(getResources().getColor(R.color.green));
+        buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
+
+        //this.buttonSelect.setBackgroundColor(getResources().getColor(R.color.green));
     }
 
     @OnClick({R.id.menu_button_select})

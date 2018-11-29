@@ -48,7 +48,7 @@ public class MessagerListActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         initAddlayout(R.layout.activity_messager_list);
         ButterKnife.bind(this);
-        this.background.setBackgroundColor(getResources().getColor(R.color.crem));
+        this.background.setBackgroundColor(getResources().getColor(R.color.lightGray));
         initToolbar();
         addListeners();
     }
