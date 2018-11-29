@@ -6,10 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.olastandard.appforseniors.Objects.MenuItem;
 import com.example.olastandard.appforseniors.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuItemAdapter extends BaseAdapter {
 
@@ -47,7 +51,6 @@ public class MenuItemAdapter extends BaseAdapter {
 
         final ImageView iconImageView = (ImageView)convertView.findViewById(R.id.menu_item_icon);
         final TextView iconTextView = (TextView)convertView.findViewById(R.id.menu_item_text);
-
 
         // 4
         iconImageView.setImageResource(menuItems[position].icon);

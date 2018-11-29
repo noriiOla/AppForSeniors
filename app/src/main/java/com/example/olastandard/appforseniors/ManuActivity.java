@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import com.example.olastandard.appforseniors.Adapters.MenuItemAdapter;
 import com.example.olastandard.appforseniors.AlarmClock.AlarmMenuActivity;
@@ -55,11 +56,15 @@ public class ManuActivity extends MainActivity {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
                 changeSelectButtonColor();
-//                for (int i=0; i < menuItemAdapter.getCount() ; i++){
-//                    parent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.transparent));
-//                }
+                
+                for (int i=0; i < menuItemAdapter.getCount() ; i++){
+                    LinearLayout f_l = (LinearLayout) parent.getChildAt(i).findViewById(R.id.grid_cell_background);
+                    f_l.setBackgroundColor(getResources().getColor(R.color.white));
+                }
+
+                LinearLayout actualSelectedView = (LinearLayout) view.findViewById(R.id.grid_cell_background);
+                actualSelectedView.setBackgroundColor(getResources().getColor(R.color.green));
                 gridSelectedPosition = position;
-                //view.setBackgroundColor(getResources().getColor(R.color.green));
             }
         });
     }
