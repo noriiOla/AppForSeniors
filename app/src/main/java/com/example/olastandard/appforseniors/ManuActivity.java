@@ -55,18 +55,23 @@ public class ManuActivity extends MainActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
-                changeSelectButtonColor();
-                
-                for (int i=0; i < menuItemAdapter.getCount() ; i++){
-                    if (parent.getChildAt(i) != null) {
-                        LinearLayout f_l = (LinearLayout) parent.getChildAt(i).findViewById(R.id.grid_cell_background);
-                        f_l.setBackgroundColor(getResources().getColor(R.color.white));
-                    }
-                }
 
                 LinearLayout actualSelectedView = (LinearLayout) view.findViewById(R.id.grid_cell_background);
-                actualSelectedView.setBackgroundColor(getResources().getColor(R.color.green));
-                gridSelectedPosition = position;
+                if (actualSelectedView != null) {
+                    changeSelectButtonColor();
+
+                    for (int i=0; i < menuItemAdapter.getCount() ; i++) {
+                        if (parent.getChildAt(i) != null) {
+                            LinearLayout f_l = (LinearLayout) parent.getChildAt(i).findViewById(R.id.grid_cell_background);
+                            if (f_l != null) {
+                                f_l.setBackgroundColor(getResources().getColor(R.color.white));
+                            }
+                        }
+                    }
+
+                    actualSelectedView.setBackgroundColor(getResources().getColor(R.color.green));
+                    gridSelectedPosition = position;
+                }
             }
         });
     }
