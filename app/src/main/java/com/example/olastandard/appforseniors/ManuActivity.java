@@ -58,8 +58,10 @@ public class ManuActivity extends MainActivity {
                 changeSelectButtonColor();
                 
                 for (int i=0; i < menuItemAdapter.getCount() ; i++){
-                    LinearLayout f_l = (LinearLayout) parent.getChildAt(i).findViewById(R.id.grid_cell_background);
-                    f_l.setBackgroundColor(getResources().getColor(R.color.white));
+                    if (parent.getChildAt(i) != null) {
+                        LinearLayout f_l = (LinearLayout) parent.getChildAt(i).findViewById(R.id.grid_cell_background);
+                        f_l.setBackgroundColor(getResources().getColor(R.color.white));
+                    }
                 }
 
                 LinearLayout actualSelectedView = (LinearLayout) view.findViewById(R.id.grid_cell_background);
