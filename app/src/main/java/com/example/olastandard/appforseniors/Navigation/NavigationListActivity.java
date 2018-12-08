@@ -1,6 +1,7 @@
 package com.example.olastandard.appforseniors.Navigation;
 
 import android.content.Intent;
+import android.location.LocationManager;
 import android.support.constraint.ConstraintLayout;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.PlaceData;
 import com.example.olastandard.appforseniors.R;
+import com.google.android.gms.maps.OnMapReadyCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ public class NavigationListActivity extends MainActivity {
     Button buttonDelete;
     @BindView(R.id.navigation_list_background)
     ConstraintLayout background;
+    LocationManager locationManager;
 
 
     private RecyclerView.Adapter mAdapter;
@@ -101,13 +104,22 @@ public class NavigationListActivity extends MainActivity {
     }
 
     @OnClick({R.id.navigation_button_call})
-    public void callToSelectedContact() {
-        startActivity(new Intent(this, AddAddressActivity.class));
+    public void navigateToPlace() {
+        startActivity(new Intent(this, NavigateToPointAcitivity.class));
+        //startActivity(new Intent(this, AddAddressActivity.class));
     }
 
     public void updateSelectedItem(int index) {
         ((NavigationListAdapter) mAdapter).lastSelectedItem = index;
         mAdapter.notifyDataSetChanged();
         //changeButtonsColor();
+    }
+
+    public void getCurrentLocation(int index){
+
+    }
+
+    public void navigateToPlace(int index){
+
     }
 }
