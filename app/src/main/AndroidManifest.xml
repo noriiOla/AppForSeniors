@@ -43,6 +43,7 @@
         <activity android:name=".smsActivitys.MessagerListActivity"/>
         <activity android:name=".smsActivitys.NewSmsActivity" />
         <activity android:name=".AlarmClock.AlarmMenuActivity" />
+        <activity android:name=".AlarmClock.LinksClockActivity" />
         <activity android:name=".LinksActivity" />
         <activity android:name=".AddLinkActivity" />
         <activity android:name=".AlarmClock.ClockListActivity" />

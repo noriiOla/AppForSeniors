@@ -62,7 +62,7 @@ public class ClockListActivity extends MainActivity {
         ListView listV=(ListView)findViewById(R.id.link_list_view2);
         listV.setAdapter(adapter);
         // Toast.makeText(getApplicationContext(),"rozmiar oncreate "+ arrayList.size() ,Toast.LENGTH_LONG).show();
-        listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
                 listPosition=position;
@@ -85,8 +85,29 @@ public class ClockListActivity extends MainActivity {
 
 
             }
-        });
+        });*/
+        listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+                listPosition=position;
+                int count = 0;
+                ListView listV=(ListView)findViewById(R.id.link_list_view);
+                for (int i = 0; i <= listV.getLastVisiblePosition(); i++)
+                {
 
+
+                    if (listV.getChildAt(i) != null)
+                    {
+                        //1 mozliewy
+                        listV.getChildAt(i).setBackgroundColor(Color.parseColor("#fffdd0"));
+                    }
+                }
+                // listV.getChildAt(listPosition).setBackgroundColor(getResources().getColor(R.color.green));
+                view.setBackgroundColor(getResources().getColor(R.color.green));
+                findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
+                findViewById(R.id.delete_button).setBackgroundColor(getResources().getColor(R.color.red));
+            }
+        });
 
         _toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -330,6 +351,11 @@ public void startAlarm(){
             return;
         }
         String array=arrayListListView.get(listPosition);
+        Log.e("wyswiet"+listPosition,""+listPosition);
+        System.out.println();
+        System.out.println("wyswiet"+listPosition);
+        System.out.println();
+
      //   Toast.makeText(getApplicationContext(),"rozmiar "+ arrayList.size() ,Toast.LENGTH_LONG).show();
        // arrayList.remove(listPosition);
         arrayListListView.remove(listPosition);

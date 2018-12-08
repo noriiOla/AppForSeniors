@@ -1,23 +1,29 @@
-package com.example.olastandard.appforseniors;
+package com.example.olastandard.appforseniors.AlarmClock;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.example.olastandard.appforseniors.AddLinkActivity;
+import com.example.olastandard.appforseniors.MainActivity;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
+import com.example.olastandard.appforseniors.R;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,17 +36,12 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 
 import butterknife.OnClick;
-import android.view.View.OnClickListener;
-import android.widget.Toast;
 
-import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
-import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
-import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
-
-public class LinksActivity extends MainActivity  {
+public class LinksClockActivity extends MainActivity  {
 
   public String path=  Environment.DIRECTORY_DOWNLOADS;          ;
     ArrayList<String> arrayList=new ArrayList<>();
@@ -63,7 +64,7 @@ public class LinksActivity extends MainActivity  {
         read();
        // Toast.makeText(getApplicationContext(),"rozmiarallw resume "+ arrayListListView.size() ,Toast.LENGTH_LONG).show();
       //  Toast.makeText(getApplicationContext(),"rozmiar resume "+ arrayList.size() ,Toast.LENGTH_LONG).show();
-        adapter=new ArrayAdapter<String>(this,R.layout.listview_links_item,R.id.txtview,arrayListListView)
+        adapter=new ArrayAdapter<String>(this,R.layout.listview_ac__item,R.id.txtview,arrayListListView)
         {
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
@@ -136,9 +137,9 @@ public class LinksActivity extends MainActivity  {
             }
         });
 
-        _toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
+        _toolbarSaveButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), AddLinkActivity.class));
+                startActivity(new Intent(getApplicationContext(), NewAlarmActivity.class));
             }
         });
 
@@ -211,7 +212,7 @@ public class LinksActivity extends MainActivity  {
         //Button mButton = (Button) findViewById(R.id.open_button);
 
         try {
-            FileInputStream fis = this.getApplicationContext().openFileInput("savedFile8");
+            FileInputStream fis = this.getApplicationContext().openFileInput("savedFileClock");
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
             BufferedReader bufferedReader = new BufferedReader(isr);
             StringBuilder sb = new StringBuilder();
@@ -296,7 +297,7 @@ public class LinksActivity extends MainActivity  {
           //  Toast.makeText(getApplicationContext(), "Brak dostepu do neta ", Toast.LENGTH_LONG).show();
 
 
-            new PushDialogManager().showDialogWithOkButton(LinksActivity.this, "Brak dostepu do neta", new PushDialogButtonsOkInterface() {
+            new PushDialogManager().showDialogWithOkButton(LinksClockActivity.this, "Brak dostepu do neta", new PushDialogButtonsOkInterface() {
                 @Override
                 public void onOkButtonTap() {
                     return;
@@ -307,11 +308,11 @@ public class LinksActivity extends MainActivity  {
         else {
             String[] array = arrayList.get(listPosition).split(",");
 
-            String url = array[1];//"http://www.google.com";
+           /* String url = array[1];//"http://www.google.com";
             if (!url.startsWith("http://") && !url.startsWith("https://"))
                 url = "http://" + url;
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(browserIntent);
+            startActivity(browserIntent);*/
         }
 
         }
@@ -326,7 +327,7 @@ public class LinksActivity extends MainActivity  {
         Toast.makeText(getApplicationContext(),"rozmiar "+ arrayList.size() ,Toast.LENGTH_LONG).show();
             arrayList.remove(listPosition);
             arrayListListView.remove(listPosition);
-           Boolean bol=  getApplicationContext().deleteFile("savedFile8");
+           Boolean bol=  getApplicationContext().deleteFile("savedFileClock");
              String result="";
         Collections.reverse(arrayList);
         Collections.reverse(arrayListListView);
@@ -334,7 +335,7 @@ public class LinksActivity extends MainActivity  {
         {result+=line+"\n";}
         Toast.makeText(getApplicationContext(),result ,Toast.LENGTH_LONG).show();
             try {
-                outputStream = this.getApplicationContext().openFileOutput("savedFile8", MODE_PRIVATE);
+                outputStream = this.getApplicationContext().openFileOutput("savedFileClock", MODE_PRIVATE);
 
                     outputStream.write(result.getBytes());
 
@@ -351,9 +352,39 @@ public class LinksActivity extends MainActivity  {
 
     @OnClick({R.id.toolbar_save})
     public void addNewLinkActtivity(View view) {
-        startActivity(new Intent(this, AddLinkActivity.class));
+        startActivity(new Intent(this, NewAlarmActivity.class));
 
 
 
     }
-}
+
+    AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
+
+    private void cancelAlarm() {
+        if (alarmManager!= null) {
+            alarmManager.cancel(pendingIntent);
+            AlarmReceiver.ringtone.stop();
+
+        }}
+    public void startAlarm() {
+        if (arrayListListView.isEmpty()) {
+            return;
+        }
+        String array = (String)arrayListListView.get(listPosition);
+        //zegar
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent myIntent = new Intent(LinksClockActivity.this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(LinksClockActivity.this, 0, myIntent, 0);
+
+
+        int hhelper = Integer.parseInt(array.split(":")[0]);
+        int mhelper = Integer.parseInt(array.split(":")[1]);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hhelper);
+        calendar.set(Calendar.MINUTE, mhelper);
+
+        //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + 3000, pendingIntent);
+    }
+    }
