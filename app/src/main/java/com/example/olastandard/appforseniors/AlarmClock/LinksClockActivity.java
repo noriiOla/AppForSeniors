@@ -64,7 +64,7 @@ public class LinksClockActivity extends MainActivity  {
         read();
        // Toast.makeText(getApplicationContext(),"rozmiarallw resume "+ arrayListListView.size() ,Toast.LENGTH_LONG).show();
       //  Toast.makeText(getApplicationContext(),"rozmiar resume "+ arrayList.size() ,Toast.LENGTH_LONG).show();
-        adapter=new ArrayAdapter<String>(this,R.layout.listview_ac__item,R.id.txtview,arrayListListView)
+        adapter=new ArrayAdapter<String>(this,R.layout.listview_links_item,R.id.txtview,arrayListListView)
         {
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
@@ -142,6 +142,8 @@ public class LinksClockActivity extends MainActivity  {
                 startActivity(new Intent(getApplicationContext(), NewAlarmActivity.class));
             }
         });
+
+
 
     }
     public  void Save(String data)
@@ -286,41 +288,14 @@ public class LinksClockActivity extends MainActivity  {
     @OnClick({R.id.open_button})
     public void openAdres(View view) {
 
-        if(arrayList.isEmpty()){
-            return;
-        }
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        boolean result;
-        if (!(result = (activeNetworkInfo != null && activeNetworkInfo.isConnected()))) {
-          //  Toast.makeText(getApplicationContext(), "Brak dostepu do neta ", Toast.LENGTH_LONG).show();
-
-
-            new PushDialogManager().showDialogWithOkButton(LinksClockActivity.this, "Brak dostepu do neta", new PushDialogButtonsOkInterface() {
-                @Override
-                public void onOkButtonTap() {
-                    return;
-                }
-            });
-
-        }
-        else {
-            String[] array = arrayList.get(listPosition).split(",");
-
-           /* String url = array[1];//"http://www.google.com";
-            if (!url.startsWith("http://") && !url.startsWith("https://"))
-                url = "http://" + url;
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(browserIntent);*/
-        }
+        startAlarm();
 
         }
 
     @OnClick({R.id.delete_button})
         public void deleteLink(View view){
 
-        if(arrayList.isEmpty()){
+       /* if(arrayList.isEmpty()){
             return;
         }
             String array=arrayList.get(listPosition);
@@ -345,8 +320,8 @@ public class LinksClockActivity extends MainActivity  {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            onResume();
-
+            onResume();*/
+cancelAlarm();
 
         }
 
