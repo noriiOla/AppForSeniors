@@ -45,4 +45,6 @@
     <string name="popup_title_yes_no">Uważaj</string>
     <string name="popup_title_information">Informacja</string>
 
+    <string name="sms_persmission">Do poprawnego działania, aplikacja potrzebuje Twojego pozwolenia na czytanie i wysyłanie wiadomości./nNadaj dostęp klikając "Tak" w następnym oknie..</string>
+
 </resources>
