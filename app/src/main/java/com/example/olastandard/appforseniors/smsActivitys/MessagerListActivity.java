@@ -60,6 +60,7 @@ public class MessagerListActivity extends MainActivity {
     protected void onStart() {
         super.onStart();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
+                == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
                 == PackageManager.PERMISSION_GRANTED) {
             smsHelper = new SmsHelper(getApplicationContext(), this);
             List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
