@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +35,10 @@ import java.util.Collections;
 import butterknife.OnClick;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
+
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
+import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
 
 public class LinksActivity extends MainActivity  {
 
@@ -282,7 +288,22 @@ public class LinksActivity extends MainActivity  {
         if(arrayList.isEmpty()){
             return;
         }
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        boolean result;
+        if (!(result = (activeNetworkInfo != null && activeNetworkInfo.isConnected()))) {
+          //  Toast.makeText(getApplicationContext(), "Brak dostepu do neta ", Toast.LENGTH_LONG).show();
 
+
+            new PushDialogManager().showDialogWithOkButton(LinksActivity.this, "Brak dostepu do neta", new PushDialogButtonsOkInterface() {
+                @Override
+                public void onOkButtonTap() {
+                    return;
+                }
+            });
+
+        }
         String[] array=arrayList.get(listPosition).split(",");
 
         String url=array[1];//"http://www.google.com";

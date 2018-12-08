@@ -102,10 +102,10 @@ public class AddLinkActivity extends MainActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         boolean result;
 
-        if (!(result = (activeNetworkInfo != null && activeNetworkInfo.isConnected()))) {
+       /* if (!(result = (activeNetworkInfo != null && activeNetworkInfo.isConnected()))) {
             Toast.makeText(getApplicationContext(), "Brak dostepu do neta ", Toast.LENGTH_LONG).show();
             return;
-        }
+        }*/
 
         if (read(nazwa) == false) {
             Toast.makeText(getApplicationContext(), "istnieje juz nazwa podac inna", Toast.LENGTH_LONG).show();
