@@ -20,8 +20,16 @@ public class NavigationDataManager {
     String fileName = "NaviAddress";
 
     public NavigationDataManager() {
+        this.initFile();
+    }
+
+    public void initFile(){
         File dir=new File(path);
         dir.mkdir();
+    }
+
+    public void deleteFile(Context context){
+        context.deleteFile(fileName);
     }
 
     public ArrayList<PlaceData> read(Context context) {
@@ -40,6 +48,7 @@ public class NavigationDataManager {
                 PlaceData placeData = new PlaceData(title, address);
                 arrayList.add(placeData);
             }
+            fis.close();
 
         } catch (FileNotFoundException e) {
             Log.d("EXCEPTION", "File not found");
@@ -59,6 +68,27 @@ public class NavigationDataManager {
             outputStream.write(lineTitle.getBytes());
             outputStream.write(lineAddress.getBytes());
             outputStream.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean save(ArrayList<PlaceData> placeData, Context context) {
+        FileOutputStream outputStream;
+        String lineTitle = "";
+        String lineAddress = "";
+        deleteFile(context);
+        initFile();
+        try {
+            for(PlaceData place: placeData){
+                lineTitle = addNewLineSignToString(place.getTitle());
+                lineAddress = addNewLineSignToString(place.getAddress());
+                outputStream = context.openFileOutput(fileName, context.MODE_PRIVATE);
+                outputStream.write(lineTitle.getBytes());
+                outputStream.write(lineAddress.getBytes());
+            }
             return true;
         } catch (Exception e) {
             e.printStackTrace();

@@ -56,7 +56,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBOsHFmIjpVv41mG7YZPV_7ZaQtQkz3mC8" />
 
-        <activity android:name=".Navigation.NavigateToPointAcitivity"></activity>
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
@@ -62,8 +63,10 @@ public class AddAddressActivity extends MainActivity implements
                 .build();
 
         mAutocompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
+        AutocompleteFilter filter =
+                new AutocompleteFilter.Builder().setCountry("PL").build();
         mPlaceArrayAdapter = new PlaceArrayAdapter(this, android.R.layout.simple_list_item_1,
-                BOUNDS_MOUNTAIN_VIEW, null);
+                BOUNDS_MOUNTAIN_VIEW, filter);
         mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
 
         initToolbar();
@@ -96,10 +99,6 @@ public class AddAddressActivity extends MainActivity implements
             // Selecting the first object buffer.
             final Place place = places.get(0);
             CharSequence attributions = places.getAttributions();
-
-            //mNameView.setText(Html.fromHtml(place.getAddress() + ""));
-
-
         }
     };
 
@@ -135,7 +134,6 @@ public class AddAddressActivity extends MainActivity implements
         NavigationDataManager navigationDataManager = new NavigationDataManager();
         String title_text = title.getText().toString();
         String address = autoCompleteTextView.getText().toString();
-        //String line = title_text+";"+address;
         navigationDataManager.save(title_text,address, getApplicationContext());
         startActivity(new Intent(this, NavigationListActivity.class));
 
