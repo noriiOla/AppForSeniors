@@ -3,12 +3,14 @@ package com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.olastandard.appforseniors.R;
 import com.example.olastandard.appforseniors.smsActivitys.MessagerActivity;
 import com.example.olastandard.appforseniors.smsActivitys.app;
 
@@ -18,6 +20,7 @@ public class SmsReceiver  extends BroadcastReceiver {
 
     //interface
     private static SmsListener mListener;
+    final MediaPlayer mp = MediaPlayer.create(app.getContext(), R.raw.never);
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -35,6 +38,7 @@ public class SmsReceiver  extends BroadcastReceiver {
                 String message = messages[0].getMessageBody();
 
                 smsHelper.saveSms(adress, message, "0", String.valueOf(Calendar.getInstance().getTime()), "inbox");
+                mp.start();
             }
 
             if (mListener != null) {
