@@ -31,7 +31,7 @@ public class SmsReceiver  extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(Telephony.Sms.Intents.SMS_DELIVER_ACTION)) {
+        if (intent.getAction().equals(Telephony.Sms.Intents.SMS_RECEIVED_ACTION)) {
             final SmsHelper smsHelper = new SmsHelper(app.getContext());
 
             if (smsHelper.isDefaultSmsApp(app.getContext())) {
@@ -49,10 +49,9 @@ public class SmsReceiver  extends BroadcastReceiver {
                 smsHelper.saveSms(adress, message, "0", String.valueOf(Calendar.getInstance().getTime()), "inbox");
                 mp.start();
             }
-
-            if (mListener != null) {
-                mListener.messageReceived();
-            }
+        }
+        if (mListener != null) {
+            mListener.messageReceived();
         }
     }
 
