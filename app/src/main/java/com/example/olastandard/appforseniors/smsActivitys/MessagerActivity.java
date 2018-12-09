@@ -2,6 +2,7 @@ package com.example.olastandard.appforseniors.smsActivitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,6 +13,8 @@ import com.example.olastandard.appforseniors.R;
 import com.example.olastandard.appforseniors.smsActivitys.smsAdapters.MessagerAdapter;
 import com.example.olastandard.appforseniors.smsActivitys.smsAdapters.SmsPersonListAdapter;
 import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsHelper;
+import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsListener;
+import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsReceiver;
 
 import java.util.List;
 
@@ -28,6 +31,8 @@ public class MessagerActivity extends MainActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    SmsReceiver smsReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +48,38 @@ public class MessagerActivity extends MainActivity {
             initRecyclerView();
         }
 
+        smsReceiver = new SmsReceiver();
+        smsReceiver.bindListener(new SmsListener() {
+                                     @Override
+                                     public void messageReceived() {
+                                         final Handler handler = new Handler();
+                                         handler.postDelayed(new Runnable() {
+                                             @Override
+                                             public void run() {
+                                                 SmsHelper smsHelper = new SmsHelper(MessagerActivity.this.getApplicationContext(), MessagerActivity.this);
+                                                 List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
+                                                 setNewSmsData(listaSmsow);
+                                             }
+                                         }, 1000);
+                                     }
+        });
+
         addListeners();
         if (smsData.getListOfSms().get(smsData.getListOfSms().size() - 1).getReadState().equals("0")) {
             (new SmsHelper(getApplicationContext(), this)).markMessageRead(smsData);
         }
     }
+
+    public void setNewSmsData(List<PersonSmsData> listaSmsow) {
+        for (PersonSmsData person : listaSmsow) {
+            if (person.getNumebrOfPerson().equals(this.smsData.getNumebrOfPerson())) {
+                smsData = person;
+                initRecyclerView();
+                break;
+            }
+        }
+    }
+
 
     @Override
     protected void onStart() {
