@@ -40,7 +40,6 @@ public class AddAddressActivity extends MainActivity implements
     private static final String TAG = "MainActivity";
     private static final int GOOGLE_API_CLIENT_ID = 0;
     private AutoCompleteTextView mAutocompleteTextView;
-    private TextView mNameView;
 
     private GoogleApiClient mGoogleApiClient;
     private PlaceArrayAdapter mPlaceArrayAdapter;
