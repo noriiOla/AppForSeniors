@@ -36,17 +36,6 @@ public class SmsHelper {
         this.contextActivity = contextActivity;
     }
 
-//    public static final String SMS_CONDITION = "Some condition";
-//
-//    public static boolean isValidPhoneNumber(String phoneNumber) {
-//        return android.util.Patterns.PHONE.matcher(phoneNumber).matches();
-//    }
-//
-//    public static void sendDebugSms(String number, String smsBody) {
-//        SmsManager smsManager = SmsManager.getDefault();
-//        smsManager.sendTextMessage(number, null, smsBody, null, null);
-//    }
-
     public String getContactName(final String phoneNumber)
     {
         Uri uri=Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI,Uri.encode(phoneNumber));
@@ -116,10 +105,9 @@ public class SmsHelper {
     public List<PersonSmsData> actualizeListOfSms() {
         Sms objSms;
         Uri message = Uri.parse("content://sms/");
-        ContentResolver cr = contextActivity.getContentResolver();
 
-        Cursor c = cr.query(message, null, null, null, null);
-        contextActivity.startManagingCursor(c);
+        Cursor c = contextActivity.getContentResolver().query(message, null, null, null, null);
+
         int totalSMS = c.getCount();
 
         if (c.moveToFirst()) {

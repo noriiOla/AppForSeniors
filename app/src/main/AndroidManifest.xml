@@ -8,12 +8,10 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -38,27 +36,32 @@
         <activity android:name=".Contacts.ContactListActivity" />
         <activity android:name=".Contacts.AddContactActivity" />
         <activity android:name=".Contacts.EditContactActivity" />
-
         <activity android:name=".smsActivitys.MessagerActivity" />
-        <activity android:name=".smsActivitys.MessagerListActivity"/>
+        <activity android:name=".smsActivitys.MessagerListActivity" />
         <activity android:name=".smsActivitys.NewSmsActivity" />
         <activity android:name=".AlarmClock.AlarmMenuActivity" />
         <activity android:name=".LinksActivity" />
         <activity android:name=".AddLinkActivity" />
         <activity android:name=".AlarmClock.ClockListActivity" />
-        <activity android:name=".AlarmClock.NewAlarmActivity"/>
-        <receiver android:name=".AlarmClock.AlarmReceiver"/>
-        <activity android:name=".Navigation.NavigationListActivity"/>
-        <activity android:name=".Navigation.AddAddressActivity"/>
+        <activity android:name=".AlarmClock.NewAlarmActivity" />
+
+        <receiver android:name=".AlarmClock.AlarmReceiver" />
+
+        <activity android:name=".Navigation.NavigationListActivity" />
+        <activity android:name=".Navigation.AddAddressActivity" />
 
         <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyBOsHFmIjpVv41mG7YZPV_7ZaQtQkz3mC8" />
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBOsHFmIjpVv41mG7YZPV_7ZaQtQkz3mC8" />
 
+        <receiver
+            android:name=".smsActivitys.smsHelperClassess.SmsReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
     </application>
-
-
-
-
 
 </manifest>

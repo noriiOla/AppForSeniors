@@ -13,27 +13,7 @@ public class SmsReceiver  extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Bundle data  = intent.getExtras();
-
-        Object[] pdus = (Object[]) data.get("pdus");
-
-        for(int i=0;i<pdus.length;i++){
-            SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) pdus[i]);
-
-            String sender = smsMessage.getDisplayOriginatingAddress();
-            //Check the sender to filter messages which we require to read
-
-            if (sender.equals("GADGETSAINT"))
-            {
-
-                String messageBody = smsMessage.getMessageBody();
-
-                //Pass the message text to interface
-                mListener.messageReceived(messageBody);
-
-            }
-        }
-
+        mListener.messageReceived();
     }
 
     public static void bindListener(SmsListener listener) {
