@@ -52,7 +52,7 @@ public class LinksClockActivity extends MainActivity  {
     FileOutputStream outputStream;
     int listPosition;
     int c=-1;
-
+    static  ArrayList<PendingIntent> pendingIntents=new ArrayList<>();
     @Override
     protected void onResume()
     {
@@ -103,6 +103,7 @@ public class LinksClockActivity extends MainActivity  {
 
         dir.mkdir();
 
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
        ///
         String[] items={};
 
@@ -338,7 +339,11 @@ cancelAlarm();
 
     private void cancelAlarm() {
         if (alarmManager!= null) {
-            alarmManager.cancel(pendingIntent);
+            int _id = (int) System.currentTimeMillis();
+            Intent myIntent = new Intent(LinksClockActivity.this, AlarmReceiver.class);
+            PendingIntent appIntent = PendingIntent.getBroadcast(this,(int) 9999, myIntent,PendingIntent.FLAG_ONE_SHOT);
+            alarmManager.cancel(appIntent);
+           // alarmManager.cancel(pendingIntent);
             AlarmReceiver.ringtone.stop();
 
         }}
@@ -350,16 +355,18 @@ cancelAlarm();
         //zegar
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent myIntent = new Intent(LinksClockActivity.this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(LinksClockActivity.this, 0, myIntent, 0);
+     //   pendingIntent = PendingIntent.getBroadcast(LinksClockActivity.this, 0, myIntent, 0);
 
-
+        //https://luboganev.github.io/post/alarms-pending-intent/
         int hhelper = Integer.parseInt(array.split(":")[0]);
         int mhelper = Integer.parseInt(array.split(":")[1]);
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hhelper);
         calendar.set(Calendar.MINUTE, mhelper);
 
+        PendingIntent appIntent = PendingIntent.getBroadcast(this,(int) 9999, myIntent,PendingIntent.FLAG_ONE_SHOT);
+        pendingIntents.add(appIntent);
         //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + 3000, pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + 3000, appIntent);
     }
     }

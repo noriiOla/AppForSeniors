@@ -11,15 +11,23 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.R;
 
+import static android.support.v4.content.ContextCompat.startActivity;
+
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 public static    Ringtone ringtone;
     @Override
-    public void onReceive(final Context context, Intent intent) {
+    public void onReceive( Context context, Intent intent) {
       //  AlarmMenuActivity.getTextView2().setText("Enough Rest. Do Work Now!");
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         //Ringtone
                 ringtone = RingtoneManager.getRingtone(context, uri);
         ringtone.play();
+        ;
+       // context.startActivity(new Intent( context,AlarmActivity.class));
+     //   startActivity();
+       // context.startActivity(intent);
+
+
     }
 
     /*@Override

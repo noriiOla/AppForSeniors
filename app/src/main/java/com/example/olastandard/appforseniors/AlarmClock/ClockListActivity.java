@@ -48,7 +48,7 @@ public class ClockListActivity extends MainActivity {
     initAddlayout(R.layout.activity_clock_list);
     initToolbar();
 
-
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
 
         ///
@@ -135,16 +135,22 @@ public void startAlarm(){
     }
     String array=arrayListListView.get(listPosition);
     //zegar
-    alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-    Intent myIntent = new Intent(ClockListActivity.this, AlarmReceiver.class);
-    pendingIntent = PendingIntent.getBroadcast(ClockListActivity.this, 0, myIntent, 0);
 
+    Intent myIntent = new Intent(ClockListActivity.this, AlarmReceiver.class);
+    //pendingIntent = PendingIntent.getBroadcast(ClockListActivity.this, 0, myIntent, 0);
+
+
+    //Intent intent = new Intent(load.this, AlarmReceiver.class);
+
+    //id alarmu
+ //    int _id = (int) System.currentTimeMillis();
 
     int hhelper=Integer.parseInt(array.split(":")[0]);
     int mhelper=Integer.parseInt( array.split(":")[1]);
     Calendar calendar = Calendar.getInstance();
     calendar.set(Calendar.HOUR_OF_DAY, hhelper);
     calendar.set(Calendar.MINUTE, mhelper);
+    PendingIntent appIntent = PendingIntent.getBroadcast(this,(int) calendar.getTimeInMillis(), myIntent,PendingIntent.FLAG_ONE_SHOT);
 
     //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()+3000, pendingIntent);
