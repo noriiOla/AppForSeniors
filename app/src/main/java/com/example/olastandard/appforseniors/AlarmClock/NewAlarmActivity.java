@@ -165,7 +165,7 @@ public class NewAlarmActivity extends MainActivity {
             String hour = et.getText().toString() + helperSec;
             String minute = et3.getText().toString() + et4.getText().toString();
 
-            String data = hour + ":" + minute + ":" + " Wyłaczone" + "\n";
+            String data = hour + ":" + minute + "," + "-" + "\n";
 
             try {
                 int hhelper = Integer.parseInt(hour);

@@ -23,9 +23,6 @@ public static    Ringtone ringtone;
                 ringtone = RingtoneManager.getRingtone(context, uri);
         ringtone.play();
         ;
-       // context.startActivity(new Intent( context,AlarmActivity.class));
-     //   startActivity();
-       // context.startActivity(intent);
 
 
     }

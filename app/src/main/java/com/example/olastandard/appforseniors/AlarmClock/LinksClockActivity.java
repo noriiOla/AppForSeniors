@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -60,7 +61,8 @@ public class LinksClockActivity extends MainActivity  {
         String[] items={};
         arrayList= new ArrayList<>();
         arrayListListView=new ArrayList<String>(Arrays.asList(items));
-
+        Button p1_button = (Button)findViewById(R.id.open_button);
+        p1_button.setText("Wyłącz");
         read();
        // Toast.makeText(getApplicationContext(),"rozmiarallw resume "+ arrayListListView.size() ,Toast.LENGTH_LONG).show();
       //  Toast.makeText(getApplicationContext(),"rozmiar resume "+ arrayList.size() ,Toast.LENGTH_LONG).show();
@@ -71,8 +73,16 @@ public class LinksClockActivity extends MainActivity  {
             // Get the current item from ListView
             View view = super.getView(position,convertView,parent);
 
-                // Set a background color for ListView regular row/item
+                ;
+            if(arrayList.get(position).split(",")[1].equals("-")){
                 view.setBackgroundColor(Color.parseColor("#fffdd0"));
+            }else{
+                view.setBackgroundColor(Color.parseColor("#4D6CCCFF"));
+            }
+
+
+                // Set a background color for ListView regular row/item
+
 
 
             return view;
@@ -133,8 +143,10 @@ public class LinksClockActivity extends MainActivity  {
                 }
                // listV.getChildAt(listPosition).setBackgroundColor(getResources().getColor(R.color.green));
                 view.setBackgroundColor(getResources().getColor(R.color.green));
-                findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
+               // findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
                 findViewById(R.id.delete_button).setBackgroundColor(getResources().getColor(R.color.red));
+                startAlarm();
+                changeSettingsAlarm();
             }
         });
 
@@ -195,8 +207,10 @@ public class LinksClockActivity extends MainActivity  {
 
                 view.setBackgroundColor(getResources().getColor(R.color.green));
                 //listV.getChildAt(listPosition).setBackgroundColor(getResources().getColor(R.color.green));
-                findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
+             //   findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
                 findViewById(R.id.delete_button).setBackgroundColor(getResources().getColor(R.color.red));
+                startAlarm();
+                changeSettingsAlarm();
             }
         }
 
@@ -283,20 +297,32 @@ public class LinksClockActivity extends MainActivity  {
 
         showRightButton();
         changeTitleForRightButton("NOWE");
-        setTitle(getResources().getString(R.string.web));
+        setTitle(getResources().getString(R.string.alarm));
     }
 
     @OnClick({R.id.open_button})
     public void openAdres(View view) {
+        for(int i=0;i<arrayList.size();i++)
+        {   String   data=arrayList.get(i).split(",")[1];
+            if(data.equals("-")){}
+        else{
+            cancelOneAlarm(i);}
+        }
+        for(int i=0;i<arrayList.size();i++)
+        {  String   data=arrayList.get(i).split(",")[1];
+            if(data.equals("-")){}
+            else{
+            startOneAlarm(i);
+            }
+        }
 
-        startAlarm();
-
+        onResume();
         }
 
     @OnClick({R.id.delete_button})
         public void deleteLink(View view){
 
-       /* if(arrayList.isEmpty()){
+        if(arrayList.isEmpty()){
             return;
         }
             String array=arrayList.get(listPosition);
@@ -321,8 +347,8 @@ public class LinksClockActivity extends MainActivity  {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            onResume();*/
-cancelAlarm();
+            onResume();
+//cancelAlarm();
 
         }
 
@@ -347,6 +373,37 @@ cancelAlarm();
             AlarmReceiver.ringtone.stop();
 
         }}
+
+
+    private void cancelOneAlarm(int i) {
+
+//
+
+            String array = (String)arrayListListView.get(i);
+            //zegar
+            alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            Intent myIntent = new Intent(LinksClockActivity.this, AlarmReceiver.class);
+            //   pendingIntent = PendingIntent.getBroadcast(LinksClockActivity.this, 0, myIntent, 0);
+
+            //https://luboganev.github.io/post/alarms-pending-intent/
+            int hhelper = Integer.parseInt(array.split(":")[0]);
+            int mhelper = Integer.parseInt(array.split(":")[1]);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, hhelper);
+            calendar.set(Calendar.MINUTE, mhelper);
+
+            PendingIntent appIntent = PendingIntent.getBroadcast(this,(int) (hhelper+mhelper), myIntent,PendingIntent.FLAG_ONE_SHOT);
+            //  pendingIntents.add(appIntent);
+
+            alarmManager.cancel(appIntent);
+            // alarmManager.cancel(pendingIntent);
+        if(AlarmReceiver.ringtone!=null)
+            AlarmReceiver.ringtone.stop();
+        }
+
+
+
+
     public void startAlarm() {
         if (arrayListListView.isEmpty()) {
             return;
@@ -363,10 +420,96 @@ cancelAlarm();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hhelper);
         calendar.set(Calendar.MINUTE, mhelper);
+        Calendar now = Calendar.getInstance();
+        long _alarm=0;
+        if(calendar.getTimeInMillis() <= now.getTimeInMillis())
+            _alarm = calendar.getTimeInMillis() + (AlarmManager.INTERVAL_DAY+1);
+        else
+            _alarm = calendar.getTimeInMillis();
 
-        PendingIntent appIntent = PendingIntent.getBroadcast(this,(int) 9999, myIntent,PendingIntent.FLAG_ONE_SHOT);
-        pendingIntents.add(appIntent);
+        PendingIntent appIntent = PendingIntent.getBroadcast(this,(int) (hhelper+mhelper), myIntent,PendingIntent.FLAG_ONE_SHOT);
+      //  pendingIntents.add(appIntent);
         //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + 3000, appIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, _alarm , appIntent);
+    }
+
+    public void startOneAlarm(int i) {
+        if (arrayListListView.isEmpty()) {
+            return;
+        }
+        String array = (String)arrayListListView.get(i);
+        //zegar
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent myIntent = new Intent(LinksClockActivity.this, AlarmReceiver.class);
+        //   pendingIntent = PendingIntent.getBroadcast(LinksClockActivity.this, 0, myIntent, 0);
+
+        //https://luboganev.github.io/post/alarms-pending-intent/
+        int hhelper = Integer.parseInt(array.split(":")[0]);
+        int mhelper = Integer.parseInt(array.split(":")[1]);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hhelper);
+        calendar.set(Calendar.MINUTE, mhelper);
+
+        Calendar now = Calendar.getInstance();
+        long _alarm=0;
+        if(calendar.getTimeInMillis() <= now.getTimeInMillis())
+            _alarm = calendar.getTimeInMillis() + (AlarmManager.INTERVAL_DAY+1);
+        else
+            _alarm = calendar.getTimeInMillis();
+
+        PendingIntent appIntent = PendingIntent.getBroadcast(this,(int) (hhelper+mhelper), myIntent,PendingIntent.FLAG_ONE_SHOT);
+        //  pendingIntents.add(appIntent);
+        //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, _alarm , appIntent);
+    }
+
+
+    public void changeSettingsAlarm()
+    {
+        if(arrayList.isEmpty()){
+            return;
+        }
+
+        String data=arrayList.get(listPosition).split(",")[1];
+        if (data.equals("-")){
+            switchAlarm("a");
+        }
+        else{
+            switchAlarm("-");
+        }
+    }
+
+
+    public void switchAlarm(String sign){
+
+        if(arrayList.isEmpty()){
+            return;
+        }
+        String array=arrayList.get(listPosition);
+        //Toast.makeText(getApplicationContext(),"rozmiar "+ arrayList.size() ,Toast.LENGTH_LONG).show();
+
+        String data=arrayList.get(listPosition).split(",")[0];
+        arrayList.set(listPosition, data+","+sign);
+       // arrayListListView.get(listPosition);
+
+        Boolean bol=  getApplicationContext().deleteFile("savedFileClock");
+        String result="";
+        Collections.reverse(arrayList);
+        Collections.reverse(arrayListListView);
+        for(String line : arrayList)
+        {result+=line+"\n";}
+        Toast.makeText(getApplicationContext(),result ,Toast.LENGTH_LONG).show();
+        try {
+            outputStream = this.getApplicationContext().openFileOutput("savedFileClock", MODE_PRIVATE);
+
+            outputStream.write(result.getBytes());
+
+
+
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        onResume();
     }
     }

@@ -296,7 +296,7 @@ public class LinksActivity extends MainActivity  {
           //  Toast.makeText(getApplicationContext(), "Brak dostepu do neta ", Toast.LENGTH_LONG).show();
 
 
-            new PushDialogManager().showDialogWithOkButton(LinksActivity.this, "Brak dostepu do neta", new PushDialogButtonsOkInterface() {
+            new PushDialogManager().showDialogWithOkButton(LinksActivity.this, getApplicationContext().getFilesDir()+"Brak dostepu do neta", new PushDialogButtonsOkInterface() {
                 @Override
                 public void onOkButtonTap() {
                     return;
