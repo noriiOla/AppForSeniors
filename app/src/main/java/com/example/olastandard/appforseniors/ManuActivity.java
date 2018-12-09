@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -45,6 +46,12 @@ public class ManuActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         initAddlayout(R.layout.activity_manu);
         ButterKnife.bind(this);
+
+        Intent intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
+        final String packageName = this.getPackageName();
+        intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, packageName);
+        startActivity(intent);
+
         initToolbar();
         initGridView();
         buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_white));

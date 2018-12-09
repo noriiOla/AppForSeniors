@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.ExampleActivity;
 import com.example.olastandard.appforseniors.MainActivity;
@@ -25,7 +27,10 @@ import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
 import com.example.olastandard.appforseniors.smsActivitys.smsAdapters.SmsPersonListAdapter;
 import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsHelper;
+import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsListener;
+import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsReceiver;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,6 +53,7 @@ public class MessagerListActivity extends MainActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    SmsReceiver smsReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,11 @@ public class MessagerListActivity extends MainActivity {
         addListeners();
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
         buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         if (hasReadSmsPermission()) {
             smsHelper = new SmsHelper(getApplicationContext(), this);
@@ -67,6 +78,21 @@ public class MessagerListActivity extends MainActivity {
             initRecyclerView(listaSmsow);
         }
 
+        smsReceiver = new SmsReceiver();
+        smsReceiver.bindListener(new SmsListener() {
+            @Override
+            public void messageReceived() {
+                smsHelper = new SmsHelper(MessagerListActivity.this.getApplicationContext(), MessagerListActivity.this);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
+                        initRecyclerView(listaSmsow);
+                    }
+                    }, 1000);
+            }
+        });
     }
 
     private boolean hasReadSmsPermission() {

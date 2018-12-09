@@ -24,7 +24,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".smsActivitys.app">
         <activity android:name=".MainActivity" />
         <activity android:name=".ManuActivity">
             <intent-filter>
@@ -39,7 +40,22 @@
         <activity android:name=".Contacts.AddContactActivity" />
         <activity android:name=".Contacts.EditContactActivity" />
         <activity android:name=".smsActivitys.MessagerActivity" />
-        <activity android:name=".smsActivitys.MessagerListActivity" />
+        <activity
+            android:name=".smsActivitys.MessagerListActivity"
+            android:label="nowa wiadomosc">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SENDTO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </activity>
         <activity android:name=".smsActivitys.NewSmsActivity" />
         <activity android:name=".AlarmClock.AlarmMenuActivity" />
         <activity android:name=".LinksActivity" />
@@ -56,6 +72,40 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBOsHFmIjpVv41mG7YZPV_7ZaQtQkz3mC8" />
 
+        <receiver
+            android:name=".smsActivitys.smsHelperClassess.SmsReceiver"
+            android:permission="android.permission.BROADCAST_SMS"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_DELIVER" />
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".smsActivitys.smsHelperClassess.MmsReceiver"
+            android:permission="android.permission.BROADCAST_WAP_PUSH">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.WAP_PUSH_DELIVER" />
+
+                <data android:mimeType="application/vnd.wap.mms-message" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".smsActivitys.HeadlessSmsSendService"
+            android:exported="true"
+            android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE">
+            <intent-filter>
+                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
