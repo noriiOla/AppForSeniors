@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -81,7 +82,7 @@ public class ContactListActivity extends MainActivity {
         }
     }
 
-    private void initList(){
+    private void initList() {
         List<ContactData> contactList = getContacts();
         Collections.sort(contactList);
         initRecyclerView(contactList);
@@ -110,12 +111,12 @@ public class ContactListActivity extends MainActivity {
         }
     }
 
-    private List<ContactData> getContacts(){
+    private List<ContactData> getContacts() {
         List<ContactData> contacts = new ArrayList<>();
-        String[] projection = new String[] {
+        String[] projection = new String[]{
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
                 ContactsContract.CommonDataKinds.Phone.NUMBER,
-                };
+        };
 
         String sortBy = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"; //sorted by name
 
@@ -123,18 +124,23 @@ public class ContactListActivity extends MainActivity {
         try {
             phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection, null, null, sortBy);
         } catch (SecurityException e) {
-            //SecurityException can be thrown if we don't have the right permissions
+            Log.e("ERR", e.getMessage());
         }
 
-        while (phones.moveToNext())
-        {
-            String name=phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+        while (phones.moveToNext()) {
+            String name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
             String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-            contacts.add(new ContactData(name,phoneNumber));
-            System.out.println("name: " + name + "  number: "+phoneNumber);
+            if (isValidPhoneNumber(phoneNumber)) {
+                contacts.add(new ContactData(name, phoneNumber));
+
+            }
         }
         phones.close();
         return contacts;
+    }
+
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+        return android.util.Patterns.PHONE.matcher(phoneNumber).matches();
     }
 
     private void initToolbar() {
@@ -154,11 +160,11 @@ public class ContactListActivity extends MainActivity {
 
     @OnClick({R.id.contact_button_edit})
     public void editSelectedContact() {
-        if (((ContactListAdapter)mAdapter).lastSelectedItem >= 0) {
+        if (((ContactListAdapter) mAdapter).lastSelectedItem >= 0) {
             Intent intent = new Intent(getApplicationContext(), EditContactActivity.class);
             List<ContactData> contactList = getContacts();
             Collections.sort(contactList);
-            ContactData contactData = contactList.get(((ContactListAdapter)mAdapter).lastSelectedItem);
+            ContactData contactData = contactList.get(((ContactListAdapter) mAdapter).lastSelectedItem);
             intent.putExtra("contactData", contactData);
             this.startActivity(intent);
         }
@@ -166,10 +172,10 @@ public class ContactListActivity extends MainActivity {
 
     @OnClick({R.id.contact_button_delete})
     public void deleteSelectedContact() {
-        if (((ContactListAdapter)mAdapter).lastSelectedItem >= 0) {
+        if (((ContactListAdapter) mAdapter).lastSelectedItem >= 0) {
             List<ContactData> contactList = getContacts();
             Collections.sort(contactList);
-            ContactData contactData = contactList.get(((ContactListAdapter)mAdapter).lastSelectedItem);
+            ContactData contactData = contactList.get(((ContactListAdapter) mAdapter).lastSelectedItem);
             //TODO potwierdzenie usuwania
             deleteContact(getApplicationContext(), contactData.getNumebrOfPerson(), contactData.getNameOfPersion());
             this.initList();
@@ -184,16 +190,16 @@ public class ContactListActivity extends MainActivity {
 
     @OnClick({R.id.contact_button_call})
     public void callToSelectedContact() {
-        if (((ContactListAdapter)mAdapter).lastSelectedItem >= 0) {
+        if (((ContactListAdapter) mAdapter).lastSelectedItem >= 0) {
             List<ContactData> contactList = getContacts();
             Collections.sort(contactList);
-            ContactData contactData = contactList.get(((ContactListAdapter)mAdapter).lastSelectedItem);
+            ContactData contactData = contactList.get(((ContactListAdapter) mAdapter).lastSelectedItem);
             Intent intent = new Intent(Intent.ACTION_CALL);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setData(Uri.parse("tel:" + contactData.getNumebrOfPerson()));
             if (ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE},1);
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE}, 1);
             }
             getApplicationContext().startActivity(intent);
 
@@ -204,7 +210,7 @@ public class ContactListActivity extends MainActivity {
     public void backWithSelectedContact() {
         List<ContactData> contactList = getContacts();
         Collections.sort(contactList);
-        ContactData contactData = contactList.get(((ContactListAdapter)mAdapter).lastSelectedItem);
+        ContactData contactData = contactList.get(((ContactListAdapter) mAdapter).lastSelectedItem);
 
         Intent previousScreen = new Intent(getApplicationContext(), MessagerActivity.class);
         PersonSmsData smsData = new PersonSmsData(contactData.getNumebrOfPerson());
@@ -240,7 +246,7 @@ public class ContactListActivity extends MainActivity {
     }
 
     public void updateSelectedItem(int index) {
-        ((ContactListAdapter)mAdapter).lastSelectedItem = index;
+        ((ContactListAdapter) mAdapter).lastSelectedItem = index;
         mAdapter.notifyDataSetChanged();
         //changeButtonsColor();
     }

@@ -1,6 +1,8 @@
 package com.example.olastandard.appforseniors.Objects;
 
-public class PlaceData {
+import java.io.Serializable;
+
+public class PlaceData implements Serializable, Comparable{
     String title;
     String address;
 
@@ -23,5 +25,10 @@ public class PlaceData {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.getTitle().compareTo(((PlaceData) o).getTitle());
     }
 }
