@@ -48,8 +48,8 @@ public class SmsHelper {
 
         String[] projection = new String[]{ContactsContract.PhoneLookup.DISPLAY_NAME};
 
-        String contactName="";
-        Cursor cursor = contextActivity.getContentResolver().query(uri,projection,null,null,null);
+        String contactName = phoneNumber;
+        Cursor cursor = context.getContentResolver().query(uri,projection,null,null,null);
 
         if (cursor != null) {
             if(cursor.moveToFirst()) {
