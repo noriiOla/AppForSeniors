@@ -179,7 +179,11 @@ public class ManuActivity extends MainActivity {
                     }
                     break;
                 case R.string.call:
-                    startActivity(new Intent(this, ContactTypeActivity.class));
+                    if (hasContactPermission()) {
+                        startActivity(new Intent(this, ContactTypeActivity.class));
+                    }else {
+                        showPermiossionError("Przed otworzeniem tej funkcji proszę zezwolić w ustawieniach aplikacji na korzystanie z czytania i modyfikacji kontaktów oraz dzwonienia");
+                    }
                     break;
                 case R.string.alarm:
                     startActivity(new Intent(this,ClockListActivity.class));
@@ -213,5 +217,9 @@ public class ManuActivity extends MainActivity {
                         Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this,
                         Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public boolean hasContactPermission() {
+        return true; //wypisac wszystkie potrzebne permissiony
     }
 }
