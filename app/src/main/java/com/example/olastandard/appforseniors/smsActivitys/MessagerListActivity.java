@@ -30,6 +30,7 @@ import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsH
 import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsListener;
 import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsReceiver;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -65,23 +66,6 @@ public class MessagerListActivity extends MainActivity {
         addListeners();
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
         buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
-
-        smsReceiver = new SmsReceiver();
-        smsReceiver.bindListener(new SmsListener() {
-            @Override
-            public void messageReceived() {
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        smsHelper = new SmsHelper(MessagerListActivity.this.getApplicationContext(), MessagerListActivity.this);
-                        List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
-                        initRecyclerView(listaSmsow);
-                    }
-                }, 1000);
-            }
-        });
-
     }
 
     @Override
@@ -94,6 +78,21 @@ public class MessagerListActivity extends MainActivity {
             initRecyclerView(listaSmsow);
         }
 
+        smsReceiver = new SmsReceiver();
+        smsReceiver.bindListener(new SmsListener() {
+            @Override
+            public void messageReceived() {
+                smsHelper = new SmsHelper(MessagerListActivity.this.getApplicationContext(), MessagerListActivity.this);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
+                        initRecyclerView(listaSmsow);
+                    }
+                    }, 1000);
+            }
+        });
     }
 
     private boolean hasReadSmsPermission() {

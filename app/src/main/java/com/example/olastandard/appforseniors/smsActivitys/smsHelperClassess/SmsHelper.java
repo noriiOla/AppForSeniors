@@ -5,7 +5,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.ContactsContract;
+import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 
@@ -36,7 +38,11 @@ public class SmsHelper {
         this.contextActivity = contextActivity;
     }
 
-    public String getContactName(final String phoneNumber)
+    public SmsHelper(Context context) {
+        this.context = context;
+    }
+
+        public String getContactName(final String phoneNumber)
     {
         Uri uri=Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI,Uri.encode(phoneNumber));
 
@@ -166,9 +172,8 @@ public class SmsHelper {
 
         Uri uri = Uri.parse("content://sms/inbox");
         Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-        try{
+        try {
             while (cursor.moveToNext()) {
-
                 if (cursor.getString(cursor.getColumnIndexOrThrow("address")) != null) {
                     String phoneNumber = repairNumber(cursor.getString(cursor.getColumnIndexOrThrow("address")));
                     if (phoneNumber.equals(smsData.getNumebrOfPerson()) && (cursor.getInt(cursor.getColumnIndex("read")) == 0)) {
@@ -184,9 +189,44 @@ public class SmsHelper {
 
 
             }
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Something went wrong");
         }
+    }
+
+    public boolean saveSms(String phoneNumber, String message, String readState, String time, String folderName) {
+        boolean ret = false;
+        try {
+            ContentValues values = new ContentValues();
+            values.put("address", phoneNumber);
+            values.put("body", message);
+            values.put("read", readState); //"0" for have not read sms and "1" for have read sms
+            values.put("date", time);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                Uri uri = Telephony.Sms.Sent.CONTENT_URI;
+                if(folderName.equals("inbox")){
+                    uri = Telephony.Sms.Inbox.CONTENT_URI;
+                }
+                context.getContentResolver().insert(uri, values);
+            }
+            else {
+                /* folderName  could be inbox or sent */
+                context.getContentResolver().insert(Uri.parse("content://sms/" + folderName), values);
+            }
+
+            ret = true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            ret = false;
+        }
+        return ret;
+    }
+
+    public boolean isDefaultSmsApp(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            return context.getPackageName().equals(Telephony.Sms.getDefaultSmsPackage(context));
+        }
+        return false;
     }
 }

@@ -16,6 +16,7 @@ import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsH
 import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsListener;
 import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsReceiver;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,22 +49,6 @@ public class MessagerActivity extends MainActivity {
             initRecyclerView();
         }
 
-        smsReceiver = new SmsReceiver();
-        smsReceiver.bindListener(new SmsListener() {
-                                     @Override
-                                     public void messageReceived() {
-                                         final Handler handler = new Handler();
-                                         handler.postDelayed(new Runnable() {
-                                             @Override
-                                             public void run() {
-                                                 SmsHelper smsHelper = new SmsHelper(MessagerActivity.this.getApplicationContext(), MessagerActivity.this);
-                                                 List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
-                                                 setNewSmsData(listaSmsow);
-                                             }
-                                         }, 1000);
-                                     }
-        });
-
         addListeners();
         if (smsData.getListOfSms().get(smsData.getListOfSms().size() - 1).getReadState().equals("0")) {
             (new SmsHelper(getApplicationContext(), this)).markMessageRead(smsData);
@@ -95,6 +80,26 @@ public class MessagerActivity extends MainActivity {
                 break;
             }
         }
+
+        smsReceiver = new SmsReceiver();
+        smsReceiver.bindListener(new SmsListener() {
+
+            @Override
+            public void messageReceived() {
+                final SmsHelper smsHelper = new SmsHelper(MessagerActivity.this.getApplicationContext(), MessagerActivity.this);
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
+                        setNewSmsData(listaSmsow);
+                        if (smsData.getListOfSms().get(smsData.getListOfSms().size() - 1).getReadState().equals("0")) {
+                            (new SmsHelper(MessagerActivity.this.getApplicationContext(), MessagerActivity.this)).markMessageRead(smsData);
+                        }
+                    }}, 1000);
+            }
+        });
     }
 
     public void addListeners() {
