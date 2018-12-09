@@ -183,13 +183,11 @@ public class ManuActivity extends MainActivity {
         if (gridSelectedPosition >= 0 && gridSelectedPosition < menuItems.length) {
             switch (menuItems[gridSelectedPosition].text) {
                 case R.string.sms:
-                    startActivity(new Intent(this, ExampleActivity.class));
-
-//                    if (hasSmsPermission()) {
-//                        startActivity(new Intent(this, MessagerListActivity.class));
-//                    }else {
-//                        showPermiossionError("Przed otworzeniem tej funkcji proszę zezwolić w ustawieniach aplikacji na korzystanie z czytania smsów i kontaktów oraz wysyłania smsów");
-//                    }
+                    if (hasSmsPermission()) {
+                        startActivity(new Intent(this, MessagerListActivity.class));
+                    }else {
+                        showPermiossionError("Przed otworzeniem tej funkcji proszę zezwolić w ustawieniach aplikacji na korzystanie z czytania smsów i kontaktów oraz wysyłania smsów");
+                    }
                     break;
                 case R.string.call:
                     if (hasContactPermission()) {
