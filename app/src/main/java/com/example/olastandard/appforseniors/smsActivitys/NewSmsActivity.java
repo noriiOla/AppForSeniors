@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.SmsManager;
 import android.text.method.ScrollingMovementMethod;
@@ -99,7 +100,14 @@ public class NewSmsActivity extends MainActivity {
                         for (PersonSmsData singleData : smsData) {
                             sendSMS(singleData.getNumebrOfPerson(), msgText.getText().toString());
                         }
-                        finish();
+
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, 1000);
                     }
                 }
             }
@@ -159,10 +167,8 @@ public class NewSmsActivity extends MainActivity {
             final SmsHelper smsHelper = new SmsHelper(app.getContext());
 
             if ( smsHelper.saveSms(phoneNo, msg, "1", String.valueOf(Calendar.getInstance().getTime()), "")) {
-                smsManager.sendTextMessage(phoneNo, null, msg, null, null);
             }
-
-
+            smsManager.sendTextMessage(phoneNo, null, msg, null, null);
 
         } catch (Exception ex) {
             (new PushDialogManager()).showDialogWithOkButton(this, "Nie udało się wysłać wiadomości, spróbuj ponownie", new PushDialogButtonsOkInterface(){

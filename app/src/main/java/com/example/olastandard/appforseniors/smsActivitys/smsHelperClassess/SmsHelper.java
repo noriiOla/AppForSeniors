@@ -15,6 +15,7 @@ import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.Objects.Sms;
 
+import java.security.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -125,7 +126,6 @@ public class SmsHelper {
                 objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
                 objSms.setReadState(c.getString(c.getColumnIndex("read")));
                 long timestamp = c.getLong(c.getColumnIndexOrThrow("date"));
-
                 objSms.setTime(timeStampToDate(timestamp));
 
                 if (c.getString(c.getColumnIndexOrThrow("type")).contains("1")) {
@@ -186,8 +186,6 @@ public class SmsHelper {
                         }
                     }
                 }
-
-
             }
         } catch (Exception e) {
             System.out.println("Something went wrong");
@@ -196,12 +194,15 @@ public class SmsHelper {
 
     public boolean saveSms(String phoneNumber, String message, String readState, String time, String folderName) {
         boolean ret = false;
+        Long tsLong = System.currentTimeMillis()/1000;
+        long ts = Calendar.getInstance().getTimeInMillis();
+
         try {
             ContentValues values = new ContentValues();
             values.put("address", phoneNumber);
             values.put("body", message);
             values.put("read", readState); //"0" for have not read sms and "1" for have read sms
-            values.put("date", time);
+            values.put("date", ts);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 Uri uri = Telephony.Sms.Sent.CONTENT_URI;
