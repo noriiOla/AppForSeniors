@@ -1,13 +1,17 @@
 package com.example.olastandard.appforseniors.smsActivitys;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -44,57 +48,38 @@ public class MessagerListActivity extends MainActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initAddlayout(R.layout.activity_messager_list);
         ButterKnife.bind(this);
+
         this.background.setBackgroundColor(getResources().getColor(R.color.lightGray));
         initToolbar();
         addListeners();
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
         buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
-                == PackageManager.PERMISSION_GRANTED) {
+        if (hasReadSmsPermission()) {
             smsHelper = new SmsHelper(getApplicationContext(), this);
             List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
             initRecyclerView(listaSmsow);
-
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_SMS}, 1);
         }
+
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    smsHelper = new SmsHelper(getApplicationContext(), this);
-                    List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
-                    initRecyclerView(listaSmsow);
-
-                } else {
-                    // permission denied,Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
-
-        }
+    private boolean hasReadSmsPermission() {
+        return ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
     }
 
     public void addListeners() {
         this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 if (((SmsPersonListAdapter) mAdapter).lastSelectedItem == -1) {
                     new PushDialogManager().showDialogWithOkButton(MessagerListActivity.this, "Żadna wiadomość nie została wybrana", new PushDialogButtonsOkInterface() {
                         @Override
@@ -103,7 +88,6 @@ public class MessagerListActivity extends MainActivity {
                         }
                     });
                 } else {
-
                     (new PushDialogManager()).showDialogWithYesNoButtons(MessagerListActivity.this, "Czy na pewno chcesz usunąć wszystkie wiadomości od zaznaczonego kontaktu?", new PushDialogButtonsYesNoInterface() {
 
                         @Override
@@ -126,13 +110,11 @@ public class MessagerListActivity extends MainActivity {
     }
 
     private void initRecyclerView(List<PersonSmsData> listOfPersonsSmsData) {
-
         listOfSms.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         listOfSms.setLayoutManager(mLayoutManager);
         mAdapter = new SmsPersonListAdapter(listOfPersonsSmsData, getApplicationContext());
         listOfSms.setAdapter(mAdapter);
-       // listOfSms.addItemDecoration(new com.example.olastandard.appforseniors.Objects.DividerItemDecoration(this));
     }
 
     private void initToolbar() {
@@ -165,5 +147,5 @@ public class MessagerListActivity extends MainActivity {
         mAdapter.notifyDataSetChanged();
         changeButtonsColor();
     }
-
 }
+
