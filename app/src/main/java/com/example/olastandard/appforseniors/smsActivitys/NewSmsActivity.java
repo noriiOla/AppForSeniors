@@ -21,10 +21,12 @@ import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
+import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsHelper;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -154,7 +156,14 @@ public class NewSmsActivity extends MainActivity {
     public void sendSMS(String phoneNo, String msg) {
         try {
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNo, null, msg, null, null);
+            final SmsHelper smsHelper = new SmsHelper(app.getContext());
+
+            if ( smsHelper.saveSms(phoneNo, msg, "1", String.valueOf(Calendar.getInstance().getTime()), "")) {
+                smsManager.sendTextMessage(phoneNo, null, msg, null, null);
+            }
+
+
+
         } catch (Exception ex) {
             (new PushDialogManager()).showDialogWithOkButton(this, "Nie udało się wysłać wiadomości, spróbuj ponownie", new PushDialogButtonsOkInterface(){
 
