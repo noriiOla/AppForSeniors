@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.example.olastandard.appforseniors.Navigation.NavigationListActivity;
 import com.example.olastandard.appforseniors.Objects.MenuItem;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
+import com.example.olastandard.appforseniors.VoiceNotes.VoiceNotesList;
 import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
 
 import butterknife.BindView;
@@ -45,6 +47,12 @@ public class ManuActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         initAddlayout(R.layout.activity_manu);
         ButterKnife.bind(this);
+
+        Intent intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
+        final String packageName = this.getPackageName();
+        intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, packageName);
+        startActivity(intent);
+
         initToolbar();
         initGridView();
         buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
@@ -106,7 +114,10 @@ public class ManuActivity extends MainActivity {
                 ContextCompat.checkSelfPermission(this,
                         Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+
     }
 
     private void requestReadAndSendSmsPermission() {
@@ -121,7 +132,8 @@ public class ManuActivity extends MainActivity {
                         Manifest.permission.ACCESS_NETWORK_STATE,
                         Manifest.permission.WRITE_CONTACTS,
                         Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION},
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.RECORD_AUDIO},
                 SMS_PERMISSION_CODE);
     }
 
@@ -172,6 +184,8 @@ public class ManuActivity extends MainActivity {
         if (gridSelectedPosition >= 0 && gridSelectedPosition < menuItems.length) {
             switch (menuItems[gridSelectedPosition].text) {
                 case R.string.sms:
+                  //  startActivity(new Intent(this, ExampleActivity.class));
+
                     if (hasSmsPermission()) {
                         startActivity(new Intent(this, MessagerListActivity.class));
                     }else {
@@ -192,7 +206,11 @@ public class ManuActivity extends MainActivity {
                     startActivity(new Intent(this, NavigationListActivity.class));
                     break;
                 case R.string.notes:
-                    startActivity(new Intent(this, AddLinkActivity.class));
+                    if (hasNotesPermission()) {
+                        startActivity(new Intent(this, VoiceNotesList.class));
+                    }else {
+                        showPermiossionError("Przed otworzeniem tej funkcji proszę zezwolić w ustawieniach aplikacji na nagrywanie oraz zapis i odczyta danych z pamieci komorki");
+                    }
                     break;
                 case R.string.web:
                     startActivity(new Intent(this, LinksActivity.class));
@@ -217,6 +235,15 @@ public class ManuActivity extends MainActivity {
                         Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this,
                         Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public boolean hasNotesPermission() {
+        return ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
     public boolean hasContactPermission() {

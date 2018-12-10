@@ -12,13 +12,13 @@
 
     <!--Menu-->
     <string name="menu">Menu</string>
-    <string name="wybierz">WYBIERZ</string>
-    <string name="alarm">BUDZIK</string>
+    <string name="wybierz">Wybierz</string>
+    <string name="alarm">Budzik</string>
     <string name="sms">Wiadomości</string>
-    <string name="call">ZADZWOŃ</string>
+    <string name="call">Zadzwoń</string>
     <string name="gps">Nawigacja</string>
-    <string name="notes">NOTATKI</string>
-    <string name="web">INTERNET</string>
+    <string name="notes">Notatki</string>
+    <string name="web">Internet</string>
     <string name="usun">Usuń</string>
 
 
