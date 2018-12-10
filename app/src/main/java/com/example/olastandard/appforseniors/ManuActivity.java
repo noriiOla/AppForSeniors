@@ -247,6 +247,7 @@ public class ManuActivity extends MainActivity {
     }
 
     public boolean hasContactPermission() {
-        return true; //wypisac wszystkie potrzebne permissiony
+        return ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED;
     }
 }
