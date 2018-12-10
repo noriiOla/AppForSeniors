@@ -129,10 +129,7 @@ public class VoiceNotesManager {
                     recordNames.add(fn);
                     names += fn;
                 }
-                //   Log.d("Files", "FileName:" + files[i].getName());
             }
-
-            Toast.makeText(app.getContext(), names, Toast.LENGTH_LONG).show();
         }
         return recordNames;
     }

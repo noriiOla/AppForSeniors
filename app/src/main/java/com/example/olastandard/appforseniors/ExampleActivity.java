@@ -67,13 +67,12 @@ public class ExampleActivity extends MainActivity {
     @OnClick(R.id.button_usun)
     public void usunNagranie() {
         //VoiceNotesManager.getInstance().removeTemporaryRecord();  //tylko przy po nacisnieciu (wroc)
-        VoiceNotesManager.getInstance().removeNoteByName("not1"); //z listy
-
+        VoiceNotesManager.getInstance().removeNoteByName("not2"); //z listy
     }
 
     @OnClick(R.id.button_zapisz)
     public void zapiszNagranie() {
-        VoiceNotesManager.getInstance().saveRecord("not1"); //po nacisnieciu zapisz na ekranie nagrywania
+        VoiceNotesManager.getInstance().saveRecord("not2"); //po nacisnieciu zapisz na ekranie nagrywania
     }
 
 

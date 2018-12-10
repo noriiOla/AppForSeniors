@@ -20,13 +20,13 @@
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
+        android:name=".smsActivitys.app"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".smsActivitys.app">
+        android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
         <activity android:name=".ManuActivity">
             <intent-filter>
@@ -75,15 +75,14 @@
 
         <receiver
             android:name=".smsActivitys.smsHelperClassess.SmsReceiver"
-            android:permission="android.permission.BROADCAST_SMS"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
             <intent-filter android:priority="1000">
                 <action android:name="android.provider.Telephony.SMS_DELIVER" />
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".smsActivitys.smsHelperClassess.MmsReceiver"
             android:permission="android.permission.BROADCAST_WAP_PUSH">
@@ -100,13 +99,17 @@
             android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE">
             <intent-filter>
                 <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:scheme="sms" />
                 <data android:scheme="smsto" />
                 <data android:scheme="mms" />
                 <data android:scheme="mmsto" />
             </intent-filter>
         </service>
+
+        <activity android:name=".VoiceNotes.VoiceNotesList"></activity>
     </application>
 
 </manifest>

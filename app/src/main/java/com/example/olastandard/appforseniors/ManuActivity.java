@@ -20,6 +20,7 @@ import com.example.olastandard.appforseniors.Navigation.NavigationListActivity;
 import com.example.olastandard.appforseniors.Objects.MenuItem;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
+import com.example.olastandard.appforseniors.VoiceNotes.VoiceNotesList;
 import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
 
 import butterknife.BindView;
@@ -183,6 +184,8 @@ public class ManuActivity extends MainActivity {
         if (gridSelectedPosition >= 0 && gridSelectedPosition < menuItems.length) {
             switch (menuItems[gridSelectedPosition].text) {
                 case R.string.sms:
+                  //  startActivity(new Intent(this, ExampleActivity.class));
+
                     if (hasSmsPermission()) {
                         startActivity(new Intent(this, MessagerListActivity.class));
                     }else {
@@ -204,11 +207,10 @@ public class ManuActivity extends MainActivity {
                     break;
                 case R.string.notes:
                     if (hasNotesPermission()) {
-                        //run notes activity
+                        startActivity(new Intent(this, VoiceNotesList.class));
                     }else {
                         showPermiossionError("Przed otworzeniem tej funkcji proszę zezwolić w ustawieniach aplikacji na nagrywanie oraz zapis i odczyta danych z pamieci komorki");
                     }
-                    startActivity(new Intent(this, AddLinkActivity.class));
                     break;
                 case R.string.web:
                     startActivity(new Intent(this, LinksActivity.class));
