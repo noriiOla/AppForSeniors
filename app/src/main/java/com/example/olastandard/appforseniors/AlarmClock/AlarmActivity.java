@@ -46,7 +46,30 @@ public class AlarmActivity  extends MainActivity {
             if(AlarmReceiver.ringtone!=null) {
                 AlarmReceiver.ringtone.stop();
             }
-        }}
+        }
+
+
+        long millis=System.currentTimeMillis();
+        Calendar c=Calendar.getInstance();
+        c.setTimeInMillis(millis);
+        Integer hours=c.get(Calendar.HOUR);
+        Integer minutes=c.get(Calendar.MINUTE);
+
+        String newTime=hours.toString()+minutes.toString();
+        int newTome2=Integer.parseInt(newTime);
+        System.out.println("----> alarm activity");
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
+        appIntent = PendingIntent.getBroadcast(this,(int) newTome2 , myIntent,PendingIntent.FLAG_ONE_SHOT);
+        if(c.getTimeInMillis() <= now.getTimeInMillis())
+            _alarm = calendar.getTimeInMillis() + (AlarmManager.INTERVAL_DAY+1);
+        else
+            _alarm = calendar.getTimeInMillis();
+
+
+
+
+    }
         public void openApp(){
             Intent i = new Intent(this, AlarmActivity.class);
        /* Bundle b = new Bundle();
