@@ -30,9 +30,6 @@ public class EditContactActivity extends MainActivity {
     @BindView(R.id.contact_name_input)
     public EditText contactNameInput;
 
-    @BindView(R.id.button_save_contact)
-    public Button saveContact;
-
     @BindView(R.id.contact_number_inputt)
     public EditText contactNumberInput;
 
@@ -58,7 +55,7 @@ public class EditContactActivity extends MainActivity {
         contactNameInput.setText(contactData.getNameOfPersion());
         contactNumberInput.setText(contactData.getNumebrOfPerson());
 
-        saveContact.setOnClickListener(new View.OnClickListener() {
+        _toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String contactName = contactNameInput.getText().toString();

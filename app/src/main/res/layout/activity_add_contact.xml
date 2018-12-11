@@ -50,12 +50,5 @@
             android:ems="10"
             android:inputType="phone" />
 
-        <Button
-            android:id="@+id/button_save_contact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="Zapisz" />
-
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

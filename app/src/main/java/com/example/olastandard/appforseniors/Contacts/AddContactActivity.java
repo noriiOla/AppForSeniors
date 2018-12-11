@@ -27,9 +27,6 @@ public class AddContactActivity  extends MainActivity {
     @BindView(R.id.contact_number_inputt)
     public EditText contactNumberInput;
 
-    @BindView(R.id.button_save_contact)
-    public Button saveContact;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +40,7 @@ public class AddContactActivity  extends MainActivity {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_CONTACTS},1);
         }
 
-        saveContact.setOnClickListener(new View.OnClickListener() {
-            @Override
+        this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String contactName = contactNameInput.getText().toString();
                 String contactNumber = contactNumberInput.getText().toString();

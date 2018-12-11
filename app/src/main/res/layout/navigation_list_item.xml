@@ -1,45 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-    android:orientation="vertical"
-    android:id="@+id/navigation_list_item">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        app:cardCornerRadius="4dp"
+        app:cardElevation="5dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/navigation_item_background"
-        >
+        android:layout_gravity="center_horizontal">
 
-        <TextView
-            android:id="@+id/navigation_title"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Adres miejsca"
-            android:textColor="@color/black"
-            android:textSize="28sp"
-            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/navigation_address"
+        <LinearLayout
+            android:id="@+id/navigation_item_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:singleLine="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Adres"
-            android:textSize="26sp"
-            />
+            android:background="#EDE7F6"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/navigation_title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Adres miejsca"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/navigation_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:singleLine="true"
+                android:text="Adres"
+                android:textColor="@color/black"
+                android:textSize="26sp" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

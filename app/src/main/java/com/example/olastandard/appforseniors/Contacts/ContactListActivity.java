@@ -15,14 +15,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.ContactData;
 import com.example.olastandard.appforseniors.Objects.PersonSmsData;
-import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
@@ -61,7 +57,6 @@ public class ContactListActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         initAddlayout(R.layout.activity_list_contact);
         ButterKnife.bind(this);
-        this.background.setBackgroundColor(getResources().getColor(R.color.crem));
         initToolbar();
         this.initList();
 
@@ -97,7 +92,6 @@ public class ContactListActivity extends MainActivity {
 
                     List<ContactData> contactList = getContacts();
                     initRecyclerView(contactList);
-
                 } else {
                     // TODO: popup information
                 }
@@ -149,7 +143,6 @@ public class ContactListActivity extends MainActivity {
         contactView.setLayoutManager(mLayoutManager);
         mAdapter = new ContactListAdapter(contactList, getApplicationContext());
         contactView.setAdapter(mAdapter);
-        contactView.addItemDecoration(new com.example.olastandard.appforseniors.Objects.DividerItemDecoration(this));
     }
 
     @OnClick({R.id.contact_button_edit})
@@ -251,7 +244,13 @@ public class ContactListActivity extends MainActivity {
     public void updateSelectedItem(int index) {
         ((ContactListAdapter) mAdapter).lastSelectedItem = index;
         mAdapter.notifyDataSetChanged();
-        //changeButtonsColor();
+        changeButtonsColor();
+    }
+
+    private void changeButtonsColor() {
+        buttonEdit.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
+        buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
+        buttonCall.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
     }
 
 }

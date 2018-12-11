@@ -49,7 +49,7 @@ public class NavigationListAdapter extends RecyclerView.Adapter<com.example.olas
         }
 
         public void clearBackgroundColor() {
-            background.setBackgroundColor(mcontext.getResources().getColor(R.color.crem));
+            background.setBackgroundColor(mcontext.getResources().getColor(R.color.white));
         }
 
         @OnClick(R.id.navigation_list_item)

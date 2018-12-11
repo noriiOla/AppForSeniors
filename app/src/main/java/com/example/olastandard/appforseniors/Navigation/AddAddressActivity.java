@@ -174,12 +174,6 @@ public class AddAddressActivity extends MainActivity implements
         setTitle(R.string.new_number);
     }
 
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
-
     private class MyTextWatcher implements TextWatcher {
         private View view;
 
@@ -194,7 +188,6 @@ public class AddAddressActivity extends MainActivity implements
         }
 
         public void afterTextChanged(Editable editable) {
-
         }
     }
 }

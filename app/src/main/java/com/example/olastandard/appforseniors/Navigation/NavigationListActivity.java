@@ -8,23 +8,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.olastandard.appforseniors.Contacts.ContactListAdapter;
-import com.example.olastandard.appforseniors.Contacts.EditContactActivity;
 import com.example.olastandard.appforseniors.MainActivity;
-import com.example.olastandard.appforseniors.Objects.ContactData;
-import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.Objects.PlaceData;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
-import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
-import com.example.olastandard.appforseniors.smsActivitys.smsAdapters.SmsPersonListAdapter;
-import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,7 +47,6 @@ public class NavigationListActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         initAddlayout(R.layout.activity_navigation_list_);
         ButterKnife.bind(this);
-        this.background.setBackgroundColor(getResources().getColor(R.color.crem));
         initToolbar();
         dataManager = new NavigationDataManager();
         this.initList();
@@ -92,7 +80,6 @@ public class NavigationListActivity extends MainActivity {
         navigationView.setLayoutManager(mLayoutManager);
         mAdapter = new NavigationListAdapter(navigationList, getApplicationContext());
         navigationView.setAdapter(mAdapter);
-        navigationView.addItemDecoration(new com.example.olastandard.appforseniors.Objects.DividerItemDecoration(this));
     }
 
     public void addListeners() {
