@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.AlarmClock.AlarmReceiver;
 import com.example.olastandard.appforseniors.AlarmClock.LinksClockActivity;
+import com.example.olastandard.appforseniors.smsActivitys.app;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,47 +35,47 @@ public class SampleBootReceiver extends BroadcastReceiver {
     AlarmManager alarmManager;
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-            read();
+       //if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+          //  read();
 
-            for(int i=0;i<arrayList.size();i++){
-                String array = (String)arrayListListView.get(i);
-                //zegar
-                alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
-                Intent myIntent = new Intent(context, AlarmReceiver.class);
-                //   pendingIntent = PendingIntent.getBroadcast(LinksClockActivity.this, 0, myIntent, 0);
-
-                //https://luboganev.github.io/post/alarms-pending-intent/
-                int hhelper = Integer.parseInt(array.split(":")[0]);
-                int mhelper = Integer.parseInt(array.split(":")[1]);
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY, hhelper);
-                calendar.set(Calendar.MINUTE, mhelper);
-                Calendar now = Calendar.getInstance();
-                long _alarm=0;
-                if(calendar.getTimeInMillis() <= now.getTimeInMillis())
-                    _alarm = calendar.getTimeInMillis() + (AlarmManager.INTERVAL_DAY+1);
-                else
-                    _alarm = calendar.getTimeInMillis();
-
-                PendingIntent appIntent = PendingIntent.getBroadcast(context,(int) (hhelper+mhelper), myIntent,PendingIntent.FLAG_ONE_SHOT);
-                //  pendingIntents.add(appIntent);
-                //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, _alarm , appIntent);
-        }
-    }
-
-
+//            for(int i=0;i<arrayList.size();i++){
+//                String array = (String)arrayListListView.get(i);
+//                //zegar
+//                alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+//                Intent myIntent = new Intent(context, AlarmReceiver.class);
+//                //   pendingIntent = PendingIntent.getBroadcast(LinksClockActivity.this, 0, myIntent, 0);
+//
+//                //https://luboganev.github.io/post/alarms-pending-intent/
+//                int hhelper = Integer.parseInt(array.split(":")[0]);
+//                int mhelper = Integer.parseInt(array.split(":")[1]);
+//                Calendar calendar = Calendar.getInstance();
+//                calendar.set(Calendar.HOUR_OF_DAY, hhelper);
+//                calendar.set(Calendar.MINUTE, mhelper);
+//                Calendar now = Calendar.getInstance();
+//                long _alarm=0;
+//                if(calendar.getTimeInMillis() <= now.getTimeInMillis())
+//                    _alarm = calendar.getTimeInMillis() + (AlarmManager.INTERVAL_DAY+1);
+//                else
+//                    _alarm = calendar.getTimeInMillis();
+//                System.out.println("-----> godzina "+(hhelper+mhelper));
+//                PendingIntent appIntent = PendingIntent.getBroadcast(context,(int) (hhelper+mhelper), myIntent,PendingIntent.FLAG_ONE_SHOT);
+//                //  pendingIntents.add(appIntent);
+//                //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+//                alarmManager.set(AlarmManager.RTC_WAKEUP, _alarm , appIntent);
+//      //  }
+//    }
 
 
-    /*Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 19);
-            calendar.set(Calendar.MINUTE, 33);
+
+
+    Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 16);
+            calendar.set(Calendar.MINUTE, 51);
 
             AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
             Intent myIntent = new Intent(context, AlarmReceiver.class);
             PendingIntent appIntent = PendingIntent.getBroadcast(context,(int) 9999, myIntent,PendingIntent.FLAG_ONE_SHOT);
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() ,  appIntent);}*/
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() ,  appIntent);
 
     }
 
@@ -85,23 +86,25 @@ public class SampleBootReceiver extends BroadcastReceiver {
     private void read() {
 
         //Button mButton = (Button) findViewById(R.id.open_button);
-
+        Context context = app.getContext();
         try { //
-            File file = new File("/data/data/com.example.olastandard.appforseniors/files/savedFileClock");
-            FileInputStream fis = new FileInputStream(file);//this.getApplicationContext().openFileInput("savedFileClock");
+            //File file = new File("/data/data/com.example.olastandard.appforseniors/files/savedFileClock");
+            //FileInputStream fis = new FileInputStream(file);
+            FileInputStream fis =context.getApplicationContext().openFileInput("savedFileClock");
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
             BufferedReader bufferedReader = new BufferedReader(isr);
             StringBuilder sb = new StringBuilder();
             // String line = bufferedReader.readLine();
-            System.out.println("--------------------------------------------");String data;
-
+            System.out.println("------------------------------------sample boot receiver moj--------");String data;
+            String data2;
             while((data=bufferedReader.readLine( )) != null)
             {
                 data=data.split(",")[1];
+                data2=data.split(",")[0];
                 if(data.equals("-")){}
                 else {
                     arrayList.add(data);
-                    arrayListListView.add(data.split(",")[0]);
+                    arrayListListView.add(data2);
                 }
 
                 //arrayListListView.add(data);

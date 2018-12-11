@@ -10,6 +10,10 @@ import android.view.View;
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.R;
 
+import java.util.Calendar;
+
+import butterknife.OnClick;
+
 public class AlarmActivity  extends MainActivity {
     AlarmManager alarmManager;
     PendingIntent appIntent;
@@ -19,17 +23,29 @@ public class AlarmActivity  extends MainActivity {
         initAddlayout(R.layout.activity_alarm);
         initToolbar();
         int _id = (int) System.currentTimeMillis();
+
+        long millis=System.currentTimeMillis();
+        Calendar c=Calendar.getInstance();
+        c.setTimeInMillis(millis);
+        Integer hours=c.get(Calendar.HOUR);
+        Integer minutes=c.get(Calendar.MINUTE);
+
+        String newTime=hours.toString()+minutes.toString();
+        int newTome2=Integer.parseInt(newTime);
         System.out.println("----> alarm activity");
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
-         appIntent = PendingIntent.getBroadcast(this,(int) _id , myIntent,PendingIntent.FLAG_ONE_SHOT);
+         appIntent = PendingIntent.getBroadcast(this,(int) newTome2 , myIntent,PendingIntent.FLAG_ONE_SHOT);
 
     }
-    private void cancelAlarm(View v) {
+
+    @OnClick({R.id.button_stop_alarm})
+    public void cancelAlarm(View v) {
         if (alarmManager!= null) {
             alarmManager.cancel(appIntent);
-            AlarmReceiver.ringtone.stop();
-
+            if(AlarmReceiver.ringtone!=null) {
+                AlarmReceiver.ringtone.stop();
+            }
         }}
         public void openApp(){
             Intent i = new Intent(this, AlarmActivity.class);
