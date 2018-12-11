@@ -8,52 +8,9 @@
     tools:context=".ExampleActivity">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="show dialog"
-            android:id="@+id/show_dialog_button"/>
-
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="Nagraj"
-            android:id="@+id/button_nagraj"/>
-
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="Zatrzymaj"
-            android:id="@+id/button_zatrzymaj"/>
-
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="Odtworz"
-            android:id="@+id/button_odtworz"/>
-
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="Pokaz dostepne"
-            android:id="@+id/pokazDostepne"/>
-
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="Usun nagranie"
-            android:id="@+id/button_usun"/>
-
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="Zapisz nagranie"
-            android:id="@+id/button_zapisz"/>
-    </LinearLayout>
-
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="show dialog"
+        android:id="@+id/show_dialog_button"/>
 </android.support.constraint.ConstraintLayout>

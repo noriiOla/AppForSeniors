@@ -4,40 +4,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.MainActivity;
-import com.example.olastandard.appforseniors.Objects.PlaceData;
-import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
-import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
-import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,16 +31,15 @@ public class AddAddressActivity extends MainActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks {
 
-    private TextInputLayout inputLayoutTitle, inputLayoutAddress;
-
     @BindView(R.id.autoCompleteTextView)
     public AutoCompleteTextView autoCompleteTextView;
     @BindView(R.id.navi_place_name)
-    public TextView placeTitle;
+    public TextView title;
 
     private static final String TAG = "MainActivity";
     private static final int GOOGLE_API_CLIENT_ID = 0;
     private AutoCompleteTextView mAutocompleteTextView;
+    private TextView mNameView;
 
     private GoogleApiClient mGoogleApiClient;
     private PlaceArrayAdapter mPlaceArrayAdapter;
@@ -66,8 +49,7 @@ public class AddAddressActivity extends MainActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initAddlayout(R.layout.activity_autocomplete);
-
+        setContentView(R.layout.activity_autocomplete);
         ButterKnife.bind(this);
 
         mAutocompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
@@ -80,42 +62,11 @@ public class AddAddressActivity extends MainActivity implements
                 .build();
 
         mAutocompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
-        AutocompleteFilter filter =
-                new AutocompleteFilter.Builder().setCountry("PL").build();
         mPlaceArrayAdapter = new PlaceArrayAdapter(this, android.R.layout.simple_list_item_1,
-                BOUNDS_MOUNTAIN_VIEW, filter);
+                BOUNDS_MOUNTAIN_VIEW, null);
         mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
 
         initToolbar();
-        addListeners();
-
-        inputLayoutTitle = (TextInputLayout) findViewById(R.id.input_layout_title);
-        inputLayoutAddress = (TextInputLayout) findViewById(R.id.input_layout_address);
-
-        placeTitle.addTextChangedListener(new MyTextWatcher(placeTitle));
-        autoCompleteTextView.addTextChangedListener(new MyTextWatcher(autoCompleteTextView));
-
-    }
-
-    public void addListeners() {
-        this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                String titleText = placeTitle.getText().toString();
-                String address = autoCompleteTextView.getText().toString();
-                if (titleText.isEmpty()) {
-                    inputLayoutTitle.setError("Wpisz tytuł");
-                    requestFocus(placeTitle);
-                } else {
-                    if (address.isEmpty()) {
-                        showBigToast("Wpisz adres");
-                    } else {
-                        NavigationDataManager navigationDataManager = new NavigationDataManager();
-                        navigationDataManager.save(titleText, address, getApplicationContext());
-                        startActivity(new Intent(getApplicationContext(), NavigationListActivity.class));
-                    }
-                }
-            }
-        });
     }
 
     private AdapterView.OnItemClickListener mAutocompleteClickListener
@@ -145,13 +96,19 @@ public class AddAddressActivity extends MainActivity implements
             // Selecting the first object buffer.
             final Place place = places.get(0);
             CharSequence attributions = places.getAttributions();
+
+            //mNameView.setText(Html.fromHtml(place.getAddress() + ""));
+
+
         }
     };
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+
         mPlaceArrayAdapter.setGoogleApiClient(mGoogleApiClient);
         Log.i(TAG, "Google Places API connected.");
+
     }
 
     @Override
@@ -162,67 +119,31 @@ public class AddAddressActivity extends MainActivity implements
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
         Log.e(TAG, "Google Places API connection failed with error code: "
                 + connectionResult.getErrorCode());
+
         Toast.makeText(this,
                 "Google Places API connection failed with error code:" +
                         connectionResult.getErrorCode(),
                 Toast.LENGTH_LONG).show();
-    }
-/*
-    @OnClick({R.id.save_address_button})
-    public void saveNewAddress() {
-        String titleText = placeTitle.getText().toString();
-        String address = autoCompleteTextView.getText().toString();
-        if (titleText.isEmpty()) {
-            inputLayoutTitle.setError("Wpisz tytuł");
-            requestFocus(placeTitle);
-        } else {
-            if (address.isEmpty()) {
-                showBigToast("Wpisz adres");
-            } else {
-                NavigationDataManager navigationDataManager = new NavigationDataManager();
-                navigationDataManager.save(titleText, address, getApplicationContext());
-                startActivity(new Intent(this, NavigationListActivity.class));
-            }
-        }
-    }
-*/
-    void showBigToast(String toastText){
-        Toast toast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
-        LinearLayout toastLayout = (LinearLayout) toast.getView();
-        TextView toastTV = (TextView) toastLayout.getChildAt(0);
-        toastTV.setTextSize(30);
-        toast.show();
+
     }
 
-    void initToolbar() {
+    @OnClick({R.id.save_address_button})
+    public void saveNewAddress() {
+        NavigationDataManager navigationDataManager = new NavigationDataManager();
+        String title_text = title.getText().toString();
+        String address = autoCompleteTextView.getText().toString();
+        //String line = title_text+";"+address;
+        navigationDataManager.save(title_text,address, getApplicationContext());
+        startActivity(new Intent(this, NavigationListActivity.class));
+
+    }
+
+    void initToolbar(){
         showBackButton();
         changeTitleForRightButton(getResources().getString(R.string.save));
         setTitle(R.string.new_number);
-    }
-
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
-
-    private class MyTextWatcher implements TextWatcher {
-        private View view;
-
-        private MyTextWatcher(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-
-        }
     }
 }

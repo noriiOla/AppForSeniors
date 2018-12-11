@@ -40,8 +40,9 @@ public class PushDialogManager {
             }
         });
 
-        buttonYes.setBackground(activity.getResources().getDrawable(R.drawable.button_shape_red));
-        buttonNo.setBackground(activity.getResources().getDrawable(R.drawable.button_shape_green));
+        buttonNo.setBackground(activity.getResources().getDrawable(R.drawable.button_shape_red));
+        buttonYes.setBackground(activity.getResources().getDrawable(R.drawable.button_shape_green));
+
 
         TextView title = (TextView) dialog.findViewById(R.id.popup_title);
         title.setText(activity.getResources().getText(R.string.popup_title_yes_no));

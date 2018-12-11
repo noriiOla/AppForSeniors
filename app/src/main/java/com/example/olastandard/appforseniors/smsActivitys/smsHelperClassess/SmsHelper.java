@@ -5,9 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.ContactsContract;
-import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 
@@ -15,7 +13,6 @@ import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.Objects.Sms;
 
-import java.security.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,18 +36,25 @@ public class SmsHelper {
         this.contextActivity = contextActivity;
     }
 
-    public SmsHelper(Context context) {
-        this.context = context;
-    }
+//    public static final String SMS_CONDITION = "Some condition";
+//
+//    public static boolean isValidPhoneNumber(String phoneNumber) {
+//        return android.util.Patterns.PHONE.matcher(phoneNumber).matches();
+//    }
+//
+//    public static void sendDebugSms(String number, String smsBody) {
+//        SmsManager smsManager = SmsManager.getDefault();
+//        smsManager.sendTextMessage(number, null, smsBody, null, null);
+//    }
 
-        public String getContactName(final String phoneNumber)
+    public String getContactName(final String phoneNumber)
     {
         Uri uri=Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI,Uri.encode(phoneNumber));
 
         String[] projection = new String[]{ContactsContract.PhoneLookup.DISPLAY_NAME};
 
-        String contactName = phoneNumber;
-        Cursor cursor = context.getContentResolver().query(uri,projection,null,null,null);
+        String contactName="";
+        Cursor cursor = contextActivity.getContentResolver().query(uri,projection,null,null,null);
 
         if (cursor != null) {
             if(cursor.moveToFirst()) {
@@ -112,9 +116,10 @@ public class SmsHelper {
     public List<PersonSmsData> actualizeListOfSms() {
         Sms objSms;
         Uri message = Uri.parse("content://sms/");
+        ContentResolver cr = contextActivity.getContentResolver();
 
-        Cursor c = contextActivity.getContentResolver().query(message, null, null, null, null);
-
+        Cursor c = cr.query(message, null, null, null, null);
+        contextActivity.startManagingCursor(c);
         int totalSMS = c.getCount();
 
         if (c.moveToFirst()) {
@@ -126,6 +131,7 @@ public class SmsHelper {
                 objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
                 objSms.setReadState(c.getString(c.getColumnIndex("read")));
                 long timestamp = c.getLong(c.getColumnIndexOrThrow("date"));
+
                 objSms.setTime(timeStampToDate(timestamp));
 
                 if (c.getString(c.getColumnIndexOrThrow("type")).contains("1")) {
@@ -172,8 +178,9 @@ public class SmsHelper {
 
         Uri uri = Uri.parse("content://sms/inbox");
         Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-        try {
+        try{
             while (cursor.moveToNext()) {
+
                 if (cursor.getString(cursor.getColumnIndexOrThrow("address")) != null) {
                     String phoneNumber = repairNumber(cursor.getString(cursor.getColumnIndexOrThrow("address")));
                     if (phoneNumber.equals(smsData.getNumebrOfPerson()) && (cursor.getInt(cursor.getColumnIndex("read")) == 0)) {
@@ -186,48 +193,12 @@ public class SmsHelper {
                         }
                     }
                 }
+
+
             }
-        } catch (Exception e) {
+        }catch(Exception e)
+        {
             System.out.println("Something went wrong");
         }
-    }
-
-    public boolean saveSms(String phoneNumber, String message, String readState, String time, String folderName) {
-        boolean ret = false;
-        Long tsLong = System.currentTimeMillis()/1000;
-        long ts = Calendar.getInstance().getTimeInMillis();
-
-        try {
-            ContentValues values = new ContentValues();
-            values.put("address", phoneNumber);
-            values.put("body", message);
-            values.put("read", readState); //"0" for have not read sms and "1" for have read sms
-            values.put("date", ts);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                Uri uri = Telephony.Sms.Sent.CONTENT_URI;
-                if(folderName.equals("inbox")){
-                    uri = Telephony.Sms.Inbox.CONTENT_URI;
-                }
-                context.getContentResolver().insert(uri, values);
-            }
-            else {
-                /* folderName  could be inbox or sent */
-                context.getContentResolver().insert(Uri.parse("content://sms/" + folderName), values);
-            }
-
-            ret = true;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            ret = false;
-        }
-        return ret;
-    }
-
-    public boolean isDefaultSmsApp(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            return context.getPackageName().equals(Telephony.Sms.getDefaultSmsPackage(context));
-        }
-        return false;
     }
 }
