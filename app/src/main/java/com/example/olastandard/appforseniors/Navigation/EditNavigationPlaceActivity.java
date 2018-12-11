@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.PlaceData;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -31,6 +33,8 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,6 +45,7 @@ public class EditNavigationPlaceActivity extends MainActivity implements
 
     private TextInputLayout inputLayoutTitle, inputLayoutAddress;
     private PlaceData placeData;
+    ArrayList<PlaceData> placeDataArray;
 
     @BindView(R.id.autoCompleteTextView)
     public AutoCompleteTextView autoCompleteTextView;
@@ -80,8 +85,10 @@ public class EditNavigationPlaceActivity extends MainActivity implements
         mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
 
         initToolbar();
+        addListeners();
 
         placeData = (PlaceData) getIntent().getSerializableExtra("placeData");
+        placeDataArray = (ArrayList<PlaceData>) getIntent().getSerializableExtra("placeDataArray");
 
         inputLayoutTitle = (TextInputLayout) findViewById(R.id.input_layout_title);
         inputLayoutAddress = (TextInputLayout) findViewById(R.id.input_layout_address);
@@ -121,6 +128,34 @@ public class EditNavigationPlaceActivity extends MainActivity implements
             CharSequence attributions = places.getAttributions();
         }
     };
+
+    public void addListeners() {
+        this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String titleText = placeTitle.getText().toString();
+                String address = autoCompleteTextView.getText().toString();
+                if (titleText.isEmpty()) {
+                    showDialogBox("Wpisz tytuł");
+                } else {
+                    if (address.isEmpty()) {
+                        showDialogBox("Wpisz adres");
+                    } else {
+                        NavigationDataManager navigationDataManager = new NavigationDataManager();
+                        navigationDataManager.edit(titleText, address, placeData.getTitle(), placeDataArray, getApplicationContext());
+                        startActivity(new Intent(getApplicationContext(), NavigationListActivity.class));
+                    }
+                }
+            }
+        });
+    }
+
+    private void showDialogBox(String text) {
+        new PushDialogManager().showDialogWithOkButton(this, text, new PushDialogButtonsOkInterface() {
+            @Override
+            public void onOkButtonTap() {
+            }
+        });
+    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {

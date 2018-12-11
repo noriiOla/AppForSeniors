@@ -17,6 +17,8 @@ import android.widget.EditText;
 
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.ContactData;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
 
 import java.util.ArrayList;
@@ -47,7 +49,6 @@ public class EditContactActivity extends MainActivity {
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_CONTACTS},1);
-
         }
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
@@ -60,11 +61,23 @@ public class EditContactActivity extends MainActivity {
         saveContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: walidacja
                 String contactName = contactNameInput.getText().toString();
                 String contactNumber = contactNumberInput.getText().toString();
-                updateNameAndNumber(v.getContext(), contactData.getNumebrOfPerson(), contactName,contactNumber);
-                startActivity(new Intent(v.getContext(), ContactListActivity.class));
+                if(contactName.isEmpty() || contactNumber.isEmpty()){
+                    showDialogBox("Wpisz numer oraz nazwę");
+                }
+                else {
+                    updateNameAndNumber(v.getContext(), contactData.getNumebrOfPerson(), contactName, contactNumber);
+                    startActivity(new Intent(v.getContext(), ContactListActivity.class));
+                }
+            }
+        });
+    }
+
+    private void showDialogBox(String text) {
+        new PushDialogManager().showDialogWithOkButton(this, text, new PushDialogButtonsOkInterface() {
+            @Override
+            public void onOkButtonTap() {
             }
         });
     }
@@ -76,7 +89,6 @@ public class EditContactActivity extends MainActivity {
     }
 
     private final static String[] DATA_COLS = {
-
             ContactsContract.Data.MIMETYPE,
             ContactsContract.Data.DATA1,//phone number
             ContactsContract.Data.CONTACT_ID
@@ -135,9 +147,7 @@ public class EditContactActivity extends MainActivity {
         return false;
     }
 
-
     public static String getContactId(Context context, String number) {
-
         if (context == null) return null;
 
         Cursor cursor = context.getContentResolver().query(

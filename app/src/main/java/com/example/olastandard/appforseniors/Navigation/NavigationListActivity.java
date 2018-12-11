@@ -69,7 +69,9 @@ public class NavigationListActivity extends MainActivity {
     private void initList() {
         placeData = new ArrayList<>();
         placeData = dataManager.read(getApplicationContext());
-        initRecyclerView(placeData);
+        List<PlaceData> placeList = placeData;
+        Collections.sort(placeList);
+        initRecyclerView(placeList);
     }
 
     @Override
@@ -139,6 +141,7 @@ public class NavigationListActivity extends MainActivity {
             Collections.sort(placeList);
             PlaceData place = placeList.get(((NavigationListAdapter) mAdapter).lastSelectedItem);
             intent.putExtra("placeData", place);
+            intent.putExtra("placeDataArray", placeData);
             this.startActivity(intent);
         }
     }

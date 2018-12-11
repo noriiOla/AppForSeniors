@@ -12,16 +12,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.MainActivity;
-import com.example.olastandard.appforseniors.Objects.PlaceData;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
-import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -35,13 +30,9 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 
 public class AddAddressActivity extends MainActivity implements
         GoogleApiClient.OnConnectionFailedListener,
@@ -103,17 +94,24 @@ public class AddAddressActivity extends MainActivity implements
                 String titleText = placeTitle.getText().toString();
                 String address = autoCompleteTextView.getText().toString();
                 if (titleText.isEmpty()) {
-                    inputLayoutTitle.setError("Wpisz tytuł");
-                    requestFocus(placeTitle);
+                    showDialogBox("Wpisz tytuł");
                 } else {
                     if (address.isEmpty()) {
-                        showBigToast("Wpisz adres");
+                        showDialogBox("Wpisz adres");
                     } else {
                         NavigationDataManager navigationDataManager = new NavigationDataManager();
                         navigationDataManager.save(titleText, address, getApplicationContext());
                         startActivity(new Intent(getApplicationContext(), NavigationListActivity.class));
                     }
                 }
+            }
+        });
+    }
+
+    private void showDialogBox(String text) {
+        new PushDialogManager().showDialogWithOkButton(this, text, new PushDialogButtonsOkInterface() {
+            @Override
+            public void onOkButtonTap() {
             }
         });
     }
@@ -168,32 +166,6 @@ public class AddAddressActivity extends MainActivity implements
                 "Google Places API connection failed with error code:" +
                         connectionResult.getErrorCode(),
                 Toast.LENGTH_LONG).show();
-    }
-/*
-    @OnClick({R.id.save_address_button})
-    public void saveNewAddress() {
-        String titleText = placeTitle.getText().toString();
-        String address = autoCompleteTextView.getText().toString();
-        if (titleText.isEmpty()) {
-            inputLayoutTitle.setError("Wpisz tytuł");
-            requestFocus(placeTitle);
-        } else {
-            if (address.isEmpty()) {
-                showBigToast("Wpisz adres");
-            } else {
-                NavigationDataManager navigationDataManager = new NavigationDataManager();
-                navigationDataManager.save(titleText, address, getApplicationContext());
-                startActivity(new Intent(this, NavigationListActivity.class));
-            }
-        }
-    }
-*/
-    void showBigToast(String toastText){
-        Toast toast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
-        LinearLayout toastLayout = (LinearLayout) toast.getView();
-        TextView toastTV = (TextView) toastLayout.getChildAt(0);
-        toastTV.setTextSize(30);
-        toast.show();
     }
 
     void initToolbar() {
