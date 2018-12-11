@@ -19,41 +19,78 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="4dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="true"
+            app:cardElevation="5dp">
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginBottom="10dp"
             android:background="#FFFF8D"
             android:text="@string/add_contact"
             android:textSize="25dp"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:id="@+id/go_to_new_number_activity"
             />
 
-        <Button
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:cardCornerRadius="4dp"
             android:layout_weight="1"
+            android:textAllCaps="false"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:background="#FFFF8D"
-            android:text="@string/choose_from_contact"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:id="@+id/go_to_contact"
-            />
+            android:layout_gravity="center"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="true"
+            app:cardElevation="5dp">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textAllCaps="false"
+            android:text="@string/choose_from_contact"
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:id="@+id/go_to_contact"
+            />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="4dp"
             android:layout_weight="1"
             android:layout_marginTop="10dp"
-            android:background="#FFFF8D"
+
+            android:layout_gravity="center"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="true"
+            app:cardElevation="5dp">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:text="@string/write_number"
             android:textSize="25dp"
+            android:textColor="@color/black"
+            android:textAllCaps="false"
             android:id="@+id/call_at_number"
             android:textStyle="bold"/>
+        </android.support.v7.widget.CardView>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
