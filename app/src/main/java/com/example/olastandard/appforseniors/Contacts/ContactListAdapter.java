@@ -69,7 +69,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastan
         }
 
         public void clearBackgroundColor() {
-            background.setBackgroundColor(mcontext.getResources().getColor(R.color.crem));
+            background.setBackgroundColor(mcontext.getResources().getColor(R.color.white));
         }
 
         @OnClick(R.id.contact_list_item)

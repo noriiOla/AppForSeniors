@@ -16,19 +16,19 @@ import java.util.ArrayList;
 
 
 public class NavigationDataManager {
-    public String path=  Environment.DIRECTORY_DOWNLOADS;
+    public String path = Environment.DIRECTORY_DOWNLOADS;
     String fileName = "NaviAddress";
 
     public NavigationDataManager() {
         this.initFile();
     }
 
-    public void initFile(){
-        File dir=new File(path);
+    public void initFile() {
+        File dir = new File(path);
         dir.mkdir();
     }
 
-    public void deleteFile(Context context){
+    public void deleteFile(Context context) {
         context.deleteFile(fileName);
     }
 
@@ -41,10 +41,10 @@ public class NavigationDataManager {
             BufferedReader bufferedReader = new BufferedReader(isr);
             String data;
 
-            while((data=bufferedReader.readLine( )) != null) {
+            while ((data = bufferedReader.readLine()) != null) {
                 System.out.println(data);
                 String title = data;
-                String address = bufferedReader.readLine( ); //DANGEROUS
+                String address = bufferedReader.readLine(); //DANGEROUS
                 PlaceData placeData = new PlaceData(title, address);
                 arrayList.add(placeData);
             }
@@ -82,13 +82,14 @@ public class NavigationDataManager {
         deleteFile(context);
         initFile();
         try {
-            for(PlaceData place: placeData){
+            outputStream = context.openFileOutput(fileName, context.MODE_PRIVATE);
+            for (PlaceData place : placeData) {
                 lineTitle = addNewLineSignToString(place.getTitle());
                 lineAddress = addNewLineSignToString(place.getAddress());
-                outputStream = context.openFileOutput(fileName, context.MODE_PRIVATE);
                 outputStream.write(lineTitle.getBytes());
                 outputStream.write(lineAddress.getBytes());
             }
+            outputStream.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,7 +97,18 @@ public class NavigationDataManager {
         }
     }
 
-    private String addNewLineSignToString(String line){
-        return line+"\n";
+    public void edit(String newTitle, String newAddress, String oldTitle,
+                     ArrayList<PlaceData> placeData, Context context) {
+        for (PlaceData place : placeData) {
+            if (place.getTitle().equals(oldTitle)) {
+                place.setTitle(newTitle);
+                place.setAddress(newAddress);
+            }
+        }
+        save(placeData,context);
+    }
+
+    private String addNewLineSignToString(String line) {
+        return line + "\n";
     }
 }

@@ -1,7 +1,6 @@
 package com.example.olastandard.appforseniors.Contacts;
 import android.Manifest;
 import android.content.ContentProviderOperation;
-import android.content.ContentProviderResult;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -12,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.olastandard.appforseniors.MainActivity;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
 
 import java.util.ArrayList;
@@ -26,9 +27,6 @@ public class AddContactActivity  extends MainActivity {
     @BindView(R.id.contact_number_inputt)
     public EditText contactNumberInput;
 
-    @BindView(R.id.button_save_contact)
-    public Button saveContact;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,21 +40,30 @@ public class AddContactActivity  extends MainActivity {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_CONTACTS},1);
         }
 
-        saveContact.setOnClickListener(new View.OnClickListener() {
-            @Override
+        this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String contactName = contactNameInput.getText().toString();
                 String contactNumber = contactNumberInput.getText().toString();
-                insertContact(contactName,contactNumber);
-                startActivity(new Intent(v.getContext(), ContactListActivity.class));
-
+                if(contactName.isEmpty() || contactNumber.isEmpty()){
+                    showDialogBox("Wpisz numer oraz nazwę");
+                }
+                else{
+                    insertContact(contactName,contactNumber);
+                    startActivity(new Intent(v.getContext(), ContactListActivity.class));
+                }
             }
         });
     }
-    //TODO Walidacja danych
 
-    private void insertContact( String displayName, String phoneNumber)
-    {
+    private void showDialogBox(String text) {
+        new PushDialogManager().showDialogWithOkButton(this, text, new PushDialogButtonsOkInterface() {
+            @Override
+            public void onOkButtonTap() {
+            }
+        });
+    }
+
+    private void insertContact( String displayName, String phoneNumber) {
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
         int rawContactInsertIndex = ops.size();
 
@@ -76,12 +83,10 @@ public class AddContactActivity  extends MainActivity {
                 .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
                 .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, phoneNumber) // Number of the person
                 .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE).build()); // Type of mobile number
-        try
-        {
+        try {
             getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             // error
         }
     }
