@@ -1,8 +1,12 @@
 package com.example.olastandard.appforseniors;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+import android.provider.Telephony;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -10,14 +14,17 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.example.olastandard.appforseniors.Adapters.MenuItemAdapter;
-import com.example.olastandard.appforseniors.AlarmClock.AlarmMenuActivity;
 import com.example.olastandard.appforseniors.AlarmClock.ClockListActivity;
+
 import com.example.olastandard.appforseniors.AlarmClock.LinksClockActivity;
 import com.example.olastandard.appforseniors.AlarmClock.NewAlarmActivity;
+
 import com.example.olastandard.appforseniors.Contacts.ContactTypeActivity;
-import com.example.olastandard.appforseniors.Navigation.AddAddressActivity;
 import com.example.olastandard.appforseniors.Navigation.NavigationListActivity;
 import com.example.olastandard.appforseniors.Objects.MenuItem;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
+import com.example.olastandard.appforseniors.VoiceNotes.VoiceNotesList;
 import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
 
 import butterknife.BindView;
@@ -29,6 +36,7 @@ public class ManuActivity extends MainActivity {
     @BindView(R.id.menu_button_select) Button buttonSelect;
 //    @BindView(R.id.menu_card_view)
 //    CardView menuCardView;
+    private static final int SMS_PERMISSION_CODE = 0;
 
     private final MenuItem[] menuItems = new MenuItem[]{new MenuItem(R.drawable.call_icon, R.string.call),
             new MenuItem(R.drawable.sms_icon, R.string.sms) ,
@@ -43,9 +51,94 @@ public class ManuActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         initAddlayout(R.layout.activity_manu);
         ButterKnife.bind(this);
+
+        Intent intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
+        final String packageName = this.getPackageName();
+        intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, packageName);
+        startActivity(intent);
+
         initToolbar();
         initGridView();
         buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        if (!hasPermission()) {
+            showRequestPermissionsInfoAlertDialog();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 0: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+                    new PushDialogManager().showDialogWithOkButton(this, "Bez zezwolenia część funkcji aplikacji nie będzie działać poprawnie. Możesz zmienić zezwolenia w opcjach aplikacji.", new PushDialogButtonsOkInterface() {
+                        @Override
+                        public void onOkButtonTap() {
+                        }
+                    });
+
+                }
+                return;
+            }
+        }
+    }
+
+    private void showRequestPermissionsInfoAlertDialog() {
+        new PushDialogManager().showDialogWithOkButton(this, getResources().getString(R.string.sms_persmission), new PushDialogButtonsOkInterface() {
+            @Override
+            public void onOkButtonTap() {
+                requestReadAndSendSmsPermission();
+            }
+        });
+    }
+
+    private boolean hasPermission() {
+        return ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WAKE_LOCK) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_NETWORK_STATE) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_CONTACTS) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+
+    }
+
+    private void requestReadAndSendSmsPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS,
+                        Manifest.permission.RECEIVE_SMS,
+                        Manifest.permission.READ_CONTACTS,
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.SEND_SMS,
+                        Manifest.permission.WAKE_LOCK,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_NETWORK_STATE,
+                        Manifest.permission.WRITE_CONTACTS,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.RECORD_AUDIO},
+                SMS_PERMISSION_CODE);
     }
 
     public void initGridView() {
@@ -95,10 +188,20 @@ public class ManuActivity extends MainActivity {
         if (gridSelectedPosition >= 0 && gridSelectedPosition < menuItems.length) {
             switch (menuItems[gridSelectedPosition].text) {
                 case R.string.sms:
-                    startActivity(new Intent(this, MessagerListActivity.class));
+                  //  startActivity(new Intent(this, ExampleActivity.class));
+
+                    if (hasSmsPermission()) {
+                        startActivity(new Intent(this, MessagerListActivity.class));
+                    }else {
+                        showPermiossionError("Przed otworzeniem tej funkcji proszę zezwolić w ustawieniach aplikacji na korzystanie z czytania smsów i kontaktów oraz wysyłania smsów");
+                    }
                     break;
                 case R.string.call:
-                    startActivity(new Intent(this, ContactTypeActivity.class));
+                    if (hasContactPermission()) {
+                        startActivity(new Intent(this, ContactTypeActivity.class));
+                    }else {
+                        showPermiossionError("Przed otworzeniem tej funkcji proszę zezwolić w ustawieniach aplikacji na korzystanie z czytania i modyfikacji kontaktów oraz dzwonienia");
+                    }
                     break;
                 case R.string.alarm:
                   //  startActivity(new Intent(this,ClockListActivity.class));
@@ -109,12 +212,48 @@ public class ManuActivity extends MainActivity {
                     startActivity(new Intent(this, NavigationListActivity.class));
                     break;
                 case R.string.notes:
-                    startActivity(new Intent(this, AddLinkActivity.class));
+                    if (hasNotesPermission()) {
+                        startActivity(new Intent(this, VoiceNotesList.class));
+                    }else {
+                        showPermiossionError("Przed otworzeniem tej funkcji proszę zezwolić w ustawieniach aplikacji na nagrywanie oraz zapis i odczyta danych z pamieci komorki");
+                    }
                     break;
                 case R.string.web:
                     startActivity(new Intent(this, LinksActivity.class));
                     break;
             }
         }
+    }
+
+    public void showPermiossionError(String withMessage) {
+        new PushDialogManager().showDialogWithOkButton(this, withMessage, new PushDialogButtonsOkInterface() {
+            @Override
+            public void onOkButtonTap() {
+                requestReadAndSendSmsPermission();
+            }
+        });
+    }
+
+    public boolean hasSmsPermission() {
+        return ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public boolean hasNotesPermission() {
+        return ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public boolean hasContactPermission() {
+        return ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED;
     }
 }

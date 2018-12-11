@@ -58,7 +58,6 @@ public class ContactTypeActivity extends MainActivity {
                 startActivity(new Intent(v.getContext(), AddContactActivity.class));
             }
         });
-
     }
 
     private void initToolbar() {

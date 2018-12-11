@@ -12,13 +12,13 @@
 
     <!--Menu-->
     <string name="menu">Menu</string>
-    <string name="wybierz">WYBIERZ</string>
-    <string name="alarm">BUDZIK</string>
+    <string name="wybierz">Wybierz</string>
+    <string name="alarm">Budzik</string>
     <string name="sms">Wiadomości</string>
-    <string name="call">ZADZWOŃ</string>
-    <string name="gps">PROWADŹ</string>
-    <string name="notes">NOTATKI</string>
-    <string name="web">INTERNET</string>
+    <string name="call">Zadzwoń</string>
+    <string name="gps">Nawigacja</string>
+    <string name="notes">Notatki</string>
+    <string name="web">Internet</string>
     <string name="usun">Usuń</string>
 
 
@@ -44,5 +44,7 @@
     <!--Popup-->
     <string name="popup_title_yes_no">Uważaj</string>
     <string name="popup_title_information">Informacja</string>
+
+    <string name="sms_persmission">Do poprawnego działania, aplikacja potrzebuje Twojego pozwolenia na czytanie i wysyłanie wiadomości./nNadaj dostęp klikając "Tak" w następnym oknie..</string>
 
 </resources>

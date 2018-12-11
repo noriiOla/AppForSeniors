@@ -1,10 +1,11 @@
 package com.example.olastandard.appforseniors.Navigation;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -12,17 +13,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.Objects.PlaceData;
-import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
-import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
-import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -35,19 +31,16 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddAddressActivity extends MainActivity implements
+public class EditNavigationPlaceActivity extends MainActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks {
 
     private TextInputLayout inputLayoutTitle, inputLayoutAddress;
+    private PlaceData placeData;
 
     @BindView(R.id.autoCompleteTextView)
     public AutoCompleteTextView autoCompleteTextView;
@@ -73,7 +66,7 @@ public class AddAddressActivity extends MainActivity implements
         mAutocompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         mAutocompleteTextView.setThreshold(3);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(AddAddressActivity.this)
+        mGoogleApiClient = new GoogleApiClient.Builder(EditNavigationPlaceActivity.this)
                 .addApi(Places.GEO_DATA_API)
                 .enableAutoManage(this, GOOGLE_API_CLIENT_ID, this)
                 .addConnectionCallbacks(this)
@@ -87,35 +80,16 @@ public class AddAddressActivity extends MainActivity implements
         mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
 
         initToolbar();
-        addListeners();
+
+        placeData = (PlaceData) getIntent().getSerializableExtra("placeData");
 
         inputLayoutTitle = (TextInputLayout) findViewById(R.id.input_layout_title);
         inputLayoutAddress = (TextInputLayout) findViewById(R.id.input_layout_address);
 
-        placeTitle.addTextChangedListener(new MyTextWatcher(placeTitle));
-        autoCompleteTextView.addTextChangedListener(new MyTextWatcher(autoCompleteTextView));
-
-    }
-
-    public void addListeners() {
-        this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                String titleText = placeTitle.getText().toString();
-                String address = autoCompleteTextView.getText().toString();
-                if (titleText.isEmpty()) {
-                    inputLayoutTitle.setError("Wpisz tytuł");
-                    requestFocus(placeTitle);
-                } else {
-                    if (address.isEmpty()) {
-                        showBigToast("Wpisz adres");
-                    } else {
-                        NavigationDataManager navigationDataManager = new NavigationDataManager();
-                        navigationDataManager.save(titleText, address, getApplicationContext());
-                        startActivity(new Intent(getApplicationContext(), NavigationListActivity.class));
-                    }
-                }
-            }
-        });
+        placeTitle.addTextChangedListener(new EditNavigationPlaceActivity.MyTextWatcher(placeTitle));
+        autoCompleteTextView.addTextChangedListener(new EditNavigationPlaceActivity.MyTextWatcher(autoCompleteTextView));
+        placeTitle.setText(placeData.getTitle());
+        autoCompleteTextView.setText(placeData.getAddress());
     }
 
     private AdapterView.OnItemClickListener mAutocompleteClickListener
@@ -168,32 +142,7 @@ public class AddAddressActivity extends MainActivity implements
                 "Google Places API connection failed with error code:" +
                         connectionResult.getErrorCode(),
                 Toast.LENGTH_LONG).show();
-    }
-/*
-    @OnClick({R.id.save_address_button})
-    public void saveNewAddress() {
-        String titleText = placeTitle.getText().toString();
-        String address = autoCompleteTextView.getText().toString();
-        if (titleText.isEmpty()) {
-            inputLayoutTitle.setError("Wpisz tytuł");
-            requestFocus(placeTitle);
-        } else {
-            if (address.isEmpty()) {
-                showBigToast("Wpisz adres");
-            } else {
-                NavigationDataManager navigationDataManager = new NavigationDataManager();
-                navigationDataManager.save(titleText, address, getApplicationContext());
-                startActivity(new Intent(this, NavigationListActivity.class));
-            }
-        }
-    }
-*/
-    void showBigToast(String toastText){
-        Toast toast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
-        LinearLayout toastLayout = (LinearLayout) toast.getView();
-        TextView toastTV = (TextView) toastLayout.getChildAt(0);
-        toastTV.setTextSize(30);
-        toast.show();
+
     }
 
     void initToolbar() {
