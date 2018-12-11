@@ -3,17 +3,12 @@ package com.example.olastandard.appforseniors.Navigation;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,13 +32,11 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class EditNavigationPlaceActivity extends MainActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks {
 
-    private TextInputLayout inputLayoutTitle, inputLayoutAddress;
     private PlaceData placeData;
     ArrayList<PlaceData> placeDataArray;
 
@@ -90,11 +83,6 @@ public class EditNavigationPlaceActivity extends MainActivity implements
         placeData = (PlaceData) getIntent().getSerializableExtra("placeData");
         placeDataArray = (ArrayList<PlaceData>) getIntent().getSerializableExtra("placeDataArray");
 
-        inputLayoutTitle = (TextInputLayout) findViewById(R.id.input_layout_title);
-        inputLayoutAddress = (TextInputLayout) findViewById(R.id.input_layout_address);
-
-        placeTitle.addTextChangedListener(new EditNavigationPlaceActivity.MyTextWatcher(placeTitle));
-        autoCompleteTextView.addTextChangedListener(new EditNavigationPlaceActivity.MyTextWatcher(autoCompleteTextView));
         placeTitle.setText(placeData.getTitle());
         autoCompleteTextView.setText(placeData.getAddress());
     }
@@ -192,21 +180,4 @@ public class EditNavigationPlaceActivity extends MainActivity implements
         }
     }
 
-    private class MyTextWatcher implements TextWatcher {
-        private View view;
-
-        private MyTextWatcher(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-
-        }
-    }
 }

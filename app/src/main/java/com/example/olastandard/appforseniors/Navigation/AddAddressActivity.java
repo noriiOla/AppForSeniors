@@ -4,12 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
@@ -38,7 +34,6 @@ public class AddAddressActivity extends MainActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks {
 
-    private TextInputLayout inputLayoutTitle, inputLayoutAddress;
 
     @BindView(R.id.autoCompleteTextView)
     public AutoCompleteTextView autoCompleteTextView;
@@ -79,13 +74,6 @@ public class AddAddressActivity extends MainActivity implements
 
         initToolbar();
         addListeners();
-
-        inputLayoutTitle = (TextInputLayout) findViewById(R.id.input_layout_title);
-        inputLayoutAddress = (TextInputLayout) findViewById(R.id.input_layout_address);
-
-        placeTitle.addTextChangedListener(new MyTextWatcher(placeTitle));
-        autoCompleteTextView.addTextChangedListener(new MyTextWatcher(autoCompleteTextView));
-
     }
 
     public void addListeners() {
@@ -172,22 +160,5 @@ public class AddAddressActivity extends MainActivity implements
         showBackButton();
         changeTitleForRightButton(getResources().getString(R.string.save));
         setTitle(R.string.new_number);
-    }
-
-    private class MyTextWatcher implements TextWatcher {
-        private View view;
-
-        private MyTextWatcher(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-        }
     }
 }

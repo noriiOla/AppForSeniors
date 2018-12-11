@@ -1,39 +1,22 @@
 package com.example.olastandard.appforseniors;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.webkit.URLUtil;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.UnknownHostException;
-
-import butterknife.OnClick;
 
 public class AddLinkActivity extends MainActivity {
 
@@ -48,17 +31,12 @@ public class AddLinkActivity extends MainActivity {
         initAddlayout(R.layout.activity_add_link);
         initToolbar();
 
-
         _toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 buttonSave(v);
             }
         });
-
-
     }
-
-
 
 
     private void initToolbar() {
@@ -70,12 +48,8 @@ public class AddLinkActivity extends MainActivity {
     }
 
 
-
-
     public void buttonSave (View view)
     {
-
-
         EditText urlTextEdit=(EditText) findViewById(R.id.nazwaLinku);
         EditText addressTextEdit=(EditText) findViewById(R.id.urlL);
         if(urlTextEdit.getText().toString().equals("") ||addressTextEdit.getText().toString().equals("")){
@@ -83,8 +57,6 @@ public class AddLinkActivity extends MainActivity {
             return;
         }
         String saveText= urlTextEdit.getText().toString()+","+addressTextEdit.getText().toString()+"\n";
-
-
 
         //Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
 
@@ -195,7 +167,6 @@ public class AddLinkActivity extends MainActivity {
 
     private boolean read(String name) {
 
-        TextView urlTextEdit=(TextView) findViewById(R.id.textView);
         try {
             FileInputStream fis = this.getApplicationContext().openFileInput("savedFile8");
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
@@ -223,9 +194,5 @@ public class AddLinkActivity extends MainActivity {
         }
         return true;
     }
-
-
-
-
 
 }
