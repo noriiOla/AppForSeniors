@@ -6,8 +6,8 @@
     <color name="black">#000000	</color>
     <color name="white">#FFFFFF</color>
     <color name="crem">#fffdd0</color>
-    <color name="green">#33cc33</color>
-    <color name="red">#FF0000</color>
+    <color name="green">#bbebff</color>
+    <color name="red">#bbebff</color>
     <color name="transparent">#80000000</color>
     <color name="lightGray">#dfdfdf</color>
     <color name="lightBlue">#cce0ff</color>
@@ -16,5 +16,5 @@
     <color name="orangeTransparent50Proc">#4DFF6E00</color>
     <color name="yellow">#FFFF50</color>
 
-
+<!--FF85D585-->
 </resources>

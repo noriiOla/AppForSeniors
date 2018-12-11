@@ -36,6 +36,7 @@
             android:background="#FFFF8D"
             android:text="@string/add_contact"
             android:textSize="25dp"
+            android:padding="20dp"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -76,17 +77,18 @@
             app:cardCornerRadius="4dp"
             android:layout_weight="1"
             android:layout_marginTop="10dp"
-
             android:layout_gravity="center"
             app:cardUseCompatPadding="true"
             app:cardPreventCornerOverlap="true"
             app:cardElevation="5dp">
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/write_number"
             android:textSize="25dp"
             android:textColor="@color/black"
+            android:padding="20dp"
             android:textAllCaps="false"
             android:id="@+id/call_at_number"
             android:textStyle="bold"/>
