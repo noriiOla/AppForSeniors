@@ -9,14 +9,18 @@
     android:paddingTop="70dip"
     android:paddingRight="6dip">
 
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
 
         <LinearLayout
             android:paddingLeft="6dip"
             android:paddingRight="6dip"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
             <Button
                 android:id="@+id/leftalarm_button"
                 android:layout_width="55dp"
@@ -25,13 +29,15 @@
                 android:layout_marginBottom="10dp"
                 android:onClick="setFocusLeft"
                 android:rotation="270"
-                android:background="@drawable/shape_triangle" />
+                android:background="@drawable/shape_triangle"
+                />
             <EditText
                 android:id="@+id/editText2"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/editText"
                 android:ems="10"
+                android:gravity="center"
                 android:inputType="number"
                 android:digits="012"
                 android:maxLength="1" />
@@ -43,18 +49,18 @@
                 android:digits="0123456789"
                 android:layout_alignParentLeft="true"
                 android:ems="10"
-
+                android:gravity="center"
                 android:inputType="number"
                 android:maxLength="1"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="112dp" />
+                />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="20sp"
                 android:text=":" />
 
             <EditText
@@ -62,6 +68,7 @@
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:gravity="center"
                 android:digits="012345"
                 android:inputType="number"
                 android:maxLength="1" />
@@ -72,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:gravity="center"
                 android:digits="0123456789"
                 android:inputType="number"
                 android:maxLength="1" />
@@ -86,5 +94,8 @@
 
 
         </LinearLayout>
+
+    </RelativeLayout>
+
 
 </android.support.constraint.ConstraintLayout>

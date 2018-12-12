@@ -7,6 +7,7 @@ import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.olastandard.appforseniors.LinksActivity;
@@ -43,7 +44,6 @@ public class NewAlarmActivity extends MainActivity {
         et3.setFilters(new InputFilter[]{ new InputFilterMinMax("0", "5")});
          et4 = (EditText) findViewById(R.id.editText7);
         et4.setFilters(new InputFilter[]{ new InputFilterMinMax("0", "9")});
-
 
          imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
        // imm.toggleSoftInput(InputMethodManager.RESULT_SHOWN,0);
