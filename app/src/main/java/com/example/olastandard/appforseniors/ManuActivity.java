@@ -3,6 +3,7 @@ package com.example.olastandard.appforseniors;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
@@ -48,10 +49,12 @@ public class ManuActivity extends MainActivity {
         initAddlayout(R.layout.activity_manu);
         ButterKnife.bind(this);
 
-        Intent intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
-        final String packageName = this.getPackageName();
-        intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, packageName);
-        startActivity(intent);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Intent intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
+            final String packageName = this.getPackageName();
+            intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, packageName);
+            startActivity(intent);
+        }
 
         initToolbar();
         initGridView();
