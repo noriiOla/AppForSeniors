@@ -5,18 +5,33 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ContactTypeActivity extends MainActivity {
+
+    @BindView(R.id.go_to_contact)
+    Button go_to_contact_list;
+
+    @BindView(R.id.call_at_number)
+    Button call_at;
+
+    @BindView(R.id.go_to_new_number_activity)
+    Button newNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initAddlayout(R.layout.activity_contact_type);
+        ButterKnife.bind(this);
+
         initToolbar();
 
         if (ActivityCompat.checkSelfPermission(this,
@@ -25,12 +40,14 @@ public class ContactTypeActivity extends MainActivity {
         }
 
         setListeners();
+
+        go_to_contact_list.setBackground(getResources().getDrawable(R.drawable.floating_button_shape_green));
+        call_at.setBackground(getResources().getDrawable(R.drawable.floating_button_shape_green));
+        newNumber.setBackground(getResources().getDrawable(R.drawable.floating_button_shape_green));
+
     }
 
     private void setListeners(){
-        Button go_to_contact_list = (Button) findViewById (R.id.go_to_contact);
-        Button call_at = (Button) findViewById (R.id.call_at_number);
-        Button newNumber = (Button) findViewById (R.id.go_to_new_number_activity);
 
         go_to_contact_list.setOnClickListener(new View.OnClickListener() {
             @Override
