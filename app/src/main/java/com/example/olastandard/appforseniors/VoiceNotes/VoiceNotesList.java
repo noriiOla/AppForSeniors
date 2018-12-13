@@ -1,5 +1,6 @@
 package com.example.olastandard.appforseniors.VoiceNotes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,10 +9,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.olastandard.appforseniors.MainActivity;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
-import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsHelper;
-import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsReceiver;
 
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,19 +23,19 @@ import butterknife.OnClick;
 public class VoiceNotesList extends MainActivity {
 
     @BindView(R.id.voice_notes_recycler_view)
-    RecyclerView listOfSms;
-    @BindView(R.id.voice_notes_button_select)
-    Button buttonSelect;
+    RecyclerView listOfNotes;
     @BindView(R.id.voice_notes_button_delete)
     Button buttonDelete;
     @BindView(R.id.voice_notes_play_stop)
     Button buttonPlayStop;
-
+    @BindView(R.id.button_edit_notes)
+    Button buttonEditNotes;
     @BindView(R.id.voice_notes_background)
     ConstraintLayout background;
 
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    VoiceNotesManager voiceNotesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class VoiceNotesList extends MainActivity {
         this.background.setBackgroundColor(getResources().getColor(R.color.lightGray));
         initToolbar();
         addListeners();
-        buttonDelete.setText(getResources().getString(R.string.delete));
+        voiceNotesManager = VoiceNotesManager.getInstance();
     }
 
     @Override
@@ -51,28 +53,63 @@ public class VoiceNotesList extends MainActivity {
         super.onStart();
 
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
-        buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonEditNotes.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         buttonPlayStop.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
 
-        List<String> listaSmsow = VoiceNotesManager.getInstance().getRecordsNames();
-        initRecyclerView(listaSmsow);
+        initList();
     }
 
+    private void initList() {
+        List<String> notesList = VoiceNotesManager.getInstance().getRecordsNames();
+        initRecyclerView(notesList);
+    }
 
     public void addListeners() {
         this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //nowa notatka
+                startActivity(new Intent(getApplicationContext(), AddVoiceNoteActivity.class));
             }
         });
     }
 
-    private void initRecyclerView(List<String> listOfPersonsSmsData) {
-        listOfSms.setHasFixedSize(true);
+    @OnClick({R.id.voice_notes_play_stop})
+    public void playNote() {
+        if (((NotesAdapter) mAdapter).lastSelectedItem >= 0) {
+            List<String> titles = VoiceNotesManager.getInstance().getRecordsNames();
+            Collections.sort(titles);
+            String note = titles.get(((NotesAdapter) mAdapter).lastSelectedItem);
+            voiceNotesManager.play(note);
+        }
+    }
+
+    @OnClick({R.id.voice_notes_button_delete})
+    public void deleteNote() {
+        if (((NotesAdapter) mAdapter).lastSelectedItem >= 0) {
+            List<String> titles = VoiceNotesManager.getInstance().getRecordsNames();
+            //Collections.sort(titles);
+            final String note = titles.get(((NotesAdapter) mAdapter).lastSelectedItem);
+            (new PushDialogManager()).showDialogWithYesNoButtons(this,
+                    "Czy na pewno chcesz usunąć notatkę " + note,
+                    new PushDialogButtonsYesNoInterface() {
+                        @Override
+                        public void onYesButtonTap() {
+                            voiceNotesManager.removeNoteByName(note);
+                            initList();
+                        }
+
+                        @Override
+                        public void onNoButtonTap() {
+                        }
+                    });
+        }
+    }
+
+    private void initRecyclerView(List<String> listOfVoiceNotesTitles) {
+        listOfNotes.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
-        listOfSms.setLayoutManager(mLayoutManager);
-        mAdapter = new NotesAdapter(listOfPersonsSmsData, getApplicationContext());
-        listOfSms.setAdapter(mAdapter);
+        listOfNotes.setLayoutManager(mLayoutManager);
+        mAdapter = new NotesAdapter(listOfVoiceNotesTitles, getApplicationContext());
+        listOfNotes.setAdapter(mAdapter);
     }
 
     private void initToolbar() {
@@ -82,7 +119,7 @@ public class VoiceNotesList extends MainActivity {
 
     private void changeButtonsColor() {
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_red));
-        buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
+        buttonEditNotes.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
         buttonPlayStop.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
     }
 

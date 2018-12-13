@@ -32,6 +32,7 @@ public class VoiceNotesManager {
     String baseUrl = Environment.getExternalStorageDirectory().getAbsolutePath() + "/seniorAppNotes/";
     private MediaRecorder myAudioRecorder;
     private final String recordTemporaryName = "temp.3gp";
+    private boolean isPlayed  = false;
 
     public static VoiceNotesManager getInstance()
     {
@@ -41,8 +42,7 @@ public class VoiceNotesManager {
         return voiceNotesManager;
     }
 
-    public VoiceNotesManager() {
-    }
+    public VoiceNotesManager() { }
 
     public void startRecording() {
         if (createBaseDirIfNotExists() && myAudioRecorder == null) {
@@ -50,7 +50,6 @@ public class VoiceNotesManager {
             myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-
             myAudioRecorder.setOutputFile(baseUrl + recordTemporaryName);
 
             try {
@@ -90,25 +89,33 @@ public class VoiceNotesManager {
     }
 
     public void play() {
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        try {
-            mediaPlayer.setDataSource(baseUrl + recordTemporaryName);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-        } catch (Exception e) {
-            System.out.println("odtwarzanie nagrania - cos poszlo nie tak");
-            // make something
-        }
+        playAudio(baseUrl + recordTemporaryName);
+
     }
 
     public void play(String fileName) {
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        try {
-            mediaPlayer.setDataSource(baseUrl + fileName + ".3gp");
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-        } catch (Exception e) {
-            // make something
+        playAudio( baseUrl + fileName + ".3gp");
+    }
+
+    public void playAudio(String file){
+        if(!isPlayed){
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            try {
+                mediaPlayer.setDataSource(file);
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+                isPlayed = true;
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                System.out.println("Bład: " + e.getStackTrace());
+            }
+
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    mp.release();
+                    isPlayed = false;
+                };
+            });
         }
     }
 
@@ -164,5 +171,6 @@ public class VoiceNotesManager {
         if (file != null) {
             file.delete();
         }
+
     }
 }

@@ -43,8 +43,8 @@
                 android:layout_marginLeft="0dp"
                 android:textAllCaps="false"
                 android:textStyle="bold"
-                android:text="@string/wybierz"
-                android:id="@+id/voice_notes_button_select"
+                android:text="@string/delete"
+                android:id="@+id/voice_notes_button_delete"
                 />
 
             <Button
@@ -56,7 +56,7 @@
                 android:layout_marginLeft="0dp"
                 android:textAllCaps="false"
                 android:textStyle="bold"
-                android:text="Graj"
+                android:text="@string/play"
                 android:id="@+id/voice_notes_play_stop"
                 />
 
@@ -69,8 +69,8 @@
                 android:textSize="30dp"
                 android:textAllCaps="false"
                 android:textStyle="bold"
-                android:text="@string/newS"
-                android:id="@+id/voice_notes_button_delete"
+                android:text="@string/edit"
+                android:id="@+id/button_edit_notes"
                 />
         </LinearLayout>
 

@@ -30,6 +30,7 @@
     <string name="edit">Edytuj</string>
     <string name="delete_contact">Usuń</string>
     <string name="call_to_contact_number">Zadzwoń</string>
+
     <!--Sms-->
     <string name="show">Pokaż</string>
     <string name="delete">Usuń</string>
@@ -37,14 +38,19 @@
     <string name="newReceiver">Dodaj odbiorcę</string>
 
     <!--Linki-->
-
     <string name="nazwaLinku">Nazwa Linku</string>
     <string name="urlL">Adres url</string>
 
     <!--Popup-->
     <string name="popup_title_yes_no">Uważaj</string>
     <string name="popup_title_information">Informacja</string>
-
     <string name="sms_persmission">Do poprawnego działania, aplikacja potrzebuje Twojego pozwolenia na czytanie i wysyłanie wiadomości./nNadaj dostęp klikając "Tak" w następnym oknie..</string>
+
+
+    <!--Voice-notes-->
+    <string name="start_recording">Rozpocznij nowe nagranie</string>
+    <string name="stop_recording">Zakończ nagranie</string>
+    <string name="stop_play">Zatrzymaj nagranie</string>
+    <string name="play">Odtwórz</string>
 
 </resources>
