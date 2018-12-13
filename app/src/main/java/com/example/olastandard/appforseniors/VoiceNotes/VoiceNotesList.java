@@ -104,6 +104,17 @@ public class VoiceNotesList extends MainActivity {
         }
     }
 
+    @OnClick({R.id.button_edit_notes})
+    public void editNote() {
+        if (((NotesAdapter) mAdapter).lastSelectedItem >= 0) {
+            List<String> titles = VoiceNotesManager.getInstance().getRecordsNames();
+            //Collections.sort(titles);
+            final String note = titles.get(((NotesAdapter) mAdapter).lastSelectedItem);
+            Intent intent = new Intent(getApplicationContext(), EditVoiceNoteActivity.class);
+            intent.putExtra("title", note);
+            this.startActivity(intent);        }
+    }
+
     private void initRecyclerView(List<String> listOfVoiceNotesTitles) {
         listOfNotes.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
