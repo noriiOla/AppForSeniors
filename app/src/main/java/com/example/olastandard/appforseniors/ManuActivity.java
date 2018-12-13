@@ -31,7 +31,7 @@ import butterknife.OnClick;
 public class ManuActivity extends MainActivity {
     @BindView(R.id.menu_grid_view) GridView gridView;
     @BindView(R.id.menu_button_select) Button buttonSelect;
-//    @BindView(R.id.menu_card_view)
+    //    @BindView(R.id.menu_card_view)
 //    CardView menuCardView;
     private static final int SMS_PERMISSION_CODE = 0;
 
@@ -187,7 +187,7 @@ public class ManuActivity extends MainActivity {
         if (gridSelectedPosition >= 0 && gridSelectedPosition < menuItems.length) {
             switch (menuItems[gridSelectedPosition].text) {
                 case R.string.sms:
-                  //  startActivity(new Intent(this, ExampleActivity.class));
+                    //  startActivity(new Intent(this, ExampleActivity.class));
 
                     if (hasSmsPermission()) {
                         startActivity(new Intent(this, MessagerListActivity.class));
@@ -216,7 +216,7 @@ public class ManuActivity extends MainActivity {
                     }
                     break;
                 case R.string.web:
-                    startActivity(new Intent(this, LinksActivity.class));
+                    startActivity(new Intent(this, RWLinksActivity.class));
                     break;
             }
         }

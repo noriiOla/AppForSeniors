@@ -17,6 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -79,7 +82,14 @@ public class AddLinkActivity extends MainActivity {
         EditText urlTextEdit=(EditText) findViewById(R.id.nazwaLinku);
         EditText addressTextEdit=(EditText) findViewById(R.id.urlL);
         if(urlTextEdit.getText().toString().equals("") ||addressTextEdit.getText().toString().equals("")){
-            Toast.makeText(getApplicationContext(), "Nie podano nazwy lub adresu", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Nie podano nazwy lub adresu", Toast.LENGTH_LONG).show();
+            new PushDialogManager().showDialogWithOkButton(AddLinkActivity.this, "Nie podano nazwy lub adresu", new PushDialogButtonsOkInterface() {
+                @Override
+                public void onOkButtonTap() {
+                    return;
+                }
+            });
+
             return;
         }
         String saveText= urlTextEdit.getText().toString()+","+addressTextEdit.getText().toString()+"\n";
@@ -102,13 +112,20 @@ public class AddLinkActivity extends MainActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         boolean result;
 
-        if (!(result = (activeNetworkInfo != null && activeNetworkInfo.isConnected()))) {
+       /* if (!(result = (activeNetworkInfo != null && activeNetworkInfo.isConnected()))) {
             Toast.makeText(getApplicationContext(), "Brak dostepu do neta ", Toast.LENGTH_LONG).show();
             return;
-        }
+        }*/
 
         if (read(nazwa) == false) {
-            Toast.makeText(getApplicationContext(), "istnieje juz nazwa podac inna", Toast.LENGTH_LONG).show();
+
+           // Toast.makeText(getApplicationContext(), "istnieje juz nazwa podac inna", Toast.LENGTH_LONG).show();
+            new PushDialogManager().showDialogWithOkButton(AddLinkActivity.this, "Podana nazwa została wybrana wczesniej", new PushDialogButtonsOkInterface() {
+                @Override
+                public void onOkButtonTap() {
+                    return;
+                }
+            });
             return;
         }
         if (!link.startsWith("http://") && !link.startsWith("https://"))
@@ -117,8 +134,16 @@ public class AddLinkActivity extends MainActivity {
 
         boolean o=Patterns.WEB_URL.matcher(link).matches();
         if(o){}else{
-    Toast.makeText(getApplicationContext(), "niedzialajacy link" , Toast.LENGTH_LONG).show();
-    return;
+    //Toast.makeText(getApplicationContext(), "niedzialajacy link" , Toast.LENGTH_LONG).show();
+
+            new PushDialogManager().showDialogWithOkButton(AddLinkActivity.this, "Niepoprawny format adresu", new PushDialogButtonsOkInterface() {
+                @Override
+                public void onOkButtonTap() {
+                    return;
+                }
+            });
+
+            return;
         }
 
         // if (nazwa.matches("((http)[s]?(://).*)")) {
@@ -195,7 +220,7 @@ public class AddLinkActivity extends MainActivity {
 
     private boolean read(String name) {
 
-        TextView urlTextEdit=(TextView) findViewById(R.id.textView);
+       // TextView urlTextEdit=(TextView) findViewById(R.id.textView);
         try {
             FileInputStream fis = this.getApplicationContext().openFileInput("savedFile8");
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");

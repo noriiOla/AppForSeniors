@@ -17,7 +17,7 @@ import com.example.olastandard.appforseniors.Objects.CustomToolbar;
 
 public class MainActivity extends AppCompatActivity {
 
-    CustomToolbar _customToolbar;
+    public CustomToolbar _customToolbar;
     public Button _toolbarBackButton;
     TextView _toolbarTitle;
     public Button _toolbarSaveButton;
