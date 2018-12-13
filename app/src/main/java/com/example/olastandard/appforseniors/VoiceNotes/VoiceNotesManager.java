@@ -90,7 +90,6 @@ public class VoiceNotesManager {
 
     public void play() {
         playAudio(baseUrl + recordTemporaryName);
-
     }
 
     public void play(String fileName) {
@@ -117,6 +116,12 @@ public class VoiceNotesManager {
                 };
             });
         }
+    }
+
+    public void renameNote(String newName, String oldName){
+        File file = new File(baseUrl + oldName + ".3gp");
+        File newFile = new File(baseUrl + newName + ".3gp");
+        file.renameTo(newFile );
     }
 
     public List<String> getRecordsNames() {

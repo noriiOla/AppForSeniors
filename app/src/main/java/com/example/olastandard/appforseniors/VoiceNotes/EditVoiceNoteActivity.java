@@ -27,6 +27,7 @@ public class EditVoiceNoteActivity extends MainActivity {
     private VoiceNotesManager voiceNotesManager;
     private boolean isRecording = false;
     private boolean isNoteExisting = true;
+    private boolean isNoteChanged = false;
     private String title = "";
 
     @Override
@@ -43,14 +44,30 @@ public class EditVoiceNoteActivity extends MainActivity {
     }
 
     private void saveNoteThenOpenList() {
-        if (!isNoteExisting) {
-            showDialogBox("Nagraj wiadomość");
-        }else{
-            voiceNotesManager.saveRecord(placeTitle.getText().toString());
-            startActivity(new Intent(EditVoiceNoteActivity.this, VoiceNotesList.class));
+        if (placeTitle.getText().toString().isEmpty()) { //tytul pusty
+            showDialogBox("Wpisz tytuł wiadomości");
+        } else {
+            String newTitle = placeTitle.getText().toString();
+            if (!newTitle.equals(title)) { //zmieniono tytul
+                if (isNoteChanged) { //i zmieniono plik
+                    voiceNotesManager.removeNoteByName(title);
+                    voiceNotesManager.saveRecord(placeTitle.getText().toString());
+                    startActivity(new Intent(EditVoiceNoteActivity.this, VoiceNotesList.class));
+                } else { //tylko zmiana tytulu
+                    voiceNotesManager.renameNote(newTitle, title);
+                    startActivity(new Intent(EditVoiceNoteActivity.this, VoiceNotesList.class));
+                }
+            } else { //tytulu nie zmieniono
+                if (isNoteChanged) {
+                    voiceNotesManager.removeNoteByName(title);
+                    voiceNotesManager.saveRecord(placeTitle.getText().toString());
+                    startActivity(new Intent(EditVoiceNoteActivity.this, VoiceNotesList.class));
+                } else {
+                    showDialogBox("Brak zmian, nic nie zapisane zapisane");
+                }
+            }
         }
     }
-
 
     private void showDialogBox(String text) {
         new PushDialogManager().showDialogWithOkButton(this, text, new PushDialogButtonsOkInterface() {
@@ -66,6 +83,7 @@ public class EditVoiceNoteActivity extends MainActivity {
             voiceNotesManager.stopRecording();
             isRecording = false;
             isNoteExisting = true;
+            isNoteChanged = true;
             buttonRecordAction.setText(R.string.start_recording);
         } else {
             if (isNoteExisting) {
@@ -122,6 +140,7 @@ public class EditVoiceNoteActivity extends MainActivity {
                         new PushDialogButtonsYesNoInterface() {
                             @Override
                             public void onYesButtonTap() {
+
                                 saveNoteThenOpenList();
                             }
 
