@@ -1,5 +1,6 @@
 package com.example.olastandard.appforseniors.AlarmClock;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -58,6 +60,10 @@ public class LinksClockActivity extends MainActivity  {
     protected void onResume()
     {
         super.onResume();
+
+        View rootView = ((Activity)this.getApplicationContext()).getWindow().getDecorView().findViewById(android.R.id.content);
+
+
         String[] items={};
         arrayList= new ArrayList<>();
         arrayListListView=new ArrayList<String>(Arrays.asList(items));

@@ -6,17 +6,26 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.R;
 
 import java.util.Calendar;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class AlarmActivity  extends MainActivity {
     AlarmManager alarmManager;
     PendingIntent appIntent;
+
+
+
+   /* @BindView(R.id.time_of_alarm)
+    Button textTime;
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +46,11 @@ public class AlarmActivity  extends MainActivity {
         Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
         appIntent = PendingIntent.getBroadcast(this,(int) newTome2 , myIntent,PendingIntent.FLAG_ONE_SHOT);
 
+        String newTime2=hours.toString()+":"+minutes.toString();
+        //alarmButton.setBackground(getResources().getDrawable(R.drawable.floating_button_shape_green));
+       // textTime.setText(newTime2);
+        TextView text = (TextView)findViewById(R.id.time_of_alarm);
+        text.setText(newTime2);
     }
 
     @OnClick({R.id.button_stop_alarm})
@@ -91,6 +105,6 @@ public class AlarmActivity  extends MainActivity {
     private void initToolbar() {
         showBackButton();
         hideRightButton();
-        setTitle("EXAMPLE");
+        setTitle("Alarm");
     }
 }
