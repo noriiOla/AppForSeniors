@@ -1,54 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/add_contact_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
-        <TextView
-            android:id="@+id/textViewContactName"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_contact_name"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Nazwa kontaktu:"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/contact_name_input"
+            <EditText
+                android:id="@+id/contact_name_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:ems="10"
+                android:hint="Nazwa kontaktu"
+                android:inputType="text"
+                android:textSize="30sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_contact_number"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textViewContactName"
-            android:ems="10"
-            android:inputType="text" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textViewContactNumber"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@+id/contact_name_input"
-            android:text="Numer:"
-            android:textSize="20sp" />
+            <EditText
+                android:id="@+id/contact_number_inputt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:ems="10"
+                android:hint="Numer"
+                android:inputType="phone"
+                android:textSize="30sp" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/contact_number_inputt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewContactNumber"
-            android:ems="10"
-            android:inputType="phone" />
-
-    </RelativeLayout>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
