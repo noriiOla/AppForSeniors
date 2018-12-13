@@ -60,6 +60,7 @@ public class RWLinksActivity extends MainActivity {
     @BindView(R.id.rwlinks_background)
     ConstraintLayout background;
 
+
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     public String path=  Environment.DIRECTORY_DOWNLOADS;          ;
@@ -70,7 +71,7 @@ public class RWLinksActivity extends MainActivity {
     private ArrayAdapter<String> adapter ;
     FileOutputStream outputStream;
     //public static
-    int listPosition;
+    int listPosition=-1;
     int c=-1;
 
     @Override
@@ -159,7 +160,7 @@ public class RWLinksActivity extends MainActivity {
     @OnClick({R.id.rwlinks_button_open})
     public void playNote() {
         listPosition=((LinkAdapter) mAdapter).lastSelectedItem;
-        if(arrayList.isEmpty()){
+        if(arrayList.isEmpty() || listPosition==-1){
             return;
         }
         ConnectivityManager connectivityManager
@@ -170,7 +171,7 @@ public class RWLinksActivity extends MainActivity {
             //  Toast.makeText(getApplicationContext(), "Brak dostepu do neta ", Toast.LENGTH_LONG).show();
 
 
-            new PushDialogManager().showDialogWithOkButton(RWLinksActivity.this, getApplicationContext().getFilesDir()+"Brak dostepu do neta", new PushDialogButtonsOkInterface() {
+            new PushDialogManager().showDialogWithOkButton(RWLinksActivity.this, "Włącz internet", new PushDialogButtonsOkInterface() {
                 @Override
                 public void onOkButtonTap() {
                     return;
@@ -193,11 +194,30 @@ public class RWLinksActivity extends MainActivity {
     @OnClick({R.id.rwlinks_button_delete})
     public void deleteNote() {
         listPosition=((LinkAdapter) mAdapter).lastSelectedItem;
-        if(arrayList.isEmpty()){
+        if(arrayList.isEmpty()|| listPosition==-1){
             return;
         }
+
+        (new PushDialogManager()).showDialogWithYesNoButtons(this, "Czy na pewno chcesz usunąć link ?", new PushDialogButtonsYesNoInterface() {
+
+
+            @Override
+            public void onYesButtonTap() {
+                deletehelper(); System.out.println("-----------=Button ok selected Ok");
+            }
+
+            @Override
+            public void onNoButtonTap() {
+                System.out.println("-----------=Button NO selected OK");
+            }
+        });
+
+
+
+    }
+    public void deletehelper(){
         String array=arrayList.get(listPosition);
-       // Toast.makeText(getApplicationContext(),"rozmiar "+ arrayList.size() ,Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(),"rozmiar "+ arrayList.size() ,Toast.LENGTH_LONG).show();
         arrayList.remove(listPosition);
         arrayListListView.remove(listPosition);
         Boolean bol=  getApplicationContext().deleteFile("savedFile8");
@@ -206,7 +226,7 @@ public class RWLinksActivity extends MainActivity {
         Collections.reverse(arrayListListView);
         for(String line : arrayList)
         {result+=line+"\n";}
-       // Toast.makeText(getApplicationContext(),result ,Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(),result ,Toast.LENGTH_LONG).show();
         try {
             outputStream = this.getApplicationContext().openFileOutput("savedFile8", MODE_PRIVATE);
 
@@ -219,7 +239,6 @@ public class RWLinksActivity extends MainActivity {
             e.printStackTrace();
         }
         onResume();
-
 
     }
 
