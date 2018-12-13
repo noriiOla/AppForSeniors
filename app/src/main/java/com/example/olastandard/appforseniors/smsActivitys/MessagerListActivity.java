@@ -97,6 +97,8 @@ public class MessagerListActivity extends MainActivity {
                     }, 1000);
             }
         });
+        
+        ((SmsPersonListAdapter) mAdapter).lastSelectedItem = -1;
     }
 
     private boolean hasReadSmsPermission() {
