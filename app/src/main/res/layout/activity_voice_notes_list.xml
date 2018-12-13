@@ -69,7 +69,7 @@
                 android:textSize="30dp"
                 android:textAllCaps="false"
                 android:textStyle="bold"
-                android:text="@string/newS"
+                android:text="@string/usun"
                 android:id="@+id/voice_notes_button_delete"
                 />
         </LinearLayout>

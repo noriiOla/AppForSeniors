@@ -68,12 +68,11 @@
 
         <activity android:name=".Navigation.NavigationListActivity" />
         <activity android:name=".Navigation.AddAddressActivity" />
-        <activity android:name=".Navigation.EditNavigationPlaceActivity"></activity>
+        <activity android:name=".Navigation.EditNavigationPlaceActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBOsHFmIjpVv41mG7YZPV_7ZaQtQkz3mC8" />
-
 
         <receiver
             android:name=".smsActivitys.smsHelperClassess.SmsReceiver"
@@ -111,7 +110,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".VoiceNotes.VoiceNotesList"></activity>
+        <activity android:name=".VoiceNotes.VoiceNotesList" />
+        <activity android:name=".VoiceNotes.AddVoiceNoteActivity"></activity>
     </application>
 
 </manifest>
