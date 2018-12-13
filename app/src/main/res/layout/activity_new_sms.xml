@@ -45,14 +45,24 @@
                 />
         </LinearLayout>
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxHeight="200dp"
-            android:minWidth="50dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:id="@+id/new_sms_msg"/>
+            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="200dp"
+                android:minWidth="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:hint="Treść wiadomości"
+                android:id="@+id/new_sms_msg"/>
+        </android.support.design.widget.TextInputLayout>
+
+
 
         <!--<android.inputmethodservice.KeyboardView-->
             <!--android:id="@+id/keyboardview"-->
