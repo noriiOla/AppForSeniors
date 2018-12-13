@@ -102,10 +102,10 @@ public class AddLinkActivity extends MainActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         boolean result;
 
-        if (!(result = (activeNetworkInfo != null && activeNetworkInfo.isConnected()))) {
+       /* if (!(result = (activeNetworkInfo != null && activeNetworkInfo.isConnected()))) {
             Toast.makeText(getApplicationContext(), "Brak dostepu do neta ", Toast.LENGTH_LONG).show();
             return;
-        }
+        }*/
 
         if (read(nazwa) == false) {
             Toast.makeText(getApplicationContext(), "istnieje juz nazwa podac inna", Toast.LENGTH_LONG).show();
@@ -195,7 +195,7 @@ public class AddLinkActivity extends MainActivity {
 
     private boolean read(String name) {
 
-        TextView urlTextEdit=(TextView) findViewById(R.id.textView);
+       // TextView urlTextEdit=(TextView) findViewById(R.id.textView);
         try {
             FileInputStream fis = this.getApplicationContext().openFileInput("savedFile8");
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");

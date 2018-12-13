@@ -16,7 +16,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission
+        android:name="android.permission.VIBRATE"></uses-permission>
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
@@ -63,8 +65,14 @@
         <activity android:name=".AddLinkActivity" />
         <activity android:name=".AlarmClock.ClockListActivity" />
         <activity android:name=".AlarmClock.NewAlarmActivity" />
-
+        <receiver android:name=".AlarmClock.LinksClockActivity" />
         <receiver android:name=".AlarmClock.AlarmReceiver" />
+        <receiver android:name=".SampleBootReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
 
         <activity android:name=".Navigation.NavigationListActivity" />
         <activity android:name=".Navigation.AddAddressActivity" />
@@ -113,6 +121,7 @@
         <activity android:name=".VoiceNotes.VoiceNotesList" />
         <activity android:name=".VoiceNotes.AddVoiceNoteActivity" />
         <activity android:name=".VoiceNotes.EditVoiceNoteActivity"></activity>
+
     </application>
 
 </manifest>
