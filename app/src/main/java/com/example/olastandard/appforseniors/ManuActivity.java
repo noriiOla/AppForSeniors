@@ -216,7 +216,7 @@ public class ManuActivity extends MainActivity {
                     }
                     break;
                 case R.string.web:
-                    startActivity(new Intent(this, LinksActivity.class));
+                    startActivity(new Intent(this, RWLinksActivity.class));
                     break;
             }
         }

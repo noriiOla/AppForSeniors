@@ -67,9 +67,9 @@ public class LinkAdapter  extends RecyclerView.Adapter<LinkAdapter.ViewHolder> {
             background.setBackgroundColor(mcontext.getResources().getColor(R.color.white));
         }
 
-        @OnClick(R.id.notes_list_cell)
+        @OnClick(R.id.links_list_cell)
         public void showEventDetail() {
-            ((VoiceNotesList) mcontext).updateSelectedItem(getPosition());
+            ((RWLinksActivity) mcontext).updateSelectedItem(getPosition());
         }
     }
 
@@ -94,7 +94,7 @@ public class LinkAdapter  extends RecyclerView.Adapter<LinkAdapter.ViewHolder> {
         holder.notesName.setText(mDataset.get(position));
         if (position == lastSelectedItem) {
             holder.changeBackgroundColorToGreen();
-
+           // RWLinksActivity.listPosition=position;
         } else {
             holder.clearBackgroundColor();
         }

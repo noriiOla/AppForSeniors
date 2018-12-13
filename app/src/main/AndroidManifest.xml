@@ -124,7 +124,8 @@
         <activity android:name=".VoiceNotes.AddVoiceNoteActivity" />
         <activity android:name=".VoiceNotes.EditVoiceNoteActivity" />
         <activity android:name=".AlarmClock.AlarmActivity" />
-        <activity android:name=".AlarmClock.ListClock2Activity"></activity>
+        <activity android:name=".AlarmClock.ListClock2Activity" />
+        <activity android:name=".RWLinksActivity"></activity>
     </application>
 
 </manifest>
