@@ -9,11 +9,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.olastandard.appforseniors.MainActivity;
-import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
-import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsHelper;
-import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsReceiver;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,14 +23,13 @@ import butterknife.OnClick;
 public class VoiceNotesList extends MainActivity {
 
     @BindView(R.id.voice_notes_recycler_view)
-    RecyclerView listOfSms;
-    @BindView(R.id.voice_notes_button_select)
-    Button buttonSelect;
+    RecyclerView listOfNotes;
     @BindView(R.id.voice_notes_button_delete)
     Button buttonDelete;
     @BindView(R.id.voice_notes_play_stop)
     Button buttonPlayStop;
-
+    @BindView(R.id.button_edit_notes)
+    Button buttonEditNotes;
     @BindView(R.id.voice_notes_background)
     ConstraintLayout background;
 
@@ -56,18 +53,16 @@ public class VoiceNotesList extends MainActivity {
         super.onStart();
 
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
-        buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonEditNotes.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         buttonPlayStop.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
 
         initList();
     }
 
-
-    private void initList(){
+    private void initList() {
         List<String> notesList = VoiceNotesManager.getInstance().getRecordsNames();
         initRecyclerView(notesList);
     }
-
 
     public void addListeners() {
         this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
@@ -91,19 +86,30 @@ public class VoiceNotesList extends MainActivity {
     public void deleteNote() {
         if (((NotesAdapter) mAdapter).lastSelectedItem >= 0) {
             List<String> titles = VoiceNotesManager.getInstance().getRecordsNames();
-            Collections.sort(titles);
-            String note = titles.get(((NotesAdapter) mAdapter).lastSelectedItem);
-            voiceNotesManager.removeNoteByName(note);
-            initList();
+            //Collections.sort(titles);
+            final String note = titles.get(((NotesAdapter) mAdapter).lastSelectedItem);
+            (new PushDialogManager()).showDialogWithYesNoButtons(this,
+                    "Czy na pewno chcesz usunąć notatkę " + note,
+                    new PushDialogButtonsYesNoInterface() {
+                        @Override
+                        public void onYesButtonTap() {
+                            voiceNotesManager.removeNoteByName(note);
+                            initList();
+                        }
+
+                        @Override
+                        public void onNoButtonTap() {
+                        }
+                    });
         }
     }
 
     private void initRecyclerView(List<String> listOfVoiceNotesTitles) {
-        listOfSms.setHasFixedSize(true);
+        listOfNotes.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
-        listOfSms.setLayoutManager(mLayoutManager);
+        listOfNotes.setLayoutManager(mLayoutManager);
         mAdapter = new NotesAdapter(listOfVoiceNotesTitles, getApplicationContext());
-        listOfSms.setAdapter(mAdapter);
+        listOfNotes.setAdapter(mAdapter);
     }
 
     private void initToolbar() {
@@ -113,7 +119,7 @@ public class VoiceNotesList extends MainActivity {
 
     private void changeButtonsColor() {
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_red));
-        buttonSelect.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
+        buttonEditNotes.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
         buttonPlayStop.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
     }
 

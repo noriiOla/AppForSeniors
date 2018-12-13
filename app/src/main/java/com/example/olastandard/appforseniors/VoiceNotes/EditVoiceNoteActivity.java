@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddVoiceNoteActivity extends MainActivity {
+public class EditVoiceNoteActivity extends MainActivity {
 
     @BindView(R.id.note_title_input)
     public EditText placeTitle;
@@ -26,8 +26,8 @@ public class AddVoiceNoteActivity extends MainActivity {
 
     private VoiceNotesManager voiceNotesManager;
     private boolean isRecording = false;
-    private boolean isNoteExisting = false;
-
+    private boolean isNoteExisting = true;
+    private String title = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,8 @@ public class AddVoiceNoteActivity extends MainActivity {
         initToolbar();
         voiceNotesManager = VoiceNotesManager.getInstance();
         changeButtonsColor();
-
+        title = (String) getIntent().getSerializableExtra("title");
+        placeTitle.setText(title);
         initListeners();
     }
 
@@ -46,7 +47,7 @@ public class AddVoiceNoteActivity extends MainActivity {
             showDialogBox("Nagraj wiadomość");
         }else{
             voiceNotesManager.saveRecord(placeTitle.getText().toString());
-            startActivity(new Intent(AddVoiceNoteActivity.this, VoiceNotesList.class));
+            startActivity(new Intent(EditVoiceNoteActivity.this, VoiceNotesList.class));
         }
     }
 
@@ -116,7 +117,7 @@ public class AddVoiceNoteActivity extends MainActivity {
 
         this._toolbarBackButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                (new PushDialogManager()).showDialogWithYesNoButtons(AddVoiceNoteActivity.this,
+                (new PushDialogManager()).showDialogWithYesNoButtons(EditVoiceNoteActivity.this,
                         "Czy chcesz aby notatka została zapisana?",
                         new PushDialogButtonsYesNoInterface() {
                             @Override

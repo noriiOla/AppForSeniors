@@ -111,7 +111,8 @@
         </service>
 
         <activity android:name=".VoiceNotes.VoiceNotesList" />
-        <activity android:name=".VoiceNotes.AddVoiceNoteActivity"></activity>
+        <activity android:name=".VoiceNotes.AddVoiceNoteActivity" />
+        <activity android:name=".VoiceNotes.EditVoiceNoteActivity"></activity>
     </application>
 
 </manifest>
