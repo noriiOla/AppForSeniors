@@ -35,7 +35,7 @@ public class AlarmActivity  extends MainActivity {
         System.out.println("----> alarm activity");
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
-         appIntent = PendingIntent.getBroadcast(this,(int) newTome2 , myIntent,PendingIntent.FLAG_ONE_SHOT);
+        appIntent = PendingIntent.getBroadcast(this,(int) newTome2 , myIntent,PendingIntent.FLAG_ONE_SHOT);
 
     }
 
@@ -73,25 +73,24 @@ public class AlarmActivity  extends MainActivity {
 
 
     }
-        public void openApp(){
-            Intent i = new Intent(this, AlarmActivity.class);
+    public void openApp(){
+        Intent i = new Intent(this, AlarmActivity.class);
        /* Bundle b = new Bundle();
         b.putInt(Constants.ALARM_ID, intent.getExtras().getInt(Constants.ALARM_ID));
         if(intent.getExtras().containsKey(Constants.SNOOZE_ALARM)){
             b.putString(Constants.SNOOZE_ALARM, intent.getExtras().getString(Constants.SNOOZE_ALARM));
         }
         i.putExtras(b);*/
-            //THESE ARE THE FLAGS NEEDED TO START THE ACTIVITY AND TO PREVENT THE BUG
-            //(CLEAR_TASK is crucial for the bug and new task is needed to start activity from outside of an activity)
-            //  i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            System.out.println("----> on intentservice");
-            startActivity(i);
+        //THESE ARE THE FLAGS NEEDED TO START THE ACTIVITY AND TO PREVENT THE BUG
+        //(CLEAR_TASK is crucial for the bug and new task is needed to start activity from outside of an activity)
+        //  i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        System.out.println("----> on intentservice");
+        startActivity(i);
 
-        }
+    }
     private void initToolbar() {
         showBackButton();
         hideRightButton();
         setTitle("EXAMPLE");
     }
 }
-
