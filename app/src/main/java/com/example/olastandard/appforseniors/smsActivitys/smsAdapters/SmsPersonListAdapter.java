@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SmsPersonListAdapter extends RecyclerView.Adapter<SmsPersonListAdapter.ViewHolder> {
-    private List<PersonSmsData> mDataset;
+    public List<PersonSmsData> mDataset;
     Context context;
     public int lastSelectedItem = -1;
 
@@ -45,7 +45,7 @@ public class SmsPersonListAdapter extends RecyclerView.Adapter<SmsPersonListAdap
         }
 
         public void changeBackgroundColorToRed() {
-            background.setBackgroundColor(mcontext.getResources().getColor(R.color.red));
+            background.setBackgroundColor(mcontext.getResources().getColor(R.color.redColor));
         }
 
         public void clearBackgroundColor() {
@@ -81,16 +81,16 @@ public class SmsPersonListAdapter extends RecyclerView.Adapter<SmsPersonListAdap
         if (position == lastSelectedItem) {
             holder.changeBackgroundColorToGreen();
             if (mDataset.get(position).getListOfSms().get(0).getReadState().equals("0")) {
-                holder.lastSmsData.setTextColor(context.getResources().getColor(R.color.red));
-                holder.personName.setTextColor(context.getResources().getColor(R.color.red));
+                holder.lastSmsData.setTextColor(context.getResources().getColor(R.color.redColor));
+                holder.personName.setTextColor(context.getResources().getColor(R.color.redColor));
             }else {
                 holder.lastSmsData.setTextColor(context.getResources().getColor(R.color.black));
                 holder.personName.setTextColor(context.getResources().getColor(R.color.black));
             }
         }else {
             if (mDataset.get(position).getListOfSms().get(0).getReadState().equals("0")) {
-                holder.lastSmsData.setTextColor(context.getResources().getColor(R.color.red));
-                holder.personName.setTextColor(context.getResources().getColor(R.color.red));
+                holder.lastSmsData.setTextColor(context.getResources().getColor(R.color.redColor));
+                holder.personName.setTextColor(context.getResources().getColor(R.color.redColor));
                 holder.clearBackgroundColor();
             }else {
                 holder.clearBackgroundColor();

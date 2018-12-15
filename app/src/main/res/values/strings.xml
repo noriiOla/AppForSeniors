@@ -52,6 +52,7 @@
     <string name="stop_recording">Zakończ nagranie</string>
     <string name="stop_play">Zatrzymaj nagranie</string>
     <string name="play">Odtwórz</string>
+    <string name="stop_play_2">Stop</string>
     <string name="title_activity_rwalarm_list">RWAlarmListActivity</string>
 
 </resources>

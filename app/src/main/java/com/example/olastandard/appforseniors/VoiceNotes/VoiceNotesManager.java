@@ -27,12 +27,17 @@ public class VoiceNotesManager {
         pobranie dostepnych nagran: getRecordsNames()
     */
 
+    interface CallbackPlayer {
+        void onPlayEnd();
+    }
+
     private static VoiceNotesManager voiceNotesManager = null;
 
     String baseUrl = Environment.getExternalStorageDirectory().getAbsolutePath() + "/seniorAppNotes/";
     private MediaRecorder myAudioRecorder;
     private final String recordTemporaryName = "temp.3gp";
     private boolean isPlayed  = false;
+    private MediaPlayer player;
 
     public static VoiceNotesManager getInstance()
     {
@@ -82,39 +87,55 @@ public class VoiceNotesManager {
 
     public void stopRecording() {
         if (myAudioRecorder != null) {
-            myAudioRecorder.stop();
-            myAudioRecorder.release();
-            myAudioRecorder = null;
+            try{
+                myAudioRecorder.stop();
+                myAudioRecorder.release();
+                myAudioRecorder = null;
+            }catch(RuntimeException stopException){
+                System.out.println("Exception audio stop");
+                System.out.println(stopException.getMessage());
+            }
         }
     }
 
-    public void play() {
-        playAudio(baseUrl + recordTemporaryName);
+    public void play(CallbackPlayer callback) {
+        playAudio(baseUrl + recordTemporaryName, callback);
     }
 
-    public void play(String fileName) {
-        playAudio( baseUrl + fileName + ".3gp");
+    public void play(String fileName, CallbackPlayer callback) {
+        playAudio( baseUrl + fileName + ".3gp", callback);
     }
 
-    public void playAudio(String file){
+    private void playAudio(String file, final CallbackPlayer callback){
         if(!isPlayed){
-            MediaPlayer mediaPlayer = new MediaPlayer();
+            player = new MediaPlayer();
             try {
-                mediaPlayer.setDataSource(file);
-                mediaPlayer.prepare();
-                mediaPlayer.start();
+                player.setDataSource(file);
+                player.prepare();
+                player.start();
                 isPlayed = true;
             } catch (Exception e) {
                 System.out.println(e.toString());
                 System.out.println("Bład: " + e.getStackTrace());
             }
 
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 public void onCompletion(MediaPlayer mp) {
                     mp.release();
                     isPlayed = false;
+                    if (callback != null) {
+                        callback.onPlayEnd();
+                    }
                 };
             });
+        }
+    }
+
+    public void stopAudio(){
+        if (player != null && isPlayed) {
+            player.stop();
+            player.release();
+            isPlayed = false;
         }
     }
 
