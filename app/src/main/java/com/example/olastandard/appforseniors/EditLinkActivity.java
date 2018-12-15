@@ -136,9 +136,12 @@ public class EditLinkActivity extends MainActivity {
         String title = (String) getIntent().getSerializableExtra("title");
         String adres = (String) getIntent().getSerializableExtra("adres");
 
+
+        ArrayList<String> al=new ArrayList<String>();
+        ArrayList<String> al2=new ArrayList<String>();
         if(nazwa.equals(title)&& link.equals(adres))
         {
-            new PushDialogManager().showDialogWithOkButton(EditLinkActivity.this, "Nie zmieniono nazwy", new PushDialogButtonsOkInterface() {
+            new PushDialogManager().showDialogWithOkButton(EditLinkActivity.this, "Nie zmieniono niczego", new PushDialogButtonsOkInterface() {
                 @Override
                 public void onOkButtonTap() {
                     finish();
@@ -148,7 +151,6 @@ public class EditLinkActivity extends MainActivity {
             return;
         }else{
 
-ArrayList<String> al=new ArrayList<String>();
             try {
                 FileInputStream fis = this.getApplicationContext().openFileInput("savedFile8");
                 InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
@@ -167,6 +169,7 @@ ArrayList<String> al=new ArrayList<String>();
                     }
                     else{
                         al.add(data1);
+                        al2.add(data2);
                     }
 
 
@@ -184,11 +187,11 @@ ArrayList<String> al=new ArrayList<String>();
 
 
 
-            Boolean bol=  getApplicationContext().deleteFile("savedFile8");
-            String result1="";
+            /*Boolean bol=  getApplicationContext().deleteFile("savedFile8");
+            String result1="";*/
        /* Collections.reverse(arrayList);
         Collections.reverse(arrayListListView);*/
-            for(String line : al)
+         /*   for(String line : al)
             {result1+=line+"\n";}
             // Toast.makeText(getApplicationContext(),result ,Toast.LENGTH_LONG).show();
             try {
@@ -202,21 +205,24 @@ ArrayList<String> al=new ArrayList<String>();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+*/
 
         }
 
 
 
-        if (read(nazwa) == false) {
+        if (al2.contains(nazwa)) {
 
             // Toast.makeText(getApplicationContext(), "istnieje juz nazwa podac inna", Toast.LENGTH_LONG).show();
             new PushDialogManager().showDialogWithOkButton(EditLinkActivity.this, "Podana nazwa została wybrana wczesniej", new PushDialogButtonsOkInterface() {
                 @Override
                 public void onOkButtonTap() {
+                    finish();
                     return;
+
                 }
             });
+
             return;
         }
         if (!link.startsWith("http://") && !link.startsWith("https://"))
@@ -267,14 +273,26 @@ ArrayList<String> al=new ArrayList<String>();
 
 
 
+String result1=nazwa+","+link+"\n";
+        Boolean bol=  getApplicationContext().deleteFile("savedFile8");
+          //  String result1="";*/
+       /* Collections.reverse(arrayList);
+        Collections.reverse(arrayListListView);*/
+            for(String line : al)
+            {result1+=line+"\n";}
 
-        try {
-            outputStream = this.getApplicationContext().openFileOutput("savedFile8", MODE_APPEND);
-            outputStream.write(data.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            // Toast.makeText(getApplicationContext(),result ,Toast.LENGTH_LONG).show();
+            try {
+                outputStream = this.getApplicationContext().openFileOutput("savedFile8", MODE_PRIVATE);
+
+                outputStream.write(result1.getBytes());
+
+
+
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         //read();
 //       file.mkdirs();
