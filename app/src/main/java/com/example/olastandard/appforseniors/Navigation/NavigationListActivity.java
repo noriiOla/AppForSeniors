@@ -143,7 +143,9 @@ public class NavigationListActivity extends MainActivity {
 
     @OnClick({R.id.navigation_button_add})
     public void addPlace() {
-        startActivity(new Intent(this, AddAddressActivity.class));
+        Intent intent = new Intent(getApplicationContext(), AddAddressActivity.class);
+        intent.putExtra("placeDataArray", placeData);
+        this.startActivity(intent);
     }
 
     @OnClick({R.id.navigation_button_call})

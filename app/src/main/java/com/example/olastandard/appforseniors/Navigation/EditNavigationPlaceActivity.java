@@ -134,19 +134,32 @@ public class EditNavigationPlaceActivity extends MainActivity implements
             public void onClick(View v) {
                 String titleText = placeTitle.getText().toString();
                 String address = autoCompleteTextView.getText().toString();
-                if (titleText.isEmpty()) {
-                    showDialogBox("Wpisz tytuł");
-                } else {
-                    if (address.isEmpty()) {
-                        showDialogBox("Wpisz adres");
+                if (!isTitleUsed(titleText)) {
+                    if (titleText.isEmpty()) {
+                        showDialogBox("Wpisz tytuł");
                     } else {
-                        NavigationDataManager navigationDataManager = new NavigationDataManager();
-                        navigationDataManager.edit(titleText, address, placeData.getTitle(), placeDataArray, getApplicationContext());
-                        startActivity(new Intent(getApplicationContext(), NavigationListActivity.class));
+                        if (address.isEmpty()) {
+                            showDialogBox("Wpisz adres");
+                        } else {
+                            NavigationDataManager navigationDataManager = new NavigationDataManager();
+                            navigationDataManager.edit(titleText, address, placeData.getTitle(), placeDataArray, getApplicationContext());
+                            startActivity(new Intent(getApplicationContext(), NavigationListActivity.class));
+                        }
                     }
+                } else {
+                    showDialogBox("Istnieje już taki sam tytuł w liście nawigacji");
                 }
             }
         });
+    }
+
+    private boolean isTitleUsed(String title) {
+        for (PlaceData placeData : placeDataArray) {
+            if (placeData.getTitle().equals(title)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void showDialogBox(String text) {
