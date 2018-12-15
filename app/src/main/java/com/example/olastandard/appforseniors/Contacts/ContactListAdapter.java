@@ -39,7 +39,7 @@ import butterknife.OnClick;
 
 
 public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastandard.appforseniors.Contacts.ContactListAdapter.ViewHolder> {
-    private List<ContactData> mDataset;
+    public List<ContactData> mDataset;
     Context context;
     public int lastSelectedItem = -1;
 

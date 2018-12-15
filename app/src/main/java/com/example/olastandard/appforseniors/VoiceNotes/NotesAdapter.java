@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class NotesAdapter  extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
-    private List<String> mDataset;
+    public List<String> mDataset;
     Context context;
     public int lastSelectedItem = -1;
 

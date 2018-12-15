@@ -25,6 +25,7 @@ import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoIn
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
 import com.example.olastandard.appforseniors.smsActivitys.MessagerActivity;
+import com.example.olastandard.appforseniors.smsActivitys.smsAdapters.SmsPersonListAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -190,7 +191,15 @@ public class ContactListActivity extends MainActivity {
 
     private void deleteContact(ContactData contactData){
         deleteContact(getApplicationContext(), contactData.getNumebrOfPerson(), contactData.getNameOfPersion());
-        initList();
+        List<ContactData> contactList = getContacts();
+        Collections.sort(contactList);
+        reloadTableData(contactList);
+        //initList();
+    }
+
+    private void reloadTableData(List<ContactData> contactData) {
+        ((ContactListAdapter)mAdapter).mDataset = contactData;
+        mAdapter.notifyDataSetChanged();
     }
 
     @OnClick({R.id.contact_button_call})
