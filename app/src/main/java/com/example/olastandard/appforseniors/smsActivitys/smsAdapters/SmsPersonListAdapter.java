@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SmsPersonListAdapter extends RecyclerView.Adapter<SmsPersonListAdapter.ViewHolder> {
-    private List<PersonSmsData> mDataset;
+    public List<PersonSmsData> mDataset;
     Context context;
     public int lastSelectedItem = -1;
 

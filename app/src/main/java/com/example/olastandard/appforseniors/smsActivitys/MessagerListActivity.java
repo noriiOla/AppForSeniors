@@ -20,7 +20,9 @@ import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.ExampleActivity;
 import com.example.olastandard.appforseniors.MainActivity;
+import com.example.olastandard.appforseniors.Navigation.NavigationListAdapter;
 import com.example.olastandard.appforseniors.Objects.PersonSmsData;
+import com.example.olastandard.appforseniors.Objects.PlaceData;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
@@ -146,6 +148,11 @@ public class MessagerListActivity extends MainActivity {
         }
     }
 
+    private void reloadTableData(List<PersonSmsData> navigationList) {
+        ((SmsPersonListAdapter)mAdapter).mDataset = navigationList;
+        mAdapter.notifyDataSetChanged();
+    }
+
     @OnClick({R.id.sms_button_delete})
     public void showNewSmsView() {
         if (((SmsPersonListAdapter) mAdapter).lastSelectedItem == -1) {
@@ -164,7 +171,7 @@ public class MessagerListActivity extends MainActivity {
 
                     smsHelper = new SmsHelper(MessagerListActivity.this.getApplicationContext(), MessagerListActivity.this);
                     List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
-                    initRecyclerView(listaSmsow);
+                    reloadTableData(listaSmsow);
                 }
 
                 @Override
