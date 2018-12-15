@@ -82,7 +82,7 @@ public class EditContactActivity extends MainActivity {
     private void initToolbar() {
         showBackButton();
         changeTitleForRightButton(getResources().getString(R.string.save));
-        setTitle(R.string.new_number);
+        setTitle(getResources().getString(R.string.edit_contact));
     }
 
     private final static String[] DATA_COLS = {

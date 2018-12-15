@@ -28,13 +28,14 @@
             android:layout_width="173dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-
+            android:textAllCaps="false"
             android:layout_marginBottom="0dp"
             android:text="llll"
             android:textSize="30dp"
             android:textStyle="bold" />
 
         <Button
+            android:textAllCaps="false"
             android:id="@+id/delete_button"
             android:layout_width="132dp"
             android:layout_height="60dp"

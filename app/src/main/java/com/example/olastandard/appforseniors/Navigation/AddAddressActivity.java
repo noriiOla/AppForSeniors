@@ -1,6 +1,9 @@
 package com.example.olastandard.appforseniors.Navigation;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.MainActivity;
+import com.example.olastandard.appforseniors.Objects.PlaceData;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
@@ -29,6 +33,8 @@ import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +50,7 @@ public class AddAddressActivity extends MainActivity implements
     public AutoCompleteTextView autoCompleteTextView;
     @BindView(R.id.navi_place_name)
     public TextView placeTitle;
+    ArrayList<PlaceData> placeDataArray;
 
     private static final String TAG = "MainActivity";
     private static final int GOOGLE_API_CLIENT_ID = 0;
@@ -79,6 +86,7 @@ public class AddAddressActivity extends MainActivity implements
 
         initToolbar();
         addListeners();
+        placeDataArray = (ArrayList<PlaceData>) getIntent().getSerializableExtra("placeDataArray");
 
         inputLayoutTitle = (TextInputLayout) findViewById(R.id.input_layout_title);
         inputLayoutAddress = (TextInputLayout) findViewById(R.id.input_layout_address);
@@ -93,19 +101,32 @@ public class AddAddressActivity extends MainActivity implements
             public void onClick(View v) {
                 String titleText = placeTitle.getText().toString();
                 String address = autoCompleteTextView.getText().toString();
-                if (titleText.isEmpty()) {
-                    showDialogBox("Wpisz tytuł");
-                } else {
-                    if (address.isEmpty()) {
-                        showDialogBox("Wpisz adres");
+                if (!isTitleUsed(titleText)) {
+                    if (titleText.isEmpty()) {
+                        showDialogBox("Wpisz tytuł");
                     } else {
-                        NavigationDataManager navigationDataManager = new NavigationDataManager();
-                        navigationDataManager.save(titleText, address, getApplicationContext());
-                        startActivity(new Intent(getApplicationContext(), NavigationListActivity.class));
+                        if (address.isEmpty()) {
+                            showDialogBox("Wpisz adres");
+                        } else {
+                            NavigationDataManager navigationDataManager = new NavigationDataManager();
+                            navigationDataManager.save(titleText, address, getApplicationContext());
+                            startActivity(new Intent(getApplicationContext(), NavigationListActivity.class));
+                        }
                     }
+                } else {
+                    showDialogBox("Istnieje już taki sam tytuł w liście nawigacji");
                 }
             }
         });
+    }
+
+    private boolean isTitleUsed(String title) {
+        for (PlaceData placeData : placeDataArray) {
+            if (placeData.getTitle().equals(title)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void showDialogBox(String text) {
@@ -162,16 +183,13 @@ public class AddAddressActivity extends MainActivity implements
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.e(TAG, "Google Places API connection failed with error code: "
                 + connectionResult.getErrorCode());
-        Toast.makeText(this,
-                "Google Places API connection failed with error code:" +
-                        connectionResult.getErrorCode(),
-                Toast.LENGTH_LONG).show();
+        showDialogBox("Brak dostępu do intenetu");
     }
 
     void initToolbar() {
         showBackButton();
         changeTitleForRightButton(getResources().getString(R.string.save));
-        setTitle(R.string.new_number);
+        setTitle(getResources().getString(R.string.new_address));
     }
 
     private class MyTextWatcher implements TextWatcher {

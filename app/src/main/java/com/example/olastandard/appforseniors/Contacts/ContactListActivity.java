@@ -17,12 +17,15 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.olastandard.appforseniors.MainActivity;
+import com.example.olastandard.appforseniors.Navigation.NavigationDataManager;
+import com.example.olastandard.appforseniors.Navigation.NavigationListActivity;
 import com.example.olastandard.appforseniors.Objects.ContactData;
 import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
 import com.example.olastandard.appforseniors.smsActivitys.MessagerActivity;
+import com.example.olastandard.appforseniors.smsActivitys.smsAdapters.SmsPersonListAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,6 +72,12 @@ public class ContactListActivity extends MainActivity {
             this.buttonChoose.setVisibility(View.VISIBLE);
             this.buttonChoose.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         }
+        this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), AddContactActivity.class));
+            }
+        });
+
     }
 
     private void initList() {
@@ -133,8 +142,8 @@ public class ContactListActivity extends MainActivity {
 
     private void initToolbar() {
         showBackButton();
-        hideRightButton();
-        setTitle(R.string.choose_from_contact); //TODO:change title
+        setTitle(getResources().getString((R.string.contact_lista)));
+        changeTitleForRightButton(getResources().getString(R.string.newL));
     }
 
     private void initRecyclerView(List<ContactData> contactList) {
@@ -182,7 +191,15 @@ public class ContactListActivity extends MainActivity {
 
     private void deleteContact(ContactData contactData){
         deleteContact(getApplicationContext(), contactData.getNumebrOfPerson(), contactData.getNameOfPersion());
-        initList();
+        List<ContactData> contactList = getContacts();
+        Collections.sort(contactList);
+        reloadTableData(contactList);
+        //initList();
+    }
+
+    private void reloadTableData(List<ContactData> contactData) {
+        ((ContactListAdapter)mAdapter).mDataset = contactData;
+        mAdapter.notifyDataSetChanged();
     }
 
     @OnClick({R.id.contact_button_call})

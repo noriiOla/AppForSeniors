@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.olastandard.appforseniors.Contacts.ContactListAdapter;
 import com.example.olastandard.appforseniors.MainActivity;
+import com.example.olastandard.appforseniors.Objects.ContactData;
 import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
@@ -127,7 +129,10 @@ public class VoiceNotesList extends MainActivity {
                                 @Override
                                 public void onYesButtonTap() {
                                     voiceNotesManager.removeNoteByName(note);
-                                    initList();
+                                    List<String> titlesList = VoiceNotesManager.getInstance().getRecordsNames();
+                                    Collections.sort(titlesList);
+                                    reloadTableData(titlesList);
+                                    //initList();
                                 }
 
                                 @Override
@@ -143,7 +148,6 @@ public class VoiceNotesList extends MainActivity {
 
     @OnClick({R.id.button_edit_notes})
     public void editNote() {
-
         if (((NotesAdapter) mAdapter).lastSelectedItem >= 0 && ((NotesAdapter)mAdapter).getmDataset().size() > ((NotesAdapter) mAdapter).lastSelectedItem) {
             String selectedTitle = ((NotesAdapter) mAdapter).getmDataset().get(((NotesAdapter) mAdapter).lastSelectedItem);
             if (selectedTitle != null) {
@@ -164,7 +168,7 @@ public class VoiceNotesList extends MainActivity {
     }
 
     private void initToolbar() {
-        setTitle("Notatki");
+        setTitle(getResources().getString(R.string.notes_title));
         changeTitleForRightButton(getResources().getString(R.string.newS));
     }
 
@@ -179,5 +183,10 @@ public class VoiceNotesList extends MainActivity {
         ((NotesAdapter) mAdapter).lastSelectedItem = index;
         mAdapter.notifyDataSetChanged();
         changeButtonsColor();
+    }
+
+    private void reloadTableData(List<String> contactData) {
+        ((NotesAdapter)mAdapter).mDataset = contactData;
+        mAdapter.notifyDataSetChanged();
     }
 }

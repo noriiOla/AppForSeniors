@@ -30,6 +30,8 @@
     <string name="edit">Edytuj</string>
     <string name="delete_contact">Usuń</string>
     <string name="call_to_contact_number">Zadzwoń</string>
+    <string name="contact_lista">"Lista numerów</string>
+    <string name="edit_contact">Edycja kontaktu</string>
 
     <!--Sms-->
     <string name="show">Pokaż</string>
@@ -44,8 +46,12 @@
     <!--Popup-->
     <string name="popup_title_yes_no">Uważaj</string>
     <string name="popup_title_information">Informacja</string>
-    <string name="sms_persmission">Do poprawnego działania, aplikacja potrzebuje Twojego pozwolenia na czytanie i wysyłanie wiadomości./nNadaj dostęp klikając "Tak" w następnym oknie..</string>
+    <string name="sms_persmission">Do poprawnego działania, aplikacja potrzebuje Twojego pozwolenia na czytanie i wysyłanie wiadomości.\nNadaj dostęp klikając "Tak" w następnym oknie..</string>
 
+    <!-- Navigation -->
+    <string name="new_address">"Nowy adres</string>
+    <string name="edit_address">"Edycja adresu</string>
+    <string name="navigation_list">"Nawigacja</string>
 
     <!--Voice-notes-->
     <string name="start_recording">Rozpocznij nowe nagranie</string>
@@ -53,6 +59,11 @@
     <string name="stop_play">Zatrzymaj nagranie</string>
     <string name="play">Odtwórz</string>
     <string name="stop_play_2">Stop</string>
+    <string name="add_note">"Nowa notatka</string>
+    <string name="edit_note">"Edycja notatki</string>
+    <string name="notes_title">"Notatki</string>
+
+    <!-- Alarm -->
     <string name="title_activity_rwalarm_list">RWAlarmListActivity</string>
     <string name="title_activity_edit_link">EditLinkActivity</string>
 
