@@ -33,6 +33,7 @@ public class VoiceNotesManager {
     private MediaRecorder myAudioRecorder;
     private final String recordTemporaryName = "temp.3gp";
     private boolean isPlayed  = false;
+    private MediaPlayer player;
 
     public static VoiceNotesManager getInstance()
     {
@@ -98,23 +99,31 @@ public class VoiceNotesManager {
 
     public void playAudio(String file){
         if(!isPlayed){
-            MediaPlayer mediaPlayer = new MediaPlayer();
+            player = new MediaPlayer();
             try {
-                mediaPlayer.setDataSource(file);
-                mediaPlayer.prepare();
-                mediaPlayer.start();
+                player.setDataSource(file);
+                player.prepare();
+                player.start();
                 isPlayed = true;
             } catch (Exception e) {
                 System.out.println(e.toString());
                 System.out.println("Bład: " + e.getStackTrace());
             }
 
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 public void onCompletion(MediaPlayer mp) {
                     mp.release();
                     isPlayed = false;
                 };
             });
+        }
+    }
+
+    public void stopAudio(){
+        if (player != null && isPlayed) {
+            player.stop();
+            player.release();
+            isPlayed = false;
         }
     }
 

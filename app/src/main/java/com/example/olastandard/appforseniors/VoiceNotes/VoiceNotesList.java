@@ -7,11 +7,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.MainActivity;
+import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
+import com.example.olastandard.appforseniors.smsActivitys.MessagerActivity;
+import com.example.olastandard.appforseniors.smsActivitys.smsAdapters.SmsPersonListAdapter;
 
 import java.util.Collections;
 import java.util.List;
@@ -51,22 +55,30 @@ public class VoiceNotesList extends MainActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         buttonEditNotes.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         buttonPlayStop.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
-
+        buttonPlayStop.setText(getResources().getString(R.string.play));
         initList();
+        ((NotesAdapter) mAdapter).lastSelectedItem = -1;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStart();
+        stopAudio();
     }
 
     private void initList() {
         List<String> notesList = VoiceNotesManager.getInstance().getRecordsNames();
+        Collections.sort(notesList);
         initRecyclerView(notesList);
     }
 
     public void addListeners() {
         this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                stopAudio();
                 startActivity(new Intent(getApplicationContext(), AddVoiceNoteActivity.class));
             }
         });
@@ -74,45 +86,68 @@ public class VoiceNotesList extends MainActivity {
 
     @OnClick({R.id.voice_notes_play_stop})
     public void playNote() {
-        if (((NotesAdapter) mAdapter).lastSelectedItem >= 0) {
-            List<String> titles = VoiceNotesManager.getInstance().getRecordsNames();
-            Collections.sort(titles);
-            String note = titles.get(((NotesAdapter) mAdapter).lastSelectedItem);
-            voiceNotesManager.play(note);
+        if (((NotesAdapter) mAdapter).lastSelectedItem >= 0 && ((NotesAdapter)mAdapter).getmDataset().size() > ((NotesAdapter) mAdapter).lastSelectedItem) {
+            String selectedTitle = ((NotesAdapter)mAdapter).getmDataset().get(((NotesAdapter) mAdapter).lastSelectedItem);
+            if (selectedTitle != null) {
+                if (buttonPlayStop.getText().equals(getResources().getString(R.string.play))) {
+                    buttonPlayStop.setText(getResources().getString(R.string.stop_play_2));
+                    voiceNotesManager.play(selectedTitle);
+                }else {
+                    stopAudio();
+                }
+            }
         }
     }
 
+    public void stopAudio() {
+        buttonPlayStop.setText(getResources().getString(R.string.play));
+        voiceNotesManager.stopAudio();
+    }
+
+
     @OnClick({R.id.voice_notes_button_delete})
     public void deleteNote() {
-        if (((NotesAdapter) mAdapter).lastSelectedItem >= 0) {
-            List<String> titles = VoiceNotesManager.getInstance().getRecordsNames();
-            //Collections.sort(titles);
-            final String note = titles.get(((NotesAdapter) mAdapter).lastSelectedItem);
-            (new PushDialogManager()).showDialogWithYesNoButtons(this,
-                    "Czy na pewno chcesz usunąć notatkę " + note,
-                    new PushDialogButtonsYesNoInterface() {
-                        @Override
-                        public void onYesButtonTap() {
-                            voiceNotesManager.removeNoteByName(note);
-                            initList();
-                        }
+        if (((NotesAdapter) mAdapter).lastSelectedItem >= 0 && ((NotesAdapter)mAdapter).getmDataset().size() > ((NotesAdapter) mAdapter).lastSelectedItem) {
+            String selectedTitle = ((NotesAdapter)mAdapter).getmDataset().get(((NotesAdapter) mAdapter).lastSelectedItem);
+            if (selectedTitle != null) {
+                stopAudio();
 
-                        @Override
-                        public void onNoButtonTap() {
-                        }
-                    });
+                if (((NotesAdapter) mAdapter).lastSelectedItem >= 0) {
+                    List<String> titles = VoiceNotesManager.getInstance().getRecordsNames();
+                    //Collections.sort(titles);
+                    final String note = titles.get(((NotesAdapter) mAdapter).lastSelectedItem);
+                    (new PushDialogManager()).showDialogWithYesNoButtons(this,
+                            "Czy na pewno chcesz usunąć notatkę " + note,
+                            new PushDialogButtonsYesNoInterface() {
+                                @Override
+                                public void onYesButtonTap() {
+                                    voiceNotesManager.removeNoteByName(note);
+                                    initList();
+                                }
+
+                                @Override
+                                public void onNoButtonTap() {
+                                }
+                            });
+                }
+            }
         }
+
+
     }
 
     @OnClick({R.id.button_edit_notes})
     public void editNote() {
-        if (((NotesAdapter) mAdapter).lastSelectedItem >= 0) {
-            List<String> titles = VoiceNotesManager.getInstance().getRecordsNames();
-            //Collections.sort(titles);
-            final String note = titles.get(((NotesAdapter) mAdapter).lastSelectedItem);
-            Intent intent = new Intent(getApplicationContext(), EditVoiceNoteActivity.class);
-            intent.putExtra("title", note);
-            this.startActivity(intent);        }
+
+        if (((NotesAdapter) mAdapter).lastSelectedItem >= 0 && ((NotesAdapter)mAdapter).getmDataset().size() > ((NotesAdapter) mAdapter).lastSelectedItem) {
+            String selectedTitle = ((NotesAdapter) mAdapter).getmDataset().get(((NotesAdapter) mAdapter).lastSelectedItem);
+            if (selectedTitle != null) {
+                stopAudio();
+                Intent intent = new Intent(getApplicationContext(), EditVoiceNoteActivity.class);
+                intent.putExtra("title", selectedTitle);
+                this.startActivity(intent);
+            }
+        }
     }
 
     private void initRecyclerView(List<String> listOfVoiceNotesTitles) {
@@ -135,6 +170,7 @@ public class VoiceNotesList extends MainActivity {
     }
 
     public void updateSelectedItem(int index) {
+        stopAudio();
         ((NotesAdapter) mAdapter).lastSelectedItem = index;
         mAdapter.notifyDataSetChanged();
         changeButtonsColor();

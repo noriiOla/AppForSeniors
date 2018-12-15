@@ -21,6 +21,10 @@ public class NotesAdapter  extends RecyclerView.Adapter<NotesAdapter.ViewHolder>
     Context context;
     public int lastSelectedItem = -1;
 
+    public List<String> getmDataset() {
+         return mDataset;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.notes_name)
