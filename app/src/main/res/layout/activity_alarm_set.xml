@@ -9,7 +9,9 @@
         android:id="@+id/button1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="start"/>
+        android:text="start"
+        android:textStyle="bold"
+        android:textAllCaps="false"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +23,9 @@
         android:id="@+id/button2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="stop"/>
+        android:text="stop"
+        android:textStyle="bold"
+        android:textAllCaps="false"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

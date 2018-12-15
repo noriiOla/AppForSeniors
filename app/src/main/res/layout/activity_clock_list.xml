@@ -36,7 +36,6 @@
             android:layout_marginRight="50dp"
             android:layout_marginBottom="0dp"
             android:text="usun"
-            android:onClick="deleteLink2"
             android:textSize="30dp"
             android:textStyle="bold" />
 
