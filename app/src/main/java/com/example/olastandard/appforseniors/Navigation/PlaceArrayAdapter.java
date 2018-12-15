@@ -7,6 +7,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.Toast;
 
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
+import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Status;
@@ -103,8 +105,8 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
 
             final Status status = autocompletePredictions.getStatus();
             if (!status.isSuccess()) {
-                Toast.makeText(getContext(), "Error: " + status.toString(),
-                        Toast.LENGTH_SHORT).show();
+               /* Toast.makeText(getContext(), "Error: " + status.toString(),
+                        Toast.LENGTH_SHORT).show(); */
                 Log.e(TAG, "Error getting place predictions: " + status
                         .toString());
                 autocompletePredictions.release();

@@ -143,7 +143,6 @@ public class VoiceNotesList extends MainActivity {
 
     @OnClick({R.id.button_edit_notes})
     public void editNote() {
-
         if (((NotesAdapter) mAdapter).lastSelectedItem >= 0 && ((NotesAdapter)mAdapter).getmDataset().size() > ((NotesAdapter) mAdapter).lastSelectedItem) {
             String selectedTitle = ((NotesAdapter) mAdapter).getmDataset().get(((NotesAdapter) mAdapter).lastSelectedItem);
             if (selectedTitle != null) {
@@ -164,7 +163,7 @@ public class VoiceNotesList extends MainActivity {
     }
 
     private void initToolbar() {
-        setTitle("Notatki");
+        setTitle(getResources().getString(R.string.notes_title));
         changeTitleForRightButton(getResources().getString(R.string.newS));
     }
 
