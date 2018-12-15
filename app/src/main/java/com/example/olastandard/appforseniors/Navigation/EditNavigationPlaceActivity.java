@@ -186,10 +186,7 @@ public class EditNavigationPlaceActivity extends MainActivity implements
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.e(TAG, "Google Places API connection failed with error code: "
                 + connectionResult.getErrorCode());
-        Toast.makeText(this,
-                "Google Places API connection failed with error code:" +
-                        connectionResult.getErrorCode(),
-                Toast.LENGTH_LONG).show();
+        showDialogBox("Brak dostępu do intenetu");
 
     }
 

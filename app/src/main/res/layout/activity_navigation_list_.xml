@@ -35,6 +35,15 @@
             android:weightSum="3">
 
             <Button
+                android:id="@+id/navigation_button_delete"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:text="@string/delete"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            
+            <Button
                 android:id="@+id/navigation_button_edit"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -43,14 +52,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/navigation_button_add"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:text="@string/newL"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/navigation_button_call"

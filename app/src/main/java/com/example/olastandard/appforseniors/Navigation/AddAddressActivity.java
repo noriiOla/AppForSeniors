@@ -1,6 +1,9 @@
 package com.example.olastandard.appforseniors.Navigation;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -84,7 +87,6 @@ public class AddAddressActivity extends MainActivity implements
         initToolbar();
         addListeners();
         placeDataArray = (ArrayList<PlaceData>) getIntent().getSerializableExtra("placeDataArray");
-
 
         inputLayoutTitle = (TextInputLayout) findViewById(R.id.input_layout_title);
         inputLayoutAddress = (TextInputLayout) findViewById(R.id.input_layout_address);
@@ -181,10 +183,7 @@ public class AddAddressActivity extends MainActivity implements
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.e(TAG, "Google Places API connection failed with error code: "
                 + connectionResult.getErrorCode());
-        Toast.makeText(this,
-                "Google Places API connection failed with error code:" +
-                        connectionResult.getErrorCode(),
-                Toast.LENGTH_LONG).show();
+        showDialogBox("Brak dostępu do intenetu");
     }
 
     void initToolbar() {

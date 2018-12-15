@@ -34,7 +34,7 @@ public class ContactData implements Serializable, Comparable{
 
     @Override
     public int compareTo(Object o) {
-        return this.getNameOfPersion().compareTo(((ContactData) o).getNameOfPersion());
+        return this.getNameOfPersion().compareToIgnoreCase(((ContactData) o).getNameOfPersion());
     }
 
 }

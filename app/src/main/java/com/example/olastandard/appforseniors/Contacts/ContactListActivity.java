@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.olastandard.appforseniors.MainActivity;
+import com.example.olastandard.appforseniors.Navigation.NavigationDataManager;
+import com.example.olastandard.appforseniors.Navigation.NavigationListActivity;
 import com.example.olastandard.appforseniors.Objects.ContactData;
 import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
@@ -69,6 +71,12 @@ public class ContactListActivity extends MainActivity {
             this.buttonChoose.setVisibility(View.VISIBLE);
             this.buttonChoose.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         }
+        this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), AddContactActivity.class));
+            }
+        });
+
     }
 
     private void initList() {
@@ -133,8 +141,8 @@ public class ContactListActivity extends MainActivity {
 
     private void initToolbar() {
         showBackButton();
-        hideRightButton();
         setTitle(getResources().getString((R.string.contact_lista)));
+        changeTitleForRightButton(getResources().getString(R.string.newL));
     }
 
     private void initRecyclerView(List<ContactData> contactList) {
