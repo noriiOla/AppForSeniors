@@ -94,7 +94,7 @@ public class MessagerListActivity extends MainActivity {
                     @Override
                     public void run() {
                         List<PersonSmsData> listaSmsow = smsHelper.actualizeListOfSms();
-                        initRecyclerView(listaSmsow);
+                        reloadTableData(listaSmsow);
                     }
                     }, 1000);
             }

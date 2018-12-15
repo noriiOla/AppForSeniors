@@ -15,6 +15,8 @@
     <color name="greenTransparent50Proc">#4D6CCCFF</color>
     <color name="orangeTransparent50Proc">#4DFF6E00</color>
     <color name="yellow">#FFFF50</color>
+    <color name="redColor">#FF0000</color>
 
-<!--FF85D585- niebieski: 7dc2ff-->
+
+    <!--FF85D585- niebieski: 7dc2ff-->
 </resources>
