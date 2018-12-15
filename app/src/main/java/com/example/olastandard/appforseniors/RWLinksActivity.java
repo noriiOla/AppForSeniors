@@ -1,5 +1,7 @@
 package com.example.olastandard.appforseniors;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -22,6 +24,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.olastandard.appforseniors.AlarmClock.AlarmReceiver;
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
@@ -38,6 +41,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -149,6 +153,8 @@ public class RWLinksActivity extends MainActivity {
             }*/
             Collections.reverse(arrayList);
             Collections.reverse(arrayListListView);
+            Collections.sort(arrayList);
+            Collections.sort(arrayListListView);
         } catch (FileNotFoundException e) {
             Log.d("EXCEPTION", "File not found");
         } catch (UnsupportedEncodingException e) {
@@ -157,8 +163,13 @@ public class RWLinksActivity extends MainActivity {
             Log.d("EXCEPTION", e.getMessage());
         }
     }
+
+
+
     @OnClick({R.id.rwlinks_button_open})
     public void playNote() {
+
+
         listPosition=((LinkAdapter) mAdapter).lastSelectedItem;
         if(arrayList.isEmpty() || listPosition==-1){
             return;
@@ -179,7 +190,7 @@ public class RWLinksActivity extends MainActivity {
             });
 
         }
-        else {
+       else {
             String[] array = arrayList.get(listPosition).split(",");
 
             String url = array[1];//"http://www.google.com";

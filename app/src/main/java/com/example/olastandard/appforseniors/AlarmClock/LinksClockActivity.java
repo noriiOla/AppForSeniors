@@ -151,7 +151,7 @@ public class LinksClockActivity extends MainActivity  {
                 view.setBackgroundColor(getResources().getColor(R.color.green));
                // findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
                 findViewById(R.id.delete_button).setBackgroundColor(getResources().getColor(R.color.red));
-                startAlarm();
+             //   startAlarm();
                 changeSettingsAlarm();
             }
         });
@@ -215,7 +215,7 @@ public class LinksClockActivity extends MainActivity  {
                 //listV.getChildAt(listPosition).setBackgroundColor(getResources().getColor(R.color.green));
              //   findViewById(R.id.open_button).setBackgroundColor(getResources().getColor(R.color.green));
                 findViewById(R.id.delete_button).setBackgroundColor(getResources().getColor(R.color.red));
-                startAlarm();
+            //    startAlarm();
                 changeSettingsAlarm();
             }
         }
@@ -257,6 +257,7 @@ public class LinksClockActivity extends MainActivity  {
             }*/
             Collections.reverse(arrayList);
             Collections.reverse(arrayListListView);
+
         } catch (FileNotFoundException e) {
             Log.d("EXCEPTION", "File not found");
         } catch (UnsupportedEncodingException e) {
@@ -307,12 +308,13 @@ public class LinksClockActivity extends MainActivity  {
     }
 
     @OnClick({R.id.open_button})
-    public void openAdres(View view) {
-        for(int i=0;i<arrayList.size();i++)
+    public void openclocl(View view) {
+        wlaczIwylacz();
+        System.out.println("----------------wlacziwylocz");
+       /* for(int i=0;i<arrayList.size();i++)
         {   String   data=arrayList.get(i).split(",")[1];
-            if(data.equals("-")){}
-        else{
-            cancelOneAlarm(i);}
+
+            cancelOneAlarm(i);
         }
         for(int i=0;i<arrayList.size();i++)
         {  String   data=arrayList.get(i).split(",")[1];
@@ -322,7 +324,7 @@ public class LinksClockActivity extends MainActivity  {
             }
         }
 
-        onResume();
+        onResume();*/
         }
 
     @OnClick({R.id.delete_button})
@@ -331,8 +333,8 @@ public class LinksClockActivity extends MainActivity  {
         if(arrayList.isEmpty()){
             return;
         }
-            String array=arrayList.get(listPosition);
-        Toast.makeText(getApplicationContext(),"rozmiar "+ arrayList.size() ,Toast.LENGTH_LONG).show();
+        cancelOneAlarm(listPosition);
+      //  Toast.makeText(getApplicationContext(),"rozmiar "+ arrayList.size() ,Toast.LENGTH_LONG).show();
             arrayList.remove(listPosition);
             arrayListListView.remove(listPosition);
            Boolean bol=  getApplicationContext().deleteFile("savedFileClock");
@@ -341,7 +343,7 @@ public class LinksClockActivity extends MainActivity  {
         Collections.reverse(arrayListListView);
         for(String line : arrayList)
         {result+=line+"\n";}
-        Toast.makeText(getApplicationContext(),result ,Toast.LENGTH_LONG).show();
+      //  Toast.makeText(getApplicationContext(),result ,Toast.LENGTH_LONG).show();
             try {
                 outputStream = this.getApplicationContext().openFileOutput("savedFileClock", MODE_PRIVATE);
 
@@ -353,6 +355,30 @@ public class LinksClockActivity extends MainActivity  {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        String array= (String) arrayListListView.get(listPosition);
+
+
+        //https://luboganev.github.io/post/alarms-pending-intent/
+        Integer hhelper = Integer.parseInt(array.split(":")[0]);
+        Integer mhelper = Integer.parseInt(array.split(":")[1]);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hhelper);
+        calendar.set(Calendar.MINUTE, mhelper);
+
+
+        Integer hours=calendar.get(Calendar.HOUR);
+        Integer minutes=calendar.get(Calendar.MINUTE);
+
+        String newTime=hhelper.toString()+mhelper.toString();
+        int newTome2=Integer.parseInt(newTime);
+        System.out.println("----> alarm activity");
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent myIntent = new Intent(LinksClockActivity.this, AlarmReceiver.class);
+
+        PendingIntent appIntent = PendingIntent.getBroadcast(this,(int) newTome2, myIntent,PendingIntent.FLAG_ONE_SHOT);
+        //  pendingIntents.add(appIntent);
+
+        alarmManager.cancel(appIntent);
             onResume();
 //cancelAlarm();
 
@@ -364,6 +390,29 @@ public class LinksClockActivity extends MainActivity  {
 
 
 
+    }
+
+
+    public void wlaczIwylacz(){
+        Intent myIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), 1, myIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE,15 );
+        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+
+        /*AlarmManager alarmManager1 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent myIntent1 = new Intent(getApplicationContext(), AlarmReceiver.class);
+        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(
+                getApplicationContext(), 1, myIntent1,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        alarmManager.cancel(pendingIntent1);*/
     }
 
     AlarmManager alarmManager;
@@ -414,15 +463,15 @@ public class LinksClockActivity extends MainActivity  {
         if (arrayListListView.isEmpty()) {
             return;
         }
-        String array = (String)arrayListListView.get(listPosition);
+       /* String array = (String)arrayListListView.get(listPosition);
         //zegar
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent myIntent = new Intent(LinksClockActivity.this, AlarmReceiver.class);
      //   pendingIntent = PendingIntent.getBroadcast(LinksClockActivity.this, 0, myIntent, 0);
 
         //https://luboganev.github.io/post/alarms-pending-intent/
-        int hhelper = Integer.parseInt(array.split(":")[0]);
-        int mhelper = Integer.parseInt(array.split(":")[1]);
+        Integer hhelper = Integer.parseInt(array.split(":")[0]);
+        Integer mhelper = Integer.parseInt(array.split(":")[1]);
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hhelper);
         calendar.set(Calendar.MINUTE, mhelper);
@@ -433,10 +482,38 @@ public class LinksClockActivity extends MainActivity  {
         else
             _alarm = calendar.getTimeInMillis();
 
-        PendingIntent appIntent = PendingIntent.getBroadcast(this,(int) (hhelper+mhelper), myIntent,PendingIntent.FLAG_ONE_SHOT);
+        String newTime=hhelper.toString()+mhelper.toString();
+        int newTome2=Integer.parseInt(newTime);
+        PendingIntent appIntent = PendingIntent.getBroadcast(this,(int) newTome2, myIntent,PendingIntent.FLAG_ONE_SHOT);
       //  pendingIntents.add(appIntent);
         //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, _alarm , appIntent);*/
+        String array = (String)arrayListListView.get(listPosition);
+        //zegar
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent myIntent = new Intent(LinksClockActivity.this, AlarmReceiver.class);
+        //   pendingIntent = PendingIntent.getBroadcast(LinksClockActivity.this, 0, myIntent, 0);
+
+        //https://luboganev.github.io/post/alarms-pending-intent/
+        int hhelper = Integer.parseInt(array.split(":")[0]);
+        int mhelper = Integer.parseInt(array.split(":")[1]);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hhelper);
+        calendar.set(Calendar.MINUTE, mhelper);
+
+        PendingIntent appIntent = PendingIntent.getBroadcast(this,(int) (hhelper+mhelper), myIntent,PendingIntent.FLAG_ONE_SHOT);
+        //  pendingIntents.add(appIntent);
+       /* Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hhelper);
+        calendar.set(Calendar.MINUTE, mhelper);*/
+        Calendar now = Calendar.getInstance();
+        long _alarm=0;
+        if(calendar.getTimeInMillis() <= now.getTimeInMillis())
+            _alarm = calendar.getTimeInMillis() + (AlarmManager.INTERVAL_DAY+1);
+        else
+            _alarm = calendar.getTimeInMillis();
         alarmManager.set(AlarmManager.RTC_WAKEUP, _alarm , appIntent);
+
     }
 
     public void startOneAlarm(int i) {
@@ -455,6 +532,8 @@ public class LinksClockActivity extends MainActivity  {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hhelper);
         calendar.set(Calendar.MINUTE, mhelper);
+
+
 
         Calendar now = Calendar.getInstance();
         long _alarm=0;
@@ -478,11 +557,21 @@ public class LinksClockActivity extends MainActivity  {
 
         String data=arrayList.get(listPosition).split(",")[1];
         if (data.equals("-")){
+            startAlarm();
             switchAlarm("a");
         }
         else{
             switchAlarm("-");
         }
+
+       /* for(int i=0;i<arrayList.size();i++)
+        {      data=arrayList.get(i).split(",")[1];
+
+            cancelOneAlarm(i);
+        }
+*/
+
+        onResume();
     }
 
 
@@ -515,6 +604,36 @@ public class LinksClockActivity extends MainActivity  {
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+
+
+        if(sign.equals("-")){
+             array= (String) arrayListListView.get(listPosition);
+
+
+            //https://luboganev.github.io/post/alarms-pending-intent/
+            Integer hhelper = Integer.parseInt(array.split(":")[0]);
+            Integer mhelper = Integer.parseInt(array.split(":")[1]);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, hhelper);
+            calendar.set(Calendar.MINUTE, mhelper);
+
+
+            Integer hours=calendar.get(Calendar.HOUR);
+            Integer minutes=calendar.get(Calendar.MINUTE);
+
+            String newTime=hhelper.toString()+mhelper.toString();
+            int newTome2=Integer.parseInt(newTime);
+            System.out.println("----> alarm activity");
+            alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            Intent myIntent = new Intent(LinksClockActivity.this, AlarmReceiver.class);
+
+            PendingIntent appIntent = PendingIntent.getBroadcast(this,(int) hhelper+mhelper, myIntent,PendingIntent.FLAG_ONE_SHOT);
+            //  pendingIntents.add(appIntent);
+
+            alarmManager.cancel(appIntent);
+            onResume();
         }
         onResume();
     }

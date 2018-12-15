@@ -63,4 +63,7 @@
     <string name="edit_note">"Edycja notatki</string>
     <string name="notes_title">"Notatki</string>
 
+    <!-- Alarm -->
+    <string name="title_activity_rwalarm_list">RWAlarmListActivity</string>
+
 </resources>

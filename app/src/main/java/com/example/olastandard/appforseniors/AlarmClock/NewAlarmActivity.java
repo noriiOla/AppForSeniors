@@ -83,6 +83,7 @@ public class NewAlarmActivity extends MainActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                //if(et.getText().length()==0){return;}
                 et = (EditText) findViewById(R.id.editText);
                 et.requestFocus();
             }
@@ -104,6 +105,7 @@ public class NewAlarmActivity extends MainActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(et.getText().length()==0){return;}
                 et = (EditText) findViewById(R.id.editText5);
                 et.requestFocus();
             }
@@ -125,6 +127,7 @@ public class NewAlarmActivity extends MainActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(et.getText().length()==0){return;}
                 et = (EditText) findViewById(R.id.editText7);
                 et.requestFocus();
             }

@@ -299,9 +299,8 @@ public class ClockListActivity extends MainActivity  {
         changeTitleForRightButton("NOWE");
         setTitle(getResources().getString(R.string.alarm));
     }
-
     @OnClick({R.id.open_button})
-    public void openAdres(View view) {
+    public void openAdregs(View view) {
         for(int i=0;i<arrayList.size();i++)
         {   String   data=arrayList.get(i).split(",")[1];
             if(data.equals("-")){}

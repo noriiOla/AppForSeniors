@@ -1,5 +1,7 @@
 package com.example.olastandard.appforseniors;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -30,12 +32,14 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 
 import butterknife.OnClick;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
+import com.example.olastandard.appforseniors.AlarmClock.AlarmReceiver;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
@@ -270,10 +274,48 @@ public class LinksActivity extends MainActivity  {
     }
 
 
+    @OnClick({R.id.open_button})
+    public void openclocl1(View view) {
+        wlaczIwylacz();
+        System.out.println("----------------wlacziwylocz");
+       /* for(int i=0;i<arrayList.size();i++)
+        {   String   data=arrayList.get(i).split(",")[1];
+
+            cancelOneAlarm(i);
+        }
+        for(int i=0;i<arrayList.size();i++)
+        {  String   data=arrayList.get(i).split(",")[1];
+            if(data.equals("-")){}
+            else{
+            startOneAlarm(i);
+            }
+        }
+
+        onResume();*/
+    }
 
 
+    public void wlaczIwylacz(){
+        Intent myIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), 1, myIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE,24 );
+        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+
+        /*AlarmManager alarmManager1 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent myIntent1 = new Intent(getApplicationContext(), AlarmReceiver.class);
+        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(
+                getApplicationContext(), 1, myIntent1,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        alarmManager.cancel(pendingIntent1);*/
+    }
     private void initToolbar() {
         showBackButton();
 
@@ -282,7 +324,7 @@ public class LinksActivity extends MainActivity  {
         setTitle(getResources().getString(R.string.web));
     }
 
-    @OnClick({R.id.open_button})
+    /*@OnClick({R.id.open_button})
     public void openAdres(View view) {
 
         if(arrayList.isEmpty()){
@@ -314,7 +356,7 @@ public class LinksActivity extends MainActivity  {
             startActivity(browserIntent);
         }
 
-        }
+        }*/
 
     @OnClick({R.id.delete_button})
         public void deleteLink(View view){
