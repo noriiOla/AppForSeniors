@@ -101,7 +101,8 @@ public class AlarmAdapter  extends RecyclerView.Adapter<com.example.olastandard.
        String status=mDataset.get(position).split(",")[1];
        if(status.equals("-")){
            status="Wyłączony";
-
+           holder.notesName2.setTextColor(Color.parseColor("#000000"));
+           holder.notesName.setTextColor(Color.parseColor("#000000"));
        }
        else {
            status="Włączony";
