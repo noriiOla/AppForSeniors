@@ -32,6 +32,7 @@ import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInter
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
+import com.example.olastandard.appforseniors.VoiceNotes.EditVoiceNoteActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -210,6 +211,38 @@ public class RWLinksActivity extends MainActivity {
 
     }
 
+    @OnClick({R.id.rwlinks_button_edit})
+    public void editNote() {
+        listPosition=((LinkAdapter) mAdapter).lastSelectedItem;
+        if(arrayList.isEmpty()|| listPosition==-1){
+            return;
+        }
+
+        (new PushDialogManager()).showDialogWithYesNoButtons(this, "Czy na pewno chcesz edytować link ?", new PushDialogButtonsYesNoInterface() {
+
+
+            @Override
+            public void onYesButtonTap() {
+                Intent intent = new Intent(getApplicationContext(), EditLinkActivity.class);
+                intent.putExtra("title", arrayListListView.get(listPosition).toString());
+                intent.putExtra("adres", arrayList.get(listPosition).split(",")[1]);
+                System.out.println("--------------------------Czy na pewno chcesz edytować link");
+                startActivity(intent);
+
+
+
+            }
+
+            @Override
+            public void onNoButtonTap() {
+                System.out.println("-----------=Button NO selected OK");
+            }
+        });
+
+
+
+    }
+
     @OnClick({R.id.rwlinks_button_delete})
     public void deleteNote() {
         listPosition=((LinkAdapter) mAdapter).lastSelectedItem;
@@ -258,6 +291,7 @@ public class RWLinksActivity extends MainActivity {
 
             outputStream.close();
         } catch (Exception e) {
+            e.printStackTrace();
             e.printStackTrace();
         }
        // onResume();

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".EditLinkActivity">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_link_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/nazwaLinku_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:ems="10"
+                    android:hint="Nazwa strony"
+                    android:inputType="textPersonName"
+                    android:textSize="30sp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_link_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/urlL_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Adres strony"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    android:textSize="30sp" />
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>

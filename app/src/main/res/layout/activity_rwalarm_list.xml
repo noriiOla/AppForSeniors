@@ -44,7 +44,7 @@ android:id="@+id/rwalarm_background">
             android:layout_marginRight="0dp"
             android:layout_marginLeft="0dp"
             android:textStyle="bold"
-            android:text="Otwórz"
+            android:text="Włącz"
             android:id="@+id/rwalarm_switch_button"
             />
 

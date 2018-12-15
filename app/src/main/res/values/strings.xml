@@ -54,5 +54,6 @@
     <string name="play">Odtwórz</string>
     <string name="stop_play_2">Stop</string>
     <string name="title_activity_rwalarm_list">RWAlarmListActivity</string>
+    <string name="title_activity_edit_link">EditLinkActivity</string>
 
 </resources>
