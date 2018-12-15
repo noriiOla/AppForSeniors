@@ -82,6 +82,11 @@ public class NavigationListActivity extends MainActivity {
         navigationView.setAdapter(mAdapter);
     }
 
+    private void reloadTableData(List<PlaceData> navigationList) {
+        ((NavigationListAdapter)mAdapter).mDataset = navigationList;
+        mAdapter.notifyDataSetChanged();
+    }
+
     public void addListeners() {
         this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -108,7 +113,10 @@ public class NavigationListActivity extends MainActivity {
                                         placeList.remove(place);
                                     }
                                     dataManager.save((ArrayList) placeList, getApplicationContext());
-                                    initList();
+
+                                    placeData = new ArrayList<>();
+                                    placeData = dataManager.read(getApplicationContext());
+                                    reloadTableData(placeData);
                                 }
 
                                 @Override

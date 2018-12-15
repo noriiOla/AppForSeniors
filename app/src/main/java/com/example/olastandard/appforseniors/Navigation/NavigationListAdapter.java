@@ -19,9 +19,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class NavigationListAdapter extends RecyclerView.Adapter<com.example.olastandard.appforseniors.Navigation.NavigationListAdapter.ViewHolder> {
-    private List<PlaceData> mDataset;
+    public List<PlaceData> mDataset;
     Context context;
     public int lastSelectedItem = -1;
+
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
