@@ -265,7 +265,7 @@ public class RWAlarmListActivity  extends MainActivity {
 
         public void updateSelectedItem(int index) {
             ((AlarmAdapter) mAdapter).lastSelectedItem = index;
-            buttonEditNotes.setVisibility(View.VISIBLE);
+          //  buttonEditNotes.setVisibility(View.VISIBLE);
             mAdapter.notifyDataSetChanged();
             changeButtonsColor();
 
@@ -289,7 +289,7 @@ public class RWAlarmListActivity  extends MainActivity {
             String[] items={};
             arrayList= new ArrayList<>();
             arrayListListView=new ArrayList<String>(Arrays.asList(items));
-            buttonEditNotes.setVisibility(View.INVISIBLE);
+          //  buttonEditNotes.setVisibility(View.INVISIBLE);
             read();
             initRecyclerView(arrayListListView);
             buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));

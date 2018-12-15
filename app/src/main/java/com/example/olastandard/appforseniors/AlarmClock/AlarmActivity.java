@@ -20,12 +20,12 @@ import butterknife.OnClick;
 public class AlarmActivity  extends MainActivity {
     AlarmManager alarmManager;
     PendingIntent appIntent;
+    private Integer hour1;
 
 
-
-   /* @BindView(R.id.time_of_alarm)
-    Button textTime;
-*/
+    /* @BindView(R.id.time_of_alarm)
+     Button textTime;
+ */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,16 +38,30 @@ public class AlarmActivity  extends MainActivity {
         c.setTimeInMillis(millis);
         Integer hours=c.get(Calendar.HOUR);
         Integer minutes=c.get(Calendar.MINUTE);
-        Integer hour1=Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        Integer hour1= Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         Integer minutes1=Calendar.getInstance().get(Calendar.MINUTE);
 
-        String noe=hour1.toString()+":"+minutes1.toString();
+
+        String noe="";
+        if(hour1.toString().length()==1){
+        noe+="0";
+        }
+        noe+= hour1.toString()+":";
+        if(minutes1.toString().length()==1){
+            noe+="0";
+        }
+        noe+=minutes1.toString();
+
+
         String newTime=hours.toString()+minutes.toString();
+
         int newTome2=Integer.parseInt(newTime);
         System.out.println("----> alarm activity");
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
         appIntent = PendingIntent.getBroadcast(this,(int) newTome2 , myIntent,PendingIntent.FLAG_ONE_SHOT);
+
+
 
         String newTime2=hours.toString()+":"+minutes.toString();
         //alarmButton.setBackground(getResources().getDrawable(R.drawable.floating_button_shape_green));

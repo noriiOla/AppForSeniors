@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AlarmAdapter  extends RecyclerView.Adapter<com.example.olastandard.appforseniors.AlarmClock.AlarmAdapter.ViewHolder> {
-    private List<String> mDataset;
+    public List<String> mDataset;
     Context context;
     public int lastSelectedItem = -1;
 

@@ -101,8 +101,8 @@ public class AddLinkActivity extends MainActivity {
 
         Save (saveText,urlTextEdit.getText().toString(),addressTextEdit.getText().toString());
         //Toast.makeText(getApplicationContext(), "Zapisano ", Toast.LENGTH_LONG).show();
-        urlTextEdit.setText("");
-        addressTextEdit.setText("");
+        /*urlTextEdit.setText("");
+        addressTextEdit.setText("");*/
 
     }
 
@@ -117,7 +117,8 @@ public class AddLinkActivity extends MainActivity {
             Toast.makeText(getApplicationContext(), "Brak dostepu do neta ", Toast.LENGTH_LONG).show();
             return;
         }*/
-
+        nazwa=nazwa.trim();
+        link=link.trim();
         if (read(nazwa) == false) {
 
            // Toast.makeText(getApplicationContext(), "istnieje juz nazwa podac inna", Toast.LENGTH_LONG).show();

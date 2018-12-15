@@ -26,6 +26,8 @@ import android.widget.Toast;
 
 import com.example.olastandard.appforseniors.AlarmClock.AlarmReceiver;
 import com.example.olastandard.appforseniors.MainActivity;
+import com.example.olastandard.appforseniors.Navigation.NavigationListAdapter;
+import com.example.olastandard.appforseniors.Objects.PlaceData;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
@@ -58,7 +60,8 @@ public class RWLinksActivity extends MainActivity {
     RecyclerView listOfNotes;
     @BindView(R.id.rwlinks_button_delete)
     Button buttonDelete;
-
+    @BindView(R.id.rwlinks_button_edit)
+    Button edDelete;
     @BindView(R.id.rwlinks_button_open)
     Button buttonEditNotes;
     @BindView(R.id.rwlinks_background)
@@ -96,6 +99,8 @@ public class RWLinksActivity extends MainActivity {
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         buttonEditNotes.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
 
+        edDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+
         initList();
     }
 
@@ -125,7 +130,10 @@ public class RWLinksActivity extends MainActivity {
         });
     }
 
-
+    private void reloadTableData(List<String> navigationList) {
+        ((LinkAdapter)mAdapter).mDataset = navigationList;
+        mAdapter.notifyDataSetChanged();
+    }
     private void read() {
 
         //Button mButton = (Button) findViewById(R.id.open_button);
@@ -151,8 +159,8 @@ public class RWLinksActivity extends MainActivity {
                // arrayListListView.add(line);
                 mButton.setText(line);
             }*/
-            Collections.reverse(arrayList);
-            Collections.reverse(arrayListListView);
+           /* Collections.reverse(arrayList);
+            Collections.reverse(arrayListListView);*/
             Collections.sort(arrayList);
             Collections.sort(arrayListListView);
         } catch (FileNotFoundException e) {
@@ -215,6 +223,9 @@ public class RWLinksActivity extends MainActivity {
             @Override
             public void onYesButtonTap() {
                 deletehelper(); System.out.println("-----------=Button ok selected Ok");
+
+                reloadTableData(arrayListListView);
+
             }
 
             @Override
@@ -233,8 +244,8 @@ public class RWLinksActivity extends MainActivity {
         arrayListListView.remove(listPosition);
         Boolean bol=  getApplicationContext().deleteFile("savedFile8");
         String result="";
-        Collections.reverse(arrayList);
-        Collections.reverse(arrayListListView);
+       /* Collections.reverse(arrayList);
+        Collections.reverse(arrayListListView);*/
         for(String line : arrayList)
         {result+=line+"\n";}
         // Toast.makeText(getApplicationContext(),result ,Toast.LENGTH_LONG).show();
@@ -249,7 +260,7 @@ public class RWLinksActivity extends MainActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        onResume();
+       // onResume();
 
     }
 
@@ -270,7 +281,7 @@ public class RWLinksActivity extends MainActivity {
     private void changeButtonsColor() {
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_red));
         buttonEditNotes.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
-
+        edDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
     }
 
     public void updateSelectedItem(int index) {
@@ -291,6 +302,7 @@ public class RWLinksActivity extends MainActivity {
         read();
         initRecyclerView(arrayListListView);
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonEditNotes.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         buttonEditNotes.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
 
     }

@@ -31,23 +31,10 @@ android:id="@+id/rwlinks_background">
         android:layout_height="80dp"
         android:id="@+id/rwlinks_buttons_layout"
         android:orientation="horizontal"
-        android:weightSum="2"
+        android:weightSum="3"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         >
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:textSize="30dp"
-            android:textAllCaps="false"
-            android:layout_marginRight="0dp"
-            android:layout_marginLeft="0dp"
-            android:textStyle="bold"
-            android:text="Usuń"
-            android:id="@+id/rwlinks_button_delete"
-            />
-
         <Button
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -60,6 +47,33 @@ android:id="@+id/rwlinks_background">
             android:textAllCaps="false"
             android:background="@color/green"
             android:id="@+id/rwlinks_button_open"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:textSize="30dp"
+            android:textAllCaps="false"
+            android:layout_marginRight="0dp"
+            android:layout_marginLeft="0dp"
+            android:textStyle="bold"
+            android:text="Edytuj"
+            android:id="@+id/rwlinks_button_edit"
+            />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:textSize="30dp"
+            android:textAllCaps="false"
+            android:layout_marginRight="0dp"
+            android:layout_marginLeft="0dp"
+            android:textStyle="bold"
+            android:text="Usuń"
+            android:id="@+id/rwlinks_button_delete"
             />
     </LinearLayout>
 

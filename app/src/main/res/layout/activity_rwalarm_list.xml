@@ -44,8 +44,8 @@ android:id="@+id/rwalarm_background">
             android:layout_marginRight="0dp"
             android:layout_marginLeft="0dp"
             android:textStyle="bold"
-            android:text="Usuń"
-            android:id="@+id/rwalarm_delete_button"
+            android:text="Otwórz"
+            android:id="@+id/rwalarm_switch_button"
             />
 
         <Button
@@ -56,10 +56,10 @@ android:id="@+id/rwalarm_background">
             android:layout_marginRight="0dp"
             android:textSize="30dp"
             android:textStyle="bold"
-            android:text="Otwórz"
+            android:text="Usuń"
             android:textAllCaps="false"
             android:background="@color/green"
-            android:id="@+id/rwalarm_switch_button"     />
+            android:id="@+id/rwalarm_delete_button"     />
     </LinearLayout>
 
 

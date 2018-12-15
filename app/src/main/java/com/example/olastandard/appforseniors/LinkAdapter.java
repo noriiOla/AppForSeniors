@@ -35,7 +35,7 @@ import butterknife.OnClick;
         import butterknife.OnClick;
 
 public class LinkAdapter  extends RecyclerView.Adapter<LinkAdapter.ViewHolder> {
-    private List<String> mDataset;
+    public List<String> mDataset;
     Context context;
     public int lastSelectedItem = -1;
 
@@ -58,6 +58,7 @@ public class LinkAdapter  extends RecyclerView.Adapter<LinkAdapter.ViewHolder> {
         public void changeBackgroundColorToGreen() {
             background.setBackgroundColor(mcontext.getResources().getColor(R.color.green));
         }
+
 
         public void changeBackgroundColorToRed() {
             background.setBackgroundColor(mcontext.getResources().getColor(R.color.red));

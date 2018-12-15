@@ -20,8 +20,14 @@ import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsOkInter
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
 
+import java.io.BufferedReader;
 import java.io.Console;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -276,19 +282,61 @@ public class NewAlarmActivity extends MainActivity {
                     });
                     return;
                 }
+                String data1 = hour + ":" + minute;
+                if (read(data1) == false) {
 
-
-                try {
-                    outputStream = this.getApplicationContext().openFileOutput("savedFileClock", MODE_APPEND);
-                    outputStream.write(data.getBytes());
-                    outputStream.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    // Toast.makeText(getApplicationContext(), "istnieje juz nazwa podac inna", Toast.LENGTH_LONG).show();
+                    new PushDialogManager().showDialogWithOkButton(NewAlarmActivity.this, "Podana godzina została dodana wczesniej", new PushDialogButtonsOkInterface() {
+                        @Override
+                        public void onOkButtonTap() {
+                            return;
+                        }
+                    });
+                    return;
+                }else {
+                    try {
+                        outputStream = this.getApplicationContext().openFileOutput("savedFileClock", MODE_APPEND);
+                        outputStream.write(data.getBytes());
+                        outputStream.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //  imm.toggleSoftInput(InputMethodManager.RESULT_HIDDEN,0);
+                    finish();
                 }
-                //  imm.toggleSoftInput(InputMethodManager.RESULT_HIDDEN,0);
-                finish();
             }
         }
     }
+    private boolean read(String name) {
+
+        // TextView urlTextEdit=(TextView) findViewById(R.id.textView);
+        try {
+            FileInputStream fis = this.getApplicationContext().openFileInput("savedFileClock");
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String data;
+            while((data=bufferedReader.readLine( )) != null)
+            {
+
+                data=data.split(",")[0];
+                // Toast.makeText(getApplicationContext(), data+" "+name, Toast.LENGTH_LONG).show();
+                if (data.equals(name)){
+                    // Toast.makeText(getApplicationContext(), "Nazwa linku wystapila", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+
+
+            }
+        } catch (FileNotFoundException e) {
+            Log.d("EXCEPTION", "File not found");
+        } catch (UnsupportedEncodingException e) {
+            Log.d("EXCEPTION", e.getMessage());
+        } catch (IOException e) {
+            Log.d("EXCEPTION", e.getMessage());
+        }
+        return true;
+    }
+
 
 }
