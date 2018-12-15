@@ -91,6 +91,7 @@ public class AddLinkActivity extends MainActivity {
             });
 
             return;
+        //    return;
         }
         String saveText= urlTextEdit.getText().toString()+","+addressTextEdit.getText().toString()+"\n";
 

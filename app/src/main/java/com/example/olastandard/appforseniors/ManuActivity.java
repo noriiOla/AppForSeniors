@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.example.olastandard.appforseniors.Adapters.MenuItemAdapter;
 import com.example.olastandard.appforseniors.AlarmClock.ClockListActivity;
+import com.example.olastandard.appforseniors.AlarmClock.RWAlarmListActivity;
 import com.example.olastandard.appforseniors.Contacts.ContactTypeActivity;
 import com.example.olastandard.appforseniors.Navigation.NavigationListActivity;
 import com.example.olastandard.appforseniors.Objects.MenuItem;
@@ -203,7 +204,7 @@ public class ManuActivity extends MainActivity {
                     }
                     break;
                 case R.string.alarm:
-                    startActivity(new Intent(this,ClockListActivity.class));
+                    startActivity(new Intent(this,RWAlarmListActivity.class));
                     break;
                 case R.string.gps:
                     startActivity(new Intent(this, NavigationListActivity.class));

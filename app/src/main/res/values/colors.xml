@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#181e5c</color>
     <color name="colorAccent">#1d2570</color>
     <color name="black">#000000	</color>
+    <color name="alarmSwitchOn">#2eabd6</color>
+    <color name="alarmSwitchOf">#d21111</color>
     <color name="white">#FFFFFF</color>
     <color name="crem">#fffdd0</color>
     <color name="green">#93dff9</color>
@@ -11,6 +13,8 @@
     <color name="transparent">#80000000</color>
     <color name="lightGray">#dfdfdf</color>
     <color name="lightBlue">#cce0ff</color>
+    <color name="lightBlue2">#39cce0ff</color>
+    <color name="buttonAlam">#c6edd518</color>
     <color name="buttonGrayColor">#D8D8D8</color>
     <color name="greenTransparent50Proc">#4D6CCCFF</color>
     <color name="orangeTransparent50Proc">#4DFF6E00</color>
