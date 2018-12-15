@@ -43,5 +43,16 @@
             android:id="@+id/record_action"
             />
 
+        <Button
+            android:id="@+id/play_rcreated_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/play"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

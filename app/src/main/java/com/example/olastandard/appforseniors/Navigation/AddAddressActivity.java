@@ -171,7 +171,7 @@ public class AddAddressActivity extends MainActivity implements
     void initToolbar() {
         showBackButton();
         changeTitleForRightButton(getResources().getString(R.string.save));
-        setTitle(R.string.new_number);
+        setTitle(getResources().getString(R.string.new_address));
     }
 
     private class MyTextWatcher implements TextWatcher {

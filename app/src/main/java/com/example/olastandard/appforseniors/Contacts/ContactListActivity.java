@@ -134,7 +134,7 @@ public class ContactListActivity extends MainActivity {
     private void initToolbar() {
         showBackButton();
         hideRightButton();
-        setTitle(R.string.choose_from_contact); //TODO:change title
+        setTitle(getResources().getString((R.string.contact_lista)));
     }
 
     private void initRecyclerView(List<ContactData> contactList) {

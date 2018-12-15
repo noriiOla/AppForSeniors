@@ -80,6 +80,6 @@ public class ContactTypeActivity extends MainActivity {
     private void initToolbar() {
         showBackButton();
         hideRightButton();
-        setTitle(R.string.choose_from_contact);
+        setTitle(getResources().getString(R.string.choose_from_contact));
     }
 }

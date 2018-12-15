@@ -183,7 +183,7 @@ public class EditNavigationPlaceActivity extends MainActivity implements
     void initToolbar() {
         showBackButton();
         changeTitleForRightButton(getResources().getString(R.string.save));
-        setTitle(R.string.new_number);
+        setTitle(getResources().getString(R.string.edit_address));
     }
 
     private void requestFocus(View view) {

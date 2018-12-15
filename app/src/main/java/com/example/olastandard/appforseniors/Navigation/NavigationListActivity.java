@@ -71,7 +71,7 @@ public class NavigationListActivity extends MainActivity {
     private void initToolbar() {
         showBackButton();
         changeTitleForRightButton(getResources().getString(R.string.delete));
-        setTitle(R.string.choose_from_contact); //TODO:change title
+        setTitle(getResources().getString(R.string.add_note));
     }
 
     private void initRecyclerView(List<PlaceData> navigationList) {

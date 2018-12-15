@@ -24,6 +24,9 @@ public class EditVoiceNoteActivity extends MainActivity {
     @BindView(R.id.record_action)
     public Button buttonRecordAction;
 
+    @BindView(R.id.play_rcreated_note)
+    public Button buttonPlayCreatedNote;
+
     private VoiceNotesManager voiceNotesManager;
     private boolean isRecording = false;
     private boolean isNoteExisting = true;
@@ -43,19 +46,24 @@ public class EditVoiceNoteActivity extends MainActivity {
         initListeners();
     }
 
+    //I kwnow... It looks horrible - sorry
     private void saveNoteThenOpenList() {
         if (placeTitle.getText().toString().isEmpty()) { //tytul pusty
             showDialogBox("Wpisz tytuł wiadomości");
         } else {
             String newTitle = placeTitle.getText().toString();
             if (!newTitle.equals(title)) { //zmieniono tytul
-                if (isNoteChanged) { //i zmieniono plik
-                    voiceNotesManager.removeNoteByName(title);
-                    voiceNotesManager.saveRecord(placeTitle.getText().toString());
-                    startActivity(new Intent(EditVoiceNoteActivity.this, VoiceNotesList.class));
-                } else { //tylko zmiana tytulu
-                    voiceNotesManager.renameNote(newTitle, title);
-                    startActivity(new Intent(EditVoiceNoteActivity.this, VoiceNotesList.class));
+                if (voiceNotesManager.getRecordsNames().contains(newTitle)) {
+                    showDialogBox("Istnieje już notatka o takim samym tytule");
+                } else {
+                    if (isNoteChanged) { //i zmieniono plik
+                        voiceNotesManager.removeNoteByName(title);
+                        voiceNotesManager.saveRecord(placeTitle.getText().toString());
+                        startActivity(new Intent(EditVoiceNoteActivity.this, VoiceNotesList.class));
+                    } else { //tylko zmiana tytulu
+                        voiceNotesManager.renameNote(newTitle, title);
+                        startActivity(new Intent(EditVoiceNoteActivity.this, VoiceNotesList.class));
+                    }
                 }
             } else { //tytulu nie zmieniono
                 if (isNoteChanged) {
@@ -85,6 +93,9 @@ public class EditVoiceNoteActivity extends MainActivity {
             isNoteExisting = true;
             isNoteChanged = true;
             buttonRecordAction.setText(R.string.start_recording);
+            if (buttonPlayCreatedNote.getVisibility() == View.INVISIBLE) {
+                buttonPlayCreatedNote.setVisibility(View.VISIBLE);
+            }
         } else {
             if (isNoteExisting) {
                 (new PushDialogManager()).showDialogWithYesNoButtons(this,
@@ -101,7 +112,24 @@ public class EditVoiceNoteActivity extends MainActivity {
                         });
             } else {
                 startNewRecord();
+                buttonPlayCreatedNote.setVisibility(View.INVISIBLE);
             }
+        }
+    }
+
+    @OnClick({R.id.play_rcreated_note})
+    public void playCreatedNote() {
+        if (buttonPlayCreatedNote.getText().equals(getResources().getString(R.string.play))) {
+            buttonPlayCreatedNote.setText(getResources().getString(R.string.stop_play_2));
+            voiceNotesManager.play(new VoiceNotesManager.CallbackPlayer() {
+                @Override
+                public void onPlayEnd() {
+                    buttonPlayCreatedNote.setText(getResources().getString(R.string.play));
+                }
+            });
+        } else {
+            buttonPlayCreatedNote.setText(getResources().getString(R.string.play));
+            voiceNotesManager.stopAudio();
         }
     }
 
@@ -114,11 +142,12 @@ public class EditVoiceNoteActivity extends MainActivity {
     private void initToolbar() {
         showBackButton();
         changeTitleForRightButton(getResources().getString(R.string.save));
-        setTitle("Dodaj notatkę");
+        setTitle(getResources().getString(R.string.edit_note));
     }
 
     private void changeButtonsColor() {
-        buttonRecordAction.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
+        buttonRecordAction.setBackground(getResources().getDrawable(R.drawable.floating_button_shape_green));
+        buttonPlayCreatedNote.setBackground(getResources().getDrawable(R.drawable.floating_button_shape_green));
     }
 
     private void initListeners() {
