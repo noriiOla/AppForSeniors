@@ -27,6 +27,10 @@ public class VoiceNotesManager {
         pobranie dostepnych nagran: getRecordsNames()
     */
 
+    interface CallbackPlayer {
+        void onPlayEnd();
+    }
+
     private static VoiceNotesManager voiceNotesManager = null;
 
     String baseUrl = Environment.getExternalStorageDirectory().getAbsolutePath() + "/seniorAppNotes/";
@@ -83,21 +87,26 @@ public class VoiceNotesManager {
 
     public void stopRecording() {
         if (myAudioRecorder != null) {
-            myAudioRecorder.stop();
-            myAudioRecorder.release();
-            myAudioRecorder = null;
+            try{
+                myAudioRecorder.stop();
+                myAudioRecorder.release();
+                myAudioRecorder = null;
+            }catch(RuntimeException stopException){
+                System.out.println("Exception audio stop");
+                System.out.println(stopException.getMessage());
+            }
         }
     }
 
-    public void play() {
-        playAudio(baseUrl + recordTemporaryName);
+    public void play(CallbackPlayer callback) {
+        playAudio(baseUrl + recordTemporaryName, callback);
     }
 
-    public void play(String fileName) {
-        playAudio( baseUrl + fileName + ".3gp");
+    public void play(String fileName, CallbackPlayer callback) {
+        playAudio( baseUrl + fileName + ".3gp", callback);
     }
 
-    public void playAudio(String file){
+    private void playAudio(String file, final CallbackPlayer callback){
         if(!isPlayed){
             player = new MediaPlayer();
             try {
@@ -114,6 +123,9 @@ public class VoiceNotesManager {
                 public void onCompletion(MediaPlayer mp) {
                     mp.release();
                     isPlayed = false;
+                    if (callback != null) {
+                        callback.onPlayEnd();
+                    }
                 };
             });
         }

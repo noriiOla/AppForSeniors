@@ -65,7 +65,7 @@ public class VoiceNotesList extends MainActivity {
 
     @Override
     protected void onStop() {
-        super.onStart();
+        super.onStop();
         stopAudio();
     }
 
@@ -91,7 +91,12 @@ public class VoiceNotesList extends MainActivity {
             if (selectedTitle != null) {
                 if (buttonPlayStop.getText().equals(getResources().getString(R.string.play))) {
                     buttonPlayStop.setText(getResources().getString(R.string.stop_play_2));
-                    voiceNotesManager.play(selectedTitle);
+                    voiceNotesManager.play(selectedTitle, new VoiceNotesManager.CallbackPlayer() {
+                        @Override
+                        public void onPlayEnd() {
+                            buttonPlayStop.setText(getResources().getString(R.string.play));
+                        }
+                    });
                 }else {
                     stopAudio();
                 }
