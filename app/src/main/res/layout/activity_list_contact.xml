@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contact_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/contact_background"
     tools:context=".Contacts.ContactListActivity">
 
     <RelativeLayout
@@ -14,27 +13,45 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/contact_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="2"
-            android:verticalSpacing="5dp"
-            android:horizontalSpacing="5dp"
-            android:id="@+id/contact_recycler_view"
             android:layout_above="@id/contact_buttons_layout"
-            android:layout_marginBottom="5dp"
-            android:scrollbars="vertical">
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:scrollbars="vertical"
+            android:verticalSpacing="5dp">
 
         </android.support.v7.widget.RecyclerView>
 
         <LinearLayout
+            android:id="@+id/contact_buttons_layout"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:id="@+id/contact_buttons_layout"
-            android:orientation="horizontal"
-            android:weightSum="3"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            >
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/contact_button_call"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:text="@string/call_to_contact_number"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/contact_button_edit"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:text="@string/edit"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/contact_button_delete"
@@ -46,36 +63,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="@string/edit"
-                android:textAllCaps="false"
-                android:id="@+id/contact_button_edit" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textAllCaps="false"
-                android:text="@string/call_to_contact_number"
-                android:id="@+id/contact_button_call" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_weight="3"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="@string/wybierz"
-                android:textAllCaps="false"
-                android:id="@+id/contact_button_choose"
-                android:visibility="gone"/>
         </LinearLayout>
 
     </RelativeLayout>
