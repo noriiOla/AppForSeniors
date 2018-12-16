@@ -48,9 +48,6 @@ public class ContactListActivity extends MainActivity {
     ConstraintLayout background;
     @BindView(R.id.contact_button_call)
     Button buttonCall;
-    @BindView(R.id.contact_button_choose)
-    Button buttonChoose;
-
 
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -69,8 +66,6 @@ public class ContactListActivity extends MainActivity {
             this.buttonEdit.setVisibility(View.GONE);
             this.buttonDelete.setVisibility(View.GONE);
             this.buttonCall.setVisibility(View.GONE);
-            this.buttonChoose.setVisibility(View.VISIBLE);
-            this.buttonChoose.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         }
         this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -218,20 +213,6 @@ public class ContactListActivity extends MainActivity {
             getApplicationContext().startActivity(intent);
 
         }
-    }
-
-    @OnClick(R.id.contact_button_choose)
-    public void backWithSelectedContact() {
-        List<ContactData> contactList = getContacts();
-        Collections.sort(contactList);
-        ContactData contactData = contactList.get(((ContactListAdapter) mAdapter).lastSelectedItem);
-
-        Intent previousScreen = new Intent(getApplicationContext(), MessagerActivity.class);
-        PersonSmsData smsData = new PersonSmsData(contactData.getNumebrOfPerson());
-        smsData.setNameOfPersion(contactData.getNameOfPersion());
-        previousScreen.putExtra("contactData", smsData);
-        setResult(200, previousScreen);
-        finish();
     }
 
     public static boolean deleteContact(Context ctx, String phone, String name) {

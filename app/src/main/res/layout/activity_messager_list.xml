@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sms_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".smsActivitys.MessagerListActivity"
-    android:id="@+id/sms_background">
+    tools:context=".smsActivitys.MessagerListActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,55 +13,53 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/sms_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="2"
-            android:verticalSpacing="5dp"
-            android:horizontalSpacing="5dp"
-            android:id="@+id/sms_recycler_view"
             android:layout_above="@id/sms_buttons_layout"
             android:layout_marginBottom="5dp"
-            android:scrollbars="vertical">
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:scrollbars="vertical"
+            android:verticalSpacing="5dp">
 
         </android.support.v7.widget.RecyclerView>
 
         <LinearLayout
+            android:id="@+id/sms_buttons_layout"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:id="@+id/sms_buttons_layout"
-            android:orientation="horizontal"
-            android:weightSum="2"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            >
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:textSize="30dp"
-                android:textAllCaps="false"
-                android:layout_marginRight="0dp"
-                android:layout_marginLeft="0dp"
-                android:textStyle="bold"
-                android:text="@string/wybierz"
-                android:id="@+id/sms_button_select"
-                />
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <Button
+                android:id="@+id/sms_button_delete"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:layout_weight="1"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
-                android:textSize="30dp"
-                android:textStyle="bold"
+                android:layout_weight="1"
+                android:background="@color/green"
                 android:text="@string/newS"
                 android:textAllCaps="false"
-                android:background="@color/green"
-                android:id="@+id/sms_button_delete"
-                />
-        </LinearLayout>
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/sms_button_select"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_weight="1"
+                android:text="@string/wybierz"
+                android:textAllCaps="false"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
