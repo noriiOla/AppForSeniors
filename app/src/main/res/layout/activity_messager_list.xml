@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/sms_buttons_layout"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="0dp"
             android:horizontalSpacing="5dp"
             android:numColumns="2"
             android:scrollbars="vertical"
