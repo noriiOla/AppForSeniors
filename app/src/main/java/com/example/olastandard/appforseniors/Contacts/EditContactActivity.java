@@ -45,11 +45,11 @@ public class EditContactActivity extends MainActivity {
 
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_CONTACTS},1);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_CONTACTS}, 1);
         }
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS},2);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 2);
         }
         contactData = (ContactData) getIntent().getSerializableExtra("contactData");
         contactNameInput.setText(contactData.getNameOfPersion());
@@ -60,10 +60,9 @@ public class EditContactActivity extends MainActivity {
             public void onClick(View v) {
                 String contactName = contactNameInput.getText().toString();
                 String contactNumber = contactNumberInput.getText().toString();
-                if(contactName.isEmpty() || contactNumber.isEmpty()){
+                if (contactName.isEmpty() || contactNumber.isEmpty()) {
                     showDialogBox("Wpisz numer oraz nazwę");
-                }
-                else {
+                } else {
                     updateNameAndNumber(v.getContext(), contactData.getNumebrOfPerson(), contactName, contactNumber);
                     startActivity(new Intent(v.getContext(), ContactListActivity.class));
                 }
@@ -113,9 +112,10 @@ public class EditContactActivity extends MainActivity {
         operations.add(
                 ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI)
                         .withSelection(where, args)
-                        .withValue(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, newName)
+                        .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, newName)
                         .build()
         );
+
 
         //change selection for number
         where = String.format(
@@ -137,8 +137,7 @@ public class EditContactActivity extends MainActivity {
         try {
             ContentProviderResult[] results = context.getContentResolver().applyBatch(ContactsContract.AUTHORITY, operations);
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
