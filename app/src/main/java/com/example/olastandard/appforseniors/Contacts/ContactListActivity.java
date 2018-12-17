@@ -73,6 +73,9 @@ public class ContactListActivity extends MainActivity {
             }
         });
 
+        buttonEdit.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonCall.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
     }
 
     private void initList() {
@@ -83,6 +86,9 @@ public class ContactListActivity extends MainActivity {
 
     @Override
     protected void onResume() {
+        buttonEdit.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonCall.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         super.onResume();
         this.initList();
     }

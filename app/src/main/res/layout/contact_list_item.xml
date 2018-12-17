@@ -26,13 +26,15 @@
             <TextView
                 android:id="@+id/contact_name"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="65dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Imie Nazwisko"
                 android:textColor="@color/black"
                 android:textSize="28sp"
+                android:lines="2"
+
                 android:textStyle="bold" />
 
             <TextView

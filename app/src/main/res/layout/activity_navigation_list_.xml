@@ -38,9 +38,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_weight="1"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
                 android:text="Edytuj"
                 android:textAllCaps="false"
-                android:textSize="20sp"
+                android:textSize="26dp"
                 android:textStyle="bold" />
 
 
@@ -51,7 +53,7 @@
                 android:layout_weight="1"
                 android:text="Prowadź"
                 android:textAllCaps="false"
-                android:textSize="20sp"
+                android:textSize="26dp"
                 android:textStyle="bold" />
 
             <Button
@@ -61,7 +63,7 @@
                 android:layout_weight="1"
                 android:text="@string/delete"
                 android:textAllCaps="false"
-                android:textSize="20sp"
+                android:textSize="26dp"
                 android:textStyle="bold" />
 
         </LinearLayout>

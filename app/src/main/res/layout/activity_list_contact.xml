@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:text="@string/call_to_contact_number"
                 android:textAllCaps="false"
-                android:textSize="20sp"
+                android:textSize="26dp"
                 android:textStyle="bold" />
 
             <Button
@@ -50,7 +50,7 @@
                 android:layout_weight="1"
                 android:text="@string/edit"
                 android:textAllCaps="false"
-                android:textSize="20sp"
+                android:textSize="26dp"
                 android:textStyle="bold" />
 
             <Button
@@ -60,7 +60,7 @@
                 android:layout_weight="1"
                 android:text="@string/delete_contact"
                 android:textAllCaps="false"
-                android:textSize="20sp"
+                android:textSize="26dp"
                 android:textStyle="bold" />
 
         </LinearLayout>
