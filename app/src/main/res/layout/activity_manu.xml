@@ -27,7 +27,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:textSize="30dp"
+            android:textSize="26dp"
             android:layout_marginRight="0dp"
             android:layout_marginLeft="0dp"
             android:textStyle="bold"
