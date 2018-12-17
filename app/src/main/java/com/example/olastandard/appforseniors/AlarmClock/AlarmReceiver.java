@@ -3,6 +3,7 @@ import com.example.olastandard.appforseniors.smsActivitys.app;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
@@ -29,7 +30,7 @@ import java.util.Collections;
 
 import static android.support.v4.content.ContextCompat.startActivity;
 
-public class AlarmReceiver extends WakefulBroadcastReceiver {
+public class AlarmReceiver extends BroadcastReceiver {
 public static    Ringtone ringtone;
     @Override
     public void onReceive( Context context, Intent intent) {
@@ -122,7 +123,7 @@ System.out.println("--------------------->alaement arraylisty --->"+arrayListLis
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.sms_icon)
+                .setSmallIcon(R.drawable.alarm_icon)
                 .setContentTitle("Budzik")
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setVibrate(new long[] { 1000, 1000})
