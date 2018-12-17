@@ -37,25 +37,25 @@ public static Ringtone ringtone;
 
     @Override
     public void onReceive( Context context, Intent intent) {
-        read();
+      //  read();
 
-        Calendar calendar = Calendar.getInstance();
-        Integer hour=Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        Integer minutes=Calendar.getInstance().get(Calendar.MINUTE);
+//        Calendar calendar = Calendar.getInstance();
+//        Integer hour=Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+//        Integer minutes=Calendar.getInstance().get(Calendar.MINUTE);
 
 
-        String noe="";
-System.out.println("--------------------->alaement arraylisty --->"+arrayListListView.get(0));
-        System.out.println("--------------------->czas--->"+noe);
-        if(minutes.toString().length()==1){
-        noe=hour.toString()+":"+"0"+minutes.toString();
-        }
-        else{
-          noe=  hour.toString()+":"+minutes.toString();
-        }
-        if(hour.toString().length()==1){
-        noe="0"+noe;
-        }
+//        String noe="";
+////System.out.println("--------------------->alaement arraylisty --->"+arrayListListView.get(0));
+////        System.out.println("--------------------->czas--->"+noe);
+//        if(minutes.toString().length()==1){
+//        noe=hour.toString()+":"+"0"+minutes.toString();
+//        }
+//        else{
+//          noe=  hour.toString()+":"+minutes.toString();
+//        }
+//        if(hour.toString().length()==1){
+//        noe="0"+noe;
+//        }
 //        if(!arrayListListView.contains(noe)){
 //
 //            return;
@@ -65,7 +65,7 @@ System.out.println("--------------------->alaement arraylisty --->"+arrayListLis
         //Ringtone
                 ringtone = RingtoneManager.getRingtone(context, uri);
         ringtone.play();
-        ;
+
 
         sendNotification();
     }

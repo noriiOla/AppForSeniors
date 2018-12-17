@@ -119,7 +119,8 @@ public class ManuActivity extends MainActivity {
                 ContextCompat.checkSelfPermission(this,
                         Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+                        Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.DISABLE_KEYGUARD) == PackageManager.PERMISSION_GRANTED;
 
     }
 
@@ -136,7 +137,9 @@ public class ManuActivity extends MainActivity {
                         Manifest.permission.WRITE_CONTACTS,
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.RECORD_AUDIO},
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.DISABLE_KEYGUARD,
+                        Manifest.permission.RECEIVE_BOOT_COMPLETED},
                 SMS_PERMISSION_CODE);
     }
 
