@@ -101,7 +101,11 @@ public class AlarmActivity  extends MainActivity {
         appIntent = PendingIntent.getBroadcast(this,(int) newTome2 , myIntent,PendingIntent.FLAG_ONE_SHOT);
         alarmManager.set(AlarmManager.RTC_WAKEUP, _alarm , appIntent);
 
-
+        _toolbarBackButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
     public void openApp(){
@@ -122,6 +126,7 @@ public class AlarmActivity  extends MainActivity {
     private void initToolbar() {
         showBackButton();
         hideRightButton();
+        changeBackButtonTitle("Zamknij");
         setTitle("Alarm");
     }
 }

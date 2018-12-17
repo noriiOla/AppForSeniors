@@ -147,8 +147,8 @@ public class RWAlarmListActivity  extends MainActivity {
                // arrayListListView.add(line);
                 mButton.setText(line);
             }*/
-            Collections.reverse(arrayList);
-            Collections.reverse(arrayListListView);
+            Collections.sort(arrayList);
+            Collections.sort(arrayListListView);
 
         } catch (FileNotFoundException e) {
             Log.d("EXCEPTION", "File not found");
@@ -180,6 +180,7 @@ public class RWAlarmListActivity  extends MainActivity {
 
                     changeSettingsAlarm();
                   System.out.println("-----------=Button ok selected Ok");
+                    reloadTableData(arrayList);
                 }
 
                 @Override
@@ -187,7 +188,7 @@ public class RWAlarmListActivity  extends MainActivity {
                     System.out.println("-----------=Button NO selected OK");
                 }
             });
-            onResume();
+           // onResume();
 
         }
 
@@ -204,6 +205,7 @@ public class RWAlarmListActivity  extends MainActivity {
                 @Override
                 public void onYesButtonTap() {
                     deletehelper(); System.out.println("-----------=Button ok selected Ok");
+                    reloadTableData(arrayList);
                 }
 
                 @Override
@@ -222,8 +224,8 @@ public class RWAlarmListActivity  extends MainActivity {
             arrayListListView.remove(listPosition);
             Boolean bol=  getApplicationContext().deleteFile("savedFileClock");
             String result="";
-            Collections.reverse(arrayList);
-            Collections.reverse(arrayListListView);
+            Collections.sort(arrayList);
+            Collections.sort(arrayListListView);
             for(String line : arrayList)
             {result+=line+"\n";}
             // Toast.makeText(getApplicationContext(),result ,Toast.LENGTH_LONG).show();
@@ -238,7 +240,7 @@ public class RWAlarmListActivity  extends MainActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            onResume();
+           // onResume();
 
         }
 
@@ -357,6 +359,10 @@ public class RWAlarmListActivity  extends MainActivity {
         alarmManager.set(AlarmManager.RTC_WAKEUP, _alarm, appIntent);
     }
 
+    private void reloadTableData(List<String> navigationList) {
+        ((AlarmAdapter)mAdapter).mDataset = navigationList;
+        mAdapter.notifyDataSetChanged();
+    }
 
     public void changeSettingsAlarm()
     {
@@ -381,7 +387,7 @@ public class RWAlarmListActivity  extends MainActivity {
         }
 */
 
-        onResume();
+       // onResume();
     }
 
     public void switchAlarm(String sign) {
@@ -398,8 +404,8 @@ public class RWAlarmListActivity  extends MainActivity {
 
         Boolean bol = getApplicationContext().deleteFile("savedFileClock");
         String result = "";
-        Collections.reverse(arrayList);
-        Collections.reverse(arrayListListView);
+        Collections.sort(arrayList);
+        Collections.sort(arrayListListView);
         for (String line : arrayList) {
             result += line + "\n";
         }

@@ -259,6 +259,7 @@ public class RWLinksActivity extends MainActivity {
 
                 reloadTableData(arrayListListView);
 
+
             }
 
             @Override
