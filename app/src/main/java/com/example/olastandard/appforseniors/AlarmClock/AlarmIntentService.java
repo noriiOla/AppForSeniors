@@ -13,7 +13,7 @@ public class AlarmIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Intent i = new Intent(this, AlarmActivity.class);
+      //  Intent i = new Intent(this, AlarmActivity.class);
        /* Bundle b = new Bundle();
         b.putInt(Constants.ALARM_ID, intent.getExtras().getInt(Constants.ALARM_ID));
         if(intent.getExtras().containsKey(Constants.SNOOZE_ALARM)){
@@ -23,9 +23,9 @@ public class AlarmIntentService extends IntentService {
         //THESE ARE THE FLAGS NEEDED TO START THE ACTIVITY AND TO PREVENT THE BUG
         //(CLEAR_TASK is crucial for the bug and new task is needed to start activity from outside of an activity)
       //  i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        System.out.println("----> on intentservice");
-        startActivity(i);
-
-        AlarmReceiver.completeWakefulIntent(intent);
+//        System.out.println("----> on intentservice");
+//        startActivity(i);
+//
+//        AlarmReceiver.completeWakefulIntent(intent);
     }
 }

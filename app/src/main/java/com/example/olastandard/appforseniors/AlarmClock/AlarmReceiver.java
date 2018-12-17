@@ -3,12 +3,14 @@ import com.example.olastandard.appforseniors.smsActivitys.app;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.support.v4.app.NotificationCompat;
 
@@ -17,18 +19,27 @@ import com.example.olastandard.appforseniors.R;
 
 import static android.support.v4.content.ContextCompat.startActivity;
 
-public class AlarmReceiver extends WakefulBroadcastReceiver {
-public static    Ringtone ringtone;
+public class AlarmReceiver extends BroadcastReceiver {
+
+public static Ringtone ringtone;
+
     @Override
     public void onReceive( Context context, Intent intent) {
       //  AlarmMenuActivity.getTextView2().setText("Enough Rest. Do Work Now!");
-        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        //Ringtone
-                ringtone = RingtoneManager.getRingtone(context, uri);
-        ringtone.play();
-        ;
+//       if (intent.getAction().equals(Telephony.)) {
+//               //Telephony.Sms.Intents.SMS_RECEIVED_ACTION)) {
+//
+//       }
+        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
 
-        sendNotification();
+            Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            //Ringtone
+            ringtone = RingtoneManager.getRingtone(context, uri);
+            ringtone.play();
+            ;
+
+            sendNotification();
+        }
     }
 
 

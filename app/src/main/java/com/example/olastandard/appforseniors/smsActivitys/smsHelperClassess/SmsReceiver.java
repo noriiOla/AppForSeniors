@@ -50,8 +50,11 @@ public class SmsReceiver  extends BroadcastReceiver {
                 mp.start();
             }
         }
-        if (mListener != null) {
-            mListener.messageReceived();
+
+        if (intent.getAction().equals(Telephony.Sms.Intents.SMS_RECEIVED_ACTION) || intent.getAction().equals(Telephony.Sms.Intents.SMS_DELIVER_ACTION)) {
+            if (mListener != null) {
+                mListener.messageReceived();
+            }
         }
     }
 

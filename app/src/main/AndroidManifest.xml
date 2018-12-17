@@ -66,8 +66,15 @@
         <activity android:name=".AlarmClock.ClockListActivity" />
         <activity android:name=".AlarmClock.NewAlarmActivity" />
 
-        <receiver android:name=".AlarmClock.LinksClockActivity" />
-        <receiver android:name=".AlarmClock.AlarmReceiver" />
+        <!--<receiver android:name=".AlarmClock.LinksClockActivity" />-->
+        <!--<receiver android:name=".AlarmClock.AlarmReceiver" />-->
+        <receiver android:name=".AlarmClock.AlarmReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <!--<action android:name="com.example.helloandroid.alarms" />-->
+            </intent-filter>
+        </receiver>
         <receiver
             android:name=".SampleBootReceiver"
             android:enabled="true">
