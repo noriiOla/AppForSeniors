@@ -34,7 +34,7 @@ public static    Ringtone ringtone;
     @Override
     public void onReceive( Context context, Intent intent) {
         read();
-      //  AlarmMenuActivity.getTextView2().setText("Enough Rest. Do Work Now!");
+
         Calendar calendar = Calendar.getInstance();
         Integer hour=Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         Integer minutes=Calendar.getInstance().get(Calendar.MINUTE);

@@ -15,7 +15,6 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.example.olastandard.appforseniors.Adapters.MenuItemAdapter;
-import com.example.olastandard.appforseniors.AlarmClock.ClockListActivity;
 import com.example.olastandard.appforseniors.AlarmClock.RWAlarmListActivity;
 import com.example.olastandard.appforseniors.Contacts.ContactTypeActivity;
 import com.example.olastandard.appforseniors.Navigation.NavigationListActivity;

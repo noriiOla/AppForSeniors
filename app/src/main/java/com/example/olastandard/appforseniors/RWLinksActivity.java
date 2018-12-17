@@ -337,7 +337,7 @@ public class RWLinksActivity extends MainActivity {
         read();
         initRecyclerView(arrayListListView);
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
-        buttonEditNotes.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        edDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         buttonEditNotes.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
 
     }

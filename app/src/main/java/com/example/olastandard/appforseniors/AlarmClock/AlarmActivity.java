@@ -78,7 +78,8 @@ public class AlarmActivity  extends MainActivity {
                 AlarmReceiver.ringtone.stop();
             }
         }
-
+        Button text = (Button)findViewById(R.id.button_stop_alarm);
+        text.setVisibility(View.GONE);
 
         long millis=System.currentTimeMillis();
         Calendar c=Calendar.getInstance();
