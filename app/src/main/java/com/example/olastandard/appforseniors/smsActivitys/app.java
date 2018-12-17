@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.olastandard.appforseniors.AlarmClock.AlarmReceiver;
 import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.MmsReceiver;
 import com.example.olastandard.appforseniors.smsActivitys.smsHelperClassess.SmsReceiver;
 
@@ -22,6 +23,6 @@ public class app extends Application {
 
         startService(new Intent(this, SmsReceiver.class));
         startService(new Intent(this, MmsReceiver.class));
-
+        startService(new Intent(this, AlarmReceiver.class));
     }
 }

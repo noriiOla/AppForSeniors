@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.olastandard.appforseniors.MainActivity;
 import com.example.olastandard.appforseniors.R;
@@ -31,7 +33,8 @@ import java.util.Collections;
 import static android.support.v4.content.ContextCompat.startActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {
-public static    Ringtone ringtone;
+public static Ringtone ringtone;
+
     @Override
     public void onReceive( Context context, Intent intent) {
         read();
@@ -39,7 +42,6 @@ public static    Ringtone ringtone;
         Calendar calendar = Calendar.getInstance();
         Integer hour=Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         Integer minutes=Calendar.getInstance().get(Calendar.MINUTE);
-
 
 
         String noe="";
@@ -54,10 +56,10 @@ System.out.println("--------------------->alaement arraylisty --->"+arrayListLis
         if(hour.toString().length()==1){
         noe="0"+noe;
         }
-        if(!arrayListListView.contains(noe)){
-
-            return;
-        }
+//        if(!arrayListListView.contains(noe)){
+//
+//            return;
+//        }
 
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         //Ringtone

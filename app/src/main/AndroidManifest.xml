@@ -18,7 +18,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
@@ -67,19 +67,25 @@
         <activity android:name=".AlarmClock.NewAlarmActivity" />
 
         <!--<receiver android:name=".AlarmClock.LinksClockActivity" />-->
-        <receiver android:name=".AlarmClock.AlarmReceiver" >
+        <receiver android:name=".AlarmClock.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RecreateAlarmsAtBootReceiver">
+
             <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
                 <action android:name="com.example.helloandroid.alarms" />
             </intent-filter>
         </receiver>
 
-        <receiver
-            android:name=".SampleBootReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver-->
+            <!--android:name=".SampleBootReceiver"-->
+            <!--android:enabled="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <activity android:name=".Navigation.NavigationListActivity" />
         <activity android:name=".Navigation.AddAddressActivity" />
