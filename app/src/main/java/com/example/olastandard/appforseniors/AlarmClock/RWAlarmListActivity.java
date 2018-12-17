@@ -344,12 +344,10 @@ public class RWAlarmListActivity  extends MainActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hhelper);
         calendar.set(Calendar.MINUTE, mhelper);
+        calendar.set(Calendar.SECOND,0);
 
         PendingIntent appIntent = PendingIntent.getBroadcast(this, (int) (hhelper + mhelper), myIntent, PendingIntent.FLAG_ONE_SHOT);
-        //  pendingIntents.add(appIntent);
-       /* Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, hhelper);
-        calendar.set(Calendar.MINUTE, mhelper);*/
+
         Calendar now = Calendar.getInstance();
         long _alarm = 0;
         if (calendar.getTimeInMillis() <= now.getTimeInMillis())

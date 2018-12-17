@@ -83,6 +83,7 @@ public class AlarmActivity  extends MainActivity {
 
         long millis=System.currentTimeMillis();
         Calendar c=Calendar.getInstance();
+
         c.setTimeInMillis(millis);
         Integer hours=c.get(Calendar.HOUR);
         Integer minutes=c.get(Calendar.MINUTE);
@@ -93,6 +94,7 @@ public class AlarmActivity  extends MainActivity {
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
 
+        c.set(Calendar.SECOND,0);
         Calendar now = Calendar.getInstance();
         long _alarm=0;
         if(c.getTimeInMillis() <= now.getTimeInMillis())

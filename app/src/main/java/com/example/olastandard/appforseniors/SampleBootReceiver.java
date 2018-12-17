@@ -51,6 +51,7 @@ public class SampleBootReceiver extends BroadcastReceiver {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.HOUR_OF_DAY, hhelper);
                 calendar.set(Calendar.MINUTE, mhelper);
+                calendar.set(Calendar.SECOND,0);
                 Calendar now = Calendar.getInstance();
                 long _alarm=0;
                 if(calendar.getTimeInMillis() <= now.getTimeInMillis())
