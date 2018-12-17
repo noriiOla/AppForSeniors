@@ -217,7 +217,7 @@ public class EditLinkActivity extends MainActivity {
             new PushDialogManager().showDialogWithOkButton(EditLinkActivity.this, "Podana nazwa została wybrana wczesniej", new PushDialogButtonsOkInterface() {
                 @Override
                 public void onOkButtonTap() {
-                    finish();
+                 //   finish();
                     return;
 
                 }
