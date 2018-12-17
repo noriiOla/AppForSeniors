@@ -55,6 +55,9 @@ public class NavigationListActivity extends MainActivity {
         dataManager = new NavigationDataManager();
         this.initList();
         addListeners();
+        buttonEdit.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonNavigateTo.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
     }
 
     private void initList() {
@@ -66,15 +69,28 @@ public class NavigationListActivity extends MainActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        buttonEdit.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonNavigateTo.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+
+    }
+
+
+    @Override
     protected void onResume() {
         super.onResume();
         this.initList();
+        buttonEdit.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonNavigateTo.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
     }
 
     private void initToolbar() {
         showBackButton();
-        changeTitleForRightButton(getResources().getString(R.string.newL));
-        setTitle(getResources().getString(R.string.add_note));
+        changeTitleForRightButton("Nowa");
+        setTitle(getResources().getString(R.string.navigation_list));
     }
 
     private void initRecyclerView(List<PlaceData> navigationList) {
