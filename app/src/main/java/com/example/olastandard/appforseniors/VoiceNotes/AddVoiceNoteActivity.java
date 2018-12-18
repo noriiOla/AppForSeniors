@@ -127,7 +127,7 @@ public class AddVoiceNoteActivity extends MainActivity {
     private void initToolbar() {
         showBackButton();
         changeTitleForRightButton(getResources().getString(R.string.save));
-        setTitle(getResources().getString(R.string.navigation_list));
+        setTitle("Nowa notatka");
     }
 
     private void changeButtonsColor() {
@@ -144,23 +144,6 @@ public class AddVoiceNoteActivity extends MainActivity {
                 } else {
                     saveNoteThenOpenList();
                 }
-            }
-        });
-
-        this._toolbarBackButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                (new PushDialogManager()).showDialogWithYesNoButtons(AddVoiceNoteActivity.this,
-                        "Czy chcesz aby notatka została zapisana?",
-                        new PushDialogButtonsYesNoInterface() {
-                            @Override
-                            public void onYesButtonTap() {
-                                saveNoteThenOpenList();
-                            }
-
-                            @Override
-                            public void onNoButtonTap() {
-                            }
-                        });
             }
         });
     }

@@ -161,23 +161,5 @@ public class EditVoiceNoteActivity extends MainActivity {
                 }
             }
         });
-
-        this._toolbarBackButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                (new PushDialogManager()).showDialogWithYesNoButtons(EditVoiceNoteActivity.this,
-                        "Czy chcesz aby notatka została zapisana?",
-                        new PushDialogButtonsYesNoInterface() {
-                            @Override
-                            public void onYesButtonTap() {
-
-                                saveNoteThenOpenList();
-                            }
-
-                            @Override
-                            public void onNoButtonTap() {
-                            }
-                        });
-            }
-        });
     }
 }
