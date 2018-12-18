@@ -183,7 +183,7 @@ public class AddAddressActivity extends MainActivity implements
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.e(TAG, "Google Places API connection failed with error code: "
                 + connectionResult.getErrorCode());
-        showDialogBox("Brak dostępu do intenetu");
+        showDialogBox("Brak dostępu do internetu");
     }
 
     void initToolbar() {

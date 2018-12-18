@@ -49,6 +49,9 @@ public class ContactListActivity extends MainActivity {
     @BindView(R.id.contact_button_call)
     Button buttonCall;
 
+    @BindView(R.id.contact_button_select)
+    Button buttonChoose;
+
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -66,6 +69,7 @@ public class ContactListActivity extends MainActivity {
             this.buttonEdit.setVisibility(View.GONE);
             this.buttonDelete.setVisibility(View.GONE);
             this.buttonCall.setVisibility(View.GONE);
+            this.buttonChoose.setVisibility(View.VISIBLE);
         }
         this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -76,6 +80,9 @@ public class ContactListActivity extends MainActivity {
         buttonEdit.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         buttonCall.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonChoose.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+
+
     }
 
     private void initList() {
@@ -89,6 +96,7 @@ public class ContactListActivity extends MainActivity {
         buttonEdit.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         buttonCall.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
+        buttonChoose.setBackground(getResources().getDrawable(R.drawable.button_shape_white));
         super.onResume();
         this.initList();
     }
@@ -153,6 +161,22 @@ public class ContactListActivity extends MainActivity {
         contactView.setLayoutManager(mLayoutManager);
         mAdapter = new ContactListAdapter(contactList, getApplicationContext());
         contactView.setAdapter(mAdapter);
+    }
+
+    @OnClick(R.id.contact_button_select)
+    public void backWithSelectedContact() {
+        if ((((ContactListAdapter)mAdapter).lastSelectedItem) >= 0) {
+            List<ContactData> contactList = getContacts();
+            Collections.sort(contactList);
+            ContactData contactData = contactList.get(((ContactListAdapter)mAdapter).lastSelectedItem);
+
+            Intent previousScreen = new Intent(getApplicationContext(), MessagerActivity.class);
+            PersonSmsData smsData = new PersonSmsData(contactData.getNumebrOfPerson());
+            smsData.setNameOfPersion(contactData.getNameOfPersion());
+            previousScreen.putExtra("contactData", smsData);
+            setResult(200, previousScreen);
+            finish();
+        }
     }
 
     @OnClick({R.id.contact_button_edit})
@@ -255,6 +279,8 @@ public class ContactListActivity extends MainActivity {
         buttonEdit.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
         buttonDelete.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
         buttonCall.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
+        buttonChoose.setBackground(getResources().getDrawable(R.drawable.button_shape_green));
+
     }
 
 }
