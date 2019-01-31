@@ -24,7 +24,6 @@ public class NavigationListAdapter extends RecyclerView.Adapter<com.example.olas
     public int lastSelectedItem = -1;
 
 
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.navigation_title)
@@ -56,7 +55,7 @@ public class NavigationListAdapter extends RecyclerView.Adapter<com.example.olas
 
         @OnClick(R.id.navigation_list_item)
         public void showEventDetail() {
-            ((NavigationListActivity)mcontext).updateSelectedItem(getPosition());
+            ((NavigationListActivity) mcontext).updateSelectedItem(getPosition());
         }
     }
 
@@ -67,7 +66,7 @@ public class NavigationListAdapter extends RecyclerView.Adapter<com.example.olas
 
     @Override
     public com.example.olastandard.appforseniors.Navigation.NavigationListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                                                                           int viewType) {
+                                                                                                                int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.navigation_list_item, parent, false);
 
@@ -82,7 +81,7 @@ public class NavigationListAdapter extends RecyclerView.Adapter<com.example.olas
         holder.navigationTitle.setText(mDataset.get(position).getTitle());
         if (position == lastSelectedItem) {
             holder.changeBackgroundColorToGreen();
-        }else {
+        } else {
             holder.clearBackgroundColor();
         }
     }

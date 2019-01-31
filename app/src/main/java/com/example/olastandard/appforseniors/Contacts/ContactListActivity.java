@@ -17,15 +17,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.olastandard.appforseniors.MainActivity;
-import com.example.olastandard.appforseniors.Navigation.NavigationDataManager;
-import com.example.olastandard.appforseniors.Navigation.NavigationListActivity;
 import com.example.olastandard.appforseniors.Objects.ContactData;
 import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogButtonsYesNoInterface;
 import com.example.olastandard.appforseniors.PushDIalog.PushDialogManager;
 import com.example.olastandard.appforseniors.R;
 import com.example.olastandard.appforseniors.smsActivitys.MessagerActivity;
-import com.example.olastandard.appforseniors.smsActivitys.smsAdapters.SmsPersonListAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -165,10 +162,10 @@ public class ContactListActivity extends MainActivity {
 
     @OnClick(R.id.contact_button_select)
     public void backWithSelectedContact() {
-        if ((((ContactListAdapter)mAdapter).lastSelectedItem) >= 0) {
+        if ((((ContactListAdapter) mAdapter).lastSelectedItem) >= 0) {
             List<ContactData> contactList = getContacts();
             Collections.sort(contactList);
-            ContactData contactData = contactList.get(((ContactListAdapter)mAdapter).lastSelectedItem);
+            ContactData contactData = contactList.get(((ContactListAdapter) mAdapter).lastSelectedItem);
 
             Intent previousScreen = new Intent(getApplicationContext(), MessagerActivity.class);
             PersonSmsData smsData = new PersonSmsData(contactData.getNumebrOfPerson());
@@ -214,7 +211,7 @@ public class ContactListActivity extends MainActivity {
         });
     }
 
-    private void deleteContact(ContactData contactData){
+    private void deleteContact(ContactData contactData) {
         deleteContact(getApplicationContext(), contactData.getNumebrOfPerson(), contactData.getNameOfPersion());
         List<ContactData> contactList = getContacts();
         Collections.sort(contactList);
@@ -223,7 +220,7 @@ public class ContactListActivity extends MainActivity {
     }
 
     private void reloadTableData(List<ContactData> contactData) {
-        ((ContactListAdapter)mAdapter).mDataset = contactData;
+        ((ContactListAdapter) mAdapter).mDataset = contactData;
         mAdapter.notifyDataSetChanged();
     }
 

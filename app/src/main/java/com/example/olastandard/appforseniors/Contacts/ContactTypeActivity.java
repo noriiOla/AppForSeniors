@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
@@ -36,7 +35,7 @@ public class ContactTypeActivity extends MainActivity {
 
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE},1);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE}, 1);
         }
 
         setListeners();
@@ -47,7 +46,7 @@ public class ContactTypeActivity extends MainActivity {
 
     }
 
-    private void setListeners(){
+    private void setListeners() {
 
         go_to_contact_list.setOnClickListener(new View.OnClickListener() {
             @Override

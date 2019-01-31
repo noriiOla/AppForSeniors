@@ -1,4 +1,5 @@
 package com.example.olastandard.appforseniors.Contacts;
+
 import android.Manifest;
 import android.content.ContentProviderOperation;
 import android.content.Intent;
@@ -7,7 +8,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.olastandard.appforseniors.MainActivity;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AddContactActivity  extends MainActivity {
+public class AddContactActivity extends MainActivity {
     @BindView(R.id.contact_name_input)
     public EditText contactNameInput;
 
@@ -37,18 +37,17 @@ public class AddContactActivity  extends MainActivity {
 
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_CONTACTS},1);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_CONTACTS}, 1);
         }
 
         this._toolbarSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String contactName = contactNameInput.getText().toString();
                 String contactNumber = contactNumberInput.getText().toString();
-                if(contactName.isEmpty() || contactNumber.isEmpty()){
+                if (contactName.isEmpty() || contactNumber.isEmpty()) {
                     showDialogBox("Wpisz numer oraz nazwę");
-                }
-                else{
-                    insertContact(contactName,contactNumber);
+                } else {
+                    insertContact(contactName, contactNumber);
                     startActivity(new Intent(v.getContext(), ContactListActivity.class));
                 }
             }
@@ -63,7 +62,7 @@ public class AddContactActivity  extends MainActivity {
         });
     }
 
-    private void insertContact( String displayName, String phoneNumber) {
+    private void insertContact(String displayName, String phoneNumber) {
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
         int rawContactInsertIndex = ops.size();
 
@@ -72,21 +71,20 @@ public class AddContactActivity  extends MainActivity {
                 .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null).build());
         ops.add(ContentProviderOperation
                 .newInsert(ContactsContract.Data.CONTENT_URI)
-                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID,rawContactInsertIndex)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, rawContactInsertIndex)
                 .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
                 .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, displayName) // Name of the person
                 .build());
         ops.add(ContentProviderOperation
                 .newInsert(ContactsContract.Data.CONTENT_URI)
                 .withValueBackReference(
-                        ContactsContract.Data.RAW_CONTACT_ID,   rawContactInsertIndex)
+                        ContactsContract.Data.RAW_CONTACT_ID, rawContactInsertIndex)
                 .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
                 .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, phoneNumber) // Number of the person
                 .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE).build()); // Type of mobile number
         try {
             getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // error
         }
     }

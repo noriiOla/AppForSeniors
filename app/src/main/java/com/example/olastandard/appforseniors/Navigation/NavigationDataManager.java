@@ -105,7 +105,7 @@ public class NavigationDataManager {
                 place.setAddress(newAddress);
             }
         }
-        save(placeData,context);
+        save(placeData, context);
     }
 
     private String addNewLineSignToString(String line) {
