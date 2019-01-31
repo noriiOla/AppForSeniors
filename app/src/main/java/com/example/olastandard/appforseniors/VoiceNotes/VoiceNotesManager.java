@@ -3,9 +3,6 @@ package com.example.olastandard.appforseniors.VoiceNotes;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
-import android.widget.Toast;
-
-import com.example.olastandard.appforseniors.smsActivitys.app;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,18 +33,18 @@ public class VoiceNotesManager {
     String baseUrl = Environment.getExternalStorageDirectory().getAbsolutePath() + "/seniorAppNotes/";
     private MediaRecorder myAudioRecorder;
     private final String recordTemporaryName = "temp.3gp";
-    private boolean isPlayed  = false;
+    private boolean isPlayed = false;
     private MediaPlayer player;
 
-    public static VoiceNotesManager getInstance()
-    {
+    public static VoiceNotesManager getInstance() {
         if (voiceNotesManager == null)
             voiceNotesManager = new VoiceNotesManager();
 
         return voiceNotesManager;
     }
 
-    public VoiceNotesManager() { }
+    public VoiceNotesManager() {
+    }
 
     public void startRecording() {
         if (createBaseDirIfNotExists() && myAudioRecorder == null) {
@@ -67,7 +64,7 @@ public class VoiceNotesManager {
                 System.out.println("Uwaga error");
                 System.out.println(ioe.getMessage());
             }
-        }else {
+        } else {
             System.out.println("Uwaga error podczas tworzenia pliku");
         }
     }
@@ -87,11 +84,11 @@ public class VoiceNotesManager {
 
     public void stopRecording() {
         if (myAudioRecorder != null) {
-            try{
+            try {
                 myAudioRecorder.stop();
                 myAudioRecorder.release();
                 myAudioRecorder = null;
-            }catch(RuntimeException stopException){
+            } catch (RuntimeException stopException) {
                 System.out.println("Exception audio stop");
                 System.out.println(stopException.getMessage());
             }
@@ -103,11 +100,11 @@ public class VoiceNotesManager {
     }
 
     public void play(String fileName, CallbackPlayer callback) {
-        playAudio( baseUrl + fileName + ".3gp", callback);
+        playAudio(baseUrl + fileName + ".3gp", callback);
     }
 
-    private void playAudio(String file, final CallbackPlayer callback){
-        if(!isPlayed){
+    private void playAudio(String file, final CallbackPlayer callback) {
+        if (!isPlayed) {
             player = new MediaPlayer();
             try {
                 player.setDataSource(file);
@@ -126,12 +123,14 @@ public class VoiceNotesManager {
                     if (callback != null) {
                         callback.onPlayEnd();
                     }
-                };
+                }
+
+                ;
             });
         }
     }
 
-    public void stopAudio(){
+    public void stopAudio() {
         if (player != null && isPlayed) {
             player.stop();
             player.release();
@@ -139,10 +138,10 @@ public class VoiceNotesManager {
         }
     }
 
-    public void renameNote(String newName, String oldName){
+    public void renameNote(String newName, String oldName) {
         File file = new File(baseUrl + oldName + ".3gp");
         File newFile = new File(baseUrl + newName + ".3gp");
-        file.renameTo(newFile );
+        file.renameTo(newFile);
     }
 
     public List<String> getRecordsNames() {
@@ -153,7 +152,7 @@ public class VoiceNotesManager {
         File[] files = directory.listFiles();
 
         String names = "";
-       // Log.d("Files", "Size: "+ files.length);
+        // Log.d("Files", "Size: "+ files.length);
         if (files != null) {
             for (int i = 0; i < files.length; i++) {
                 String fn = files[i].getName();

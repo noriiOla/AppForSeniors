@@ -76,7 +76,7 @@ public class AddVoiceNoteActivity extends MainActivity {
             isRecording = false;
             isNoteExisting = true;
             buttonRecordAction.setText(R.string.start_recording);
-            if(buttonPlayCreatedNote.getVisibility() == View.INVISIBLE){
+            if (buttonPlayCreatedNote.getVisibility() == View.INVISIBLE) {
                 buttonPlayCreatedNote.setVisibility(View.VISIBLE);
             }
         } else {
@@ -111,8 +111,7 @@ public class AddVoiceNoteActivity extends MainActivity {
                     buttonPlayCreatedNote.setText(getResources().getString(R.string.play));
                 }
             });
-        }
-        else{
+        } else {
             buttonPlayCreatedNote.setText(getResources().getString(R.string.play));
             voiceNotesManager.stopAudio();
         }

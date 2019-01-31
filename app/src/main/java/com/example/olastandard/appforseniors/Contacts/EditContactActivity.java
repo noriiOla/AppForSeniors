@@ -12,7 +12,6 @@ import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.olastandard.appforseniors.MainActivity;

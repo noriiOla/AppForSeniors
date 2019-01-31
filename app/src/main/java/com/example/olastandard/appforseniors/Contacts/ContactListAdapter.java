@@ -9,28 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.olastandard.appforseniors.Objects.ContactData;
-import com.example.olastandard.appforseniors.Objects.PersonSmsData;
 import com.example.olastandard.appforseniors.R;
-import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
 
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.example.olastandard.appforseniors.Objects.PersonSmsData;
-import com.example.olastandard.appforseniors.R;
-import com.example.olastandard.appforseniors.smsActivitys.MessagerListActivity;
-import com.example.olastandard.appforseniors.smsActivitys.smsAdapters.SmsPersonListAdapter.ViewHolder;
 import java.util.List;
 
 import butterknife.BindView;
@@ -74,7 +54,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastan
 
         @OnClick(R.id.contact_list_item)
         public void showEventDetail() {
-            ((ContactListActivity)mcontext).updateSelectedItem(getPosition());
+            ((ContactListActivity) mcontext).updateSelectedItem(getPosition());
         }
     }
 
@@ -100,7 +80,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<com.example.olastan
         holder.contactName.setText(mDataset.get(position).getNameOfPersion());
         if (position == lastSelectedItem) {
             holder.changeBackgroundColorToGreen();
-        }else {
+        } else {
             holder.clearBackgroundColor();
         }
     }
